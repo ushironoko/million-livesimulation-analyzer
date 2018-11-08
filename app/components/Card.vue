@@ -1,6 +1,8 @@
 <template>
   <section>
-    <el-card>{{ cardData }}</el-card>
+    <el-card v-for="card in cardData" :key="card.id">
+      {{ card }}
+    </el-card>
   </section>
 </template>
 
