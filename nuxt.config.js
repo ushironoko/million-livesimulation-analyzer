@@ -28,7 +28,9 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    'element-ui/lib/theme-chalk/index.css'
+    'element-ui/lib/theme-chalk/reset.css',
+    'element-ui/lib/theme-chalk/index.css',
+    '~/assets/common.css'
   ],
 
   /*
@@ -50,6 +52,7 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL:'https://api.matsurihi.me/mltd/v1'
   },
 
   /*

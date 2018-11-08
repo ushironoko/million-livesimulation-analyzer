@@ -1,17 +1,25 @@
 <template>
   <section class="container">
     <div>
-
+      <Card />
+      <Button style="padding-top: 10px;" :cardId="cardId" />
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Card from '~/components/Card.vue'
+import Button from '~/components/CardFetchButton.vue'
 
 export default {
+  data(){
+    return {
+      cardId : '250'
+    }
+  },
   components: {
-    Logo
+    Card,
+    Button
   }
 }
 </script>
