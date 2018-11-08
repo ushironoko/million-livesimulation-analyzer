@@ -8,12 +8,14 @@
 import  { mapActions } from 'vuex'
 
 export default {
-  props: ['cardId'],
+  props: {
+    cardId : String
+  },
   methods: {
     ...mapActions(['fetchCard']),
     async fetchCardAsync() {
       try {
-        await this.fetchCard([this.cardId])
+        await this.fetchCard(this.cardId)
         this.$notify({
           title: '成功',
           message: 'カード情報を更新しました',
