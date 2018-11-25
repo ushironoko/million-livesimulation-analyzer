@@ -1,7 +1,6 @@
 const pkg = require('./package')
 
 module.exports = {
-  mode: 'spa',
   srcDir: 'app',
 
   /*
@@ -54,6 +53,11 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL:'https://api.matsurihi.me/mltd/v1'
   },
+
+  vendor: [
+    'chart.js',
+    'vue-chartjs'
+  ],
 
   /*
   ** Build configuration

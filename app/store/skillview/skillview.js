@@ -1,25 +1,20 @@
 export const state = () => ({
-  cardData: [],
-  loaded: true
+  cardData : []
 })
 
 export const getters = {
-  cardData: (state) => state.cardData,
-  loaded: (state) => state.loaded
+  cardData: (state) => state.cardData
 }
 
 export const mutations = {
   setCardData(state, { data }) {
     state.cardData = data
-  },
-  changeLoaded(state) {
-    state.loaded = !state.loaded
   }
 }
 
 export const actions = {
-  async fetchCard({ commit }) {
-    const data = await this.$axios.$get(`/cards?rarity=4`)
+  async fetchCardAll({ commit }) {
+    const data = await this.$axios.$get(`/cards`)
     if (!data) throw new Error('Invalid card data')
     commit('setCardData', { data })
   }

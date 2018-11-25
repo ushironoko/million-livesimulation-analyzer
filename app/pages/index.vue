@@ -1,31 +1,63 @@
 <template>
   <section class="container">
     <div>
+      {{ chartdata[0] }}
+      <div class="bar-chart">
+        <skill-graph
+        v-if="$store.state.loaded"
+        :chartdata="chartdata"
+        :options="options"/>
+      </div>
       <Card />
-      <el-input v-model="cardId" placeholder="カードIDを入力..." style="padding-top: 10px; width: 160px;"></el-input>
-      <Button style="padding-top: 10px;" :cardId="cardId" />
     </div>
   </section>
 </template>
 
 <script>
-import Card from '~/components/Card.vue'
-import Button from '~/components/CardFetchButton.vue'
+import Card from '~/components/cards/Card.vue'
+import SkillGraph from '~/components/skill-graphs/SkillGraph.vue'
+import { mapGetters } from 'vuex'
 
 export default {
-  data(){
+   data() {
     return {
-      cardId : ''
+      chartdata : {
+        datasets: [
+            {
+              backgroundColor: '#41b883',
+              data: [101,0]
+            }
+          ]
+      }
     }
   },
+  async mounted() {
+    await this.$store.dispatch('fetchCard')
+    .then(()=> {
+      const x = store.state.cardData[0].skill.duration
+      const y = store.state.cardData[0].skill.interval
+      this.$store.commit('changeLoaded')
+    })
+    .catch((err) => {
+      return 'err'
+    })
+  },
   components: {
-    Card,
-    Button
+    SkillGraph,
+    Card
+  },
+  computed: {
+    ...mapGetters(['cardData'])
   }
 }
 </script>
 
 <style>
+.bar-chart {
+  top: 10%;
+  width: 50%;
+  height: 50%;
+}
 
 .container {
   min-height: 100vh;
