@@ -1,31 +1,71 @@
 <template>
   <section class="container">
     <div>
-      <Card />
-      <el-input v-model="cardId" placeholder="カードIDを入力..." style="padding-top: 10px; width: 160px;"></el-input>
-      <Button style="padding-top: 10px;" :cardId="cardId" />
+      <SsrCard />
+      <SrCard />
     </div>
   </section>
 </template>
 
 <script>
-import Card from '~/components/Card.vue'
-import Button from '~/components/CardFetchButton.vue'
+import SsrCard from '~/components/cards/SsrCards.vue'
+import SrCard from '~/components/cards/SrCards.vue'
+import { mapGetters } from 'vuex'
 
 export default {
-  data(){
-    return {
-      cardId : ''
-    }
+  async mounted() {
+    await this.$store.dispatch('fetchSsrCard')
+    .then(()=> {
+      this.$notify({
+          title: '成功',
+          message: 'SSRカード情報を更新しました',
+          position: 'top-right',
+          duration: '3000',
+          type: 'success'
+      })
+    })
+    .catch((err) => {
+      this.$notify.error({
+          title: '失敗',
+          message: `${err}`,
+          position: 'top-right',
+          duration: '3000'
+      })
+    })
+
+
+    await this.$store.dispatch('fetchSrCard')
+    .then(()=> {
+      this.$notify({
+          title: '成功',
+          message: 'SRカード情報を更新しました',
+          position: 'top-right',
+          duration: '3000',
+          type: 'success'
+      })
+    })
+    .catch((err) => {
+      this.$notify.error({
+          title: '失敗',
+          message: `${err}`,
+          position: 'top-right',
+          duration: '3000'
+      })
+    })
   },
   components: {
-    Card,
-    Button
+    SsrCard,
+    SrCard
   }
 }
 </script>
 
 <style>
+.bar-chart {
+  top: 10%;
+  width: 50%;
+  height: 50%;
+}
 
 .container {
   min-height: 100vh;

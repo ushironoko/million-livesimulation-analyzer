@@ -1,21 +1,35 @@
 export const state = () => ({
-  cardData : []
+  ssrCardData: [],
+  srCardData: [],
 })
 
 export const getters = {
-  cardData: (state) => state.cardData
+  ssrCardData: (state) => state.ssrCardData,
+  srCardData: (state) => state.srCardData
 }
 
 export const mutations = {
-  setCardData(state, { data }) {
-    state.cardData = data
+  setSsrCardData(state, { datas }) {
+    datas.forEach(data => {
+      state.ssrCardData.push(data)
+    });
+  },
+  setSrCardData(state, { datas }) {
+    datas.forEach(data => {
+      state.srCardData.push(data)
+    });
   }
 }
 
 export const actions = {
-  async fetchCard({ commit }, id ) {
-    const data = await this.$axios.$get(`/cards/${id}`)
-    if (!data) throw new Error('Invalid card data')
-    commit('setCardData', { data })
+  async fetchSsrCard({ commit }) {
+    const datas = await this.$axios.$get(`/cards?rarity=4`)
+    if (datas.length === 0) throw new Error('Invalid SSR card data')
+    commit('setSsrCardData', { datas })
+  },
+  async fetchSrCard({ commit }) {
+    const datas = await this.$axios.$get(`/cards?rarity=3`)
+    if (datas.length === 0) throw new Error('Invalid SR card data')
+    commit('setSrCardData', { datas })
   }
 }
