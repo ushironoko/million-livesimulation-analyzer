@@ -1,53 +1,61 @@
 <template>
   <section class="container">
     <div>
-      {{ chartdata[0] }}
-      <div class="bar-chart">
-        <skill-graph
-        v-if="$store.state.loaded"
-        :chartdata="chartdata"
-        :options="options"/>
-      </div>
-      <Card />
+      <SsrCard />
+      <SrCard />
     </div>
   </section>
 </template>
 
 <script>
-import Card from '~/components/cards/Card.vue'
-import SkillGraph from '~/components/skill-graphs/SkillGraph.vue'
+import SsrCard from '~/components/cards/SsrCards.vue'
+import SrCard from '~/components/cards/SrCards.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-   data() {
-    return {
-      chartdata : {
-        datasets: [
-            {
-              backgroundColor: '#41b883',
-              data: [101,0]
-            }
-          ]
-      }
-    }
-  },
   async mounted() {
-    await this.$store.dispatch('fetchCard')
+    await this.$store.dispatch('fetchSsrCard')
     .then(()=> {
-      const x = store.state.cardData[0].skill.duration
-      const y = store.state.cardData[0].skill.interval
-      this.$store.commit('changeLoaded')
+      this.$notify({
+          title: '成功',
+          message: 'SSRカード情報を更新しました',
+          position: 'top-right',
+          duration: '3000',
+          type: 'success'
+      })
     })
     .catch((err) => {
-      return 'err'
+      this.$notify.error({
+          title: '失敗',
+          message: `${err}`,
+          position: 'top-right',
+          duration: '3000'
+      })
+    })
+
+
+    await this.$store.dispatch('fetchSrCard')
+    .then(()=> {
+      this.$notify({
+          title: '成功',
+          message: 'SRカード情報を更新しました',
+          position: 'top-right',
+          duration: '3000',
+          type: 'success'
+      })
+    })
+    .catch((err) => {
+      this.$notify.error({
+          title: '失敗',
+          message: `${err}`,
+          position: 'top-right',
+          duration: '3000'
+      })
     })
   },
   components: {
-    SkillGraph,
-    Card
-  },
-  computed: {
-    ...mapGetters(['cardData'])
+    SsrCard,
+    SrCard
   }
 }
 </script>

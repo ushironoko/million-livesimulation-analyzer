@@ -1,6 +1,7 @@
 const pkg = require('./package')
 
 module.exports = {
+  mode:'spa',
   srcDir: 'app',
 
   /*
@@ -36,7 +37,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '~/plugins/vue-infinite-scroll'
   ],
 
   /*
@@ -53,11 +55,6 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL:'https://api.matsurihi.me/mltd/v1'
   },
-
-  vendor: [
-    'chart.js',
-    'vue-chartjs'
-  ],
 
   /*
   ** Build configuration
