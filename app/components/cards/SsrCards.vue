@@ -76,7 +76,6 @@ export default {
   },
   methods: {
     handleSelectionChange(val) {
-        if (this.checkedCard.length == 5) return
         this.checkedCard = val;
     }
   },
