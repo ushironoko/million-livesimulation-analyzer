@@ -22,7 +22,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#ea5b76' },
 
   /*
   ** Global CSS
@@ -37,8 +37,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui',
-    '~/plugins/vue-infinite-scroll'
+    '~/plugins/element-ui'
   ],
 
   /*

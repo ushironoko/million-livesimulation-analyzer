@@ -33,7 +33,6 @@ export default {
       })
     })
 
-
     await this.$store.dispatch('fetchSrCard')
     .then(()=> {
       this.$notify({
