@@ -1,6 +1,6 @@
 <template>
   <section>
-    <card-table/>
+    <card-table :cardData="srCardData"/>
   </section>
 </template>
 
