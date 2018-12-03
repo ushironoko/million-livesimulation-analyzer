@@ -2,27 +2,28 @@ export const state = () => ({
   ssrCardData: [],
   srCardData: [],
   ssrLoading: false,
-  srLoading: false,
+  srLoading: false
 })
 
 export const getters = {
-  ssrCardData: (state) => state.ssrCardData,
-  srCardData: (state) => state.srCardData,
-  ssrLoading: (state) => state.ssrLoading,
-  srLoading: (state) => state.srLoading
+  ssrCardData: state => state.ssrCardData,
+  srCardData: state => state.srCardData,
+  ssrLoading: state => state.ssrLoading,
+  srLoading: state => state.srLoading
 }
 
 export const mutations = {
   setSsrCardData(state, { datas }) {
     datas.forEach(data => {
       state.ssrCardData.push(data)
-    });
+    })
   },
   setSrCardData(state, { datas }) {
     datas.forEach(data => {
       state.srCardData.push(data)
-    });
+    })
   },
+  //ローディング制御
   toggleSsrLoading(state) {
     state.ssrLoading = !state.ssrLoading
   },
@@ -32,6 +33,7 @@ export const mutations = {
 }
 
 export const actions = {
+  //SSRカード全取得
   async fetchSsrCard({ commit }) {
     commit('toggleSsrLoading')
 
@@ -41,8 +43,9 @@ export const actions = {
 
     setTimeout(() => {
       commit('toggleSsrLoading')
-    }, 1500);
+    }, 1500)
   },
+  //SRカード全取得
   async fetchSrCard({ commit }) {
     commit('toggleSrLoading')
 
@@ -52,6 +55,6 @@ export const actions = {
 
     setTimeout(() => {
       commit('toggleSrLoading')
-    }, 1500);
+    }, 1500)
   }
 }

@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import  { mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   props: {
-    cardId : String
+    cardId: String
   },
   methods: {
     ...mapActions(['fetchCard']),

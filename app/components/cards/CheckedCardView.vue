@@ -11,6 +11,6 @@
 
 <script>
 export default {
-  props:['checkedCard']
+  props: ['checkedCard']
 }
 </script>
