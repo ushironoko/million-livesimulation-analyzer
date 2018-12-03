@@ -52,11 +52,11 @@
 
 <script>
 export default {
-  props:['cardType','cardData','loading'],
+  props: ['cardType', 'cardData', 'loading'],
 
   methods: {
     selectionChange(val) {
-      this.$emit('handleSelectionChange',val)
+      this.$emit('handleSelectionChange', val)
     }
   }
 }

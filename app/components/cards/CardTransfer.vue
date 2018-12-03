@@ -1,36 +1,37 @@
 <template>
-  <el-transfer
-    filterable
-    :filter-method="filterMethod"
-    filter-placeholder="State Abbreviations"
-    v-model="value2"
-    :data="data2">
-  </el-transfer>
+  <section>
+    <el-transfer
+      style="text-align: left; display: inline-block"
+      v-loading="loading"
+      element-loading-text="Loading..."
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      class="transfer"
+      filterable
+      v-model="selection"
+      :props="{
+        key:'name',
+        label:'カード名'
+      }"
+      :titles="['カード一覧','編成']"
+      :data="cardData.filter(data => data.name.toLowerCase())">
+    </el-transfer>
+  </section>
 </template>
 
 <script>
-  export default {
-    data() {
-      const generateData2 = _ => {
-        const data = [];
-        const states = ['California', 'Illinois', 'Maryland', 'Texas', 'Florida', 'Colorado', 'Connecticut '];
-        const initials = ['CA', 'IL', 'MD', 'TX', 'FL', 'CO', 'CT'];
-        states.forEach((city, index) => {
-          data.push({
-            label: city,
-            key: index,
-            initial: initials[index]
-          })
-        })
-        return data;
-      }
-      return {
-        data2: generateData2(),
-        value2: [],
-        filterMethod(query, item) {
-          return item.initial.toLowerCase().indexOf(query.toLowerCase()) > -1
-        }
-      }
+export default {
+  props: ['cardData', 'loading'],
+  data() {
+    return {
+      selection: []
     }
   }
+}
 </script>
+
+<style scoped>
+.transfer {
+  margin-top: 30px;
+}
+</style>
