@@ -6,7 +6,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import CheckedCardView from '~/components/cards/CheckedCardView.vue'
 import CardTable from '~/components/cards/CardTable.vue'
 
 export default {
@@ -45,7 +44,6 @@ export default {
     }
   },
   components: {
-    CheckedCardView,
     CardTable
   }
 }

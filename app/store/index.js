@@ -13,6 +13,7 @@ export const getters = {
 }
 
 export const mutations = {
+  //取得カードをstateにプッシュ
   setSsrCardData(state, { datas }) {
     datas.forEach(data => {
       state.ssrCardData.push(data)
