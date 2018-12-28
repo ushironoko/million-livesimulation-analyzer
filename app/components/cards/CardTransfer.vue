@@ -18,8 +18,13 @@
       >
     </el-transfer>
     <el-card>
-      <span>{{ `${lcmData}秒後にスキルの発動が被ります`}}</span>
+      <div>
+        <span>{{ `${lcmData}秒後にスキルの発動が被ります`}}</span>
+      </div>
 
+      <div v-for="selectedCard in filtered" :key="selectedCard">
+        {{ selectedCard }}
+      </div>
     </el-card>
   </section>
 </template>
@@ -38,14 +43,17 @@ export default {
     lcmData() {
       if(this.selection.length > 1) {
         const selections = this.selection
+
         const filteredList = this.cardData
-        .filter(function(data) {
-          return selections.includes(data.name)
+          .filter(data => {
+            const filtered = selections.includes(data.name)
+            return filtered
         }).map(x => {
-          return x.skill[0].interval
+            return x.skill[0].interval
         })
 
         const lcmResult = math.lcm(...filteredList)
+
         return lcmResult
       } else {
         return 0
