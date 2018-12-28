@@ -15,7 +15,7 @@ export default {
       .then(() => {
         this.$notify({
           title: '成功',
-          message: 'SRカード情報を更新しました',
+          message: 'SSRカード情報を更新しました',
           position: 'top-right',
           duration: '3000',
           type: 'success'
