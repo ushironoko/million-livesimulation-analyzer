@@ -1,6 +1,6 @@
 <template>
   <section>
-    <card-transfer :cardData="ssrCardData" :loading="ssrLoading"/>
+    <card-transfer :cardData="ssrCardData"/>
   </section>
 </template>
 
@@ -31,7 +31,7 @@ export default {
       })
   },
   computed: {
-    ...mapGetters(['ssrCardData', 'ssrLoading'])
+    ...mapGetters(['ssrCardData'])
   },
   components: {
     CardTransfer

@@ -26,10 +26,11 @@ import CardTransferResult from '@/components/cards/CardTransferResult.vue'
 import math from 'mathjs'
 
 export default {
-  props: ['cardData', 'loading'],
+  props: ['cardData'],
   data() {
     return {
-      selection: []
+      selection: [],
+      loading: true
     }
   },
   computed: {
@@ -50,6 +51,11 @@ export default {
       })
       return filteredList
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.loading = !this.loading
+    }, 1500)
   },
   components: {
     CardTransferResult
