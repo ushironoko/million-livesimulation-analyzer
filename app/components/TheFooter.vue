@@ -10,10 +10,10 @@
 </template>
 
 <style scoped>
-  .footer > .el-menu-item{
-    display: flex;
-  }
-  .el-menu-item > a {
+.footer > .el-menu-item {
+  display: flex;
+}
+.el-menu-item > a {
   color: #fff;
-  }
+}
 </style>
