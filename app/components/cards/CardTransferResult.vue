@@ -1,7 +1,7 @@
 <template>
-  <el-card style="width: 1330px;">
+  <el-card>
     <div>
-      <span>{{ `${lcmData}秒後にスキルの発動が被ります`}}</span>
+      <span>{{ `${lcmData}秒後にすべてのスキル発動が被ります`}}</span>
     </div>
     <hr>
     <div v-for="selectedCard in filteredList" :key="selectedCard.id">
