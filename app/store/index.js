@@ -1,15 +1,11 @@
 export const state = () => ({
   ssrCardData: [],
-  srCardData: [],
-  ssrLoading: false,
-  srLoading: false
+  ssrLoading: false
 })
 
 export const getters = {
   ssrCardData: state => state.ssrCardData,
-  srCardData: state => state.srCardData,
-  ssrLoading: state => state.ssrLoading,
-  srLoading: state => state.srLoading
+  ssrLoading: state => state.ssrLoading
 }
 
 export const mutations = {
@@ -19,17 +15,9 @@ export const mutations = {
       state.ssrCardData.push(data)
     })
   },
-  setSrCardData(state, { datas }) {
-    datas.forEach(data => {
-      state.srCardData.push(data)
-    })
-  },
   //ローディング制御
   toggleSsrLoading(state) {
     state.ssrLoading = !state.ssrLoading
-  },
-  toggleSrLoading(state) {
-    state.srLoading = !state.srLoading
   }
 }
 
@@ -44,18 +32,6 @@ export const actions = {
 
     setTimeout(() => {
       commit('toggleSsrLoading')
-    }, 1500)
-  },
-  //SRカード全取得
-  async fetchSrCard({ commit }) {
-    commit('toggleSrLoading')
-
-    const datas = await this.$axios.$get(`/cards?rarity=3`)
-    if (datas.length === 0) throw new Error('Invalid SR card data')
-    commit('setSrCardData', { datas })
-
-    setTimeout(() => {
-      commit('toggleSrLoading')
     }, 1500)
   }
 }
