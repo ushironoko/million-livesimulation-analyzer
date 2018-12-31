@@ -37,22 +37,12 @@ html {
   align-items: flex-start;
 }
 
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
-.text-center {
-  text-align: center;
-}
-
 p {
   margin: 16px, 0;
 }
 
 .el-transfer-panel {
-  width: 400px;
+  min-width: 375px;
 }
 
 .el-transfer-panel__body {
@@ -63,12 +53,3 @@ p {
   height: 468px;
 }
 
-.footer {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.footer > .el-menu-item{
-  display: flex;
-}

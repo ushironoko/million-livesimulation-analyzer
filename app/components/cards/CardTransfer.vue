@@ -17,7 +17,7 @@
       :data="cardData.filter(data => data.name.toLowerCase())"
       >
     </el-transfer>
-    <card-transfer-result style="width: 896px;" :filteredList="filteredList" :lcmData="lcmData" />
+    <card-transfer-result style="max-width: 896px;" :filteredList="filteredList" :lcmData="lcmData" />
   </section>
 </template>
 
