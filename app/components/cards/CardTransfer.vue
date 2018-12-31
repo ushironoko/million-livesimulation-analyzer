@@ -17,19 +17,12 @@
       :data="cardData.filter(data => data.name.toLowerCase())"
       >
     </el-transfer>
-    <el-card>
-      <div>
-        <span>{{ `${lcmData}秒後にスキルの発動が被ります`}}</span>
-      </div>
-
-      <div v-for="selectedCard in filtered" :key="selectedCard">
-        {{ selectedCard }}
-      </div>
-    </el-card>
+    <card-transfer-result :filteredList="filteredList" :lcmData="lcmData" />
   </section>
 </template>
 
 <script>
+import CardTransferResult from '@/components/cards/CardTransferResult.vue'
 import math from 'mathjs'
 
 export default {
@@ -42,23 +35,24 @@ export default {
   computed: {
     lcmData() {
       if(this.selection.length > 1) {
-        const selections = this.selection
-
-        const filteredList = this.cardData
-          .filter(data => {
-            const filtered = selections.includes(data.name)
-            return filtered
-        }).map(x => {
-            return x.skill[0].interval
-        })
-
-        const lcmResult = math.lcm(...filteredList)
-
+        const lcmResult = math.lcm(...this.filteredList.map(x => {
+          return x.skill[0].interval
+      }))
         return lcmResult
       } else {
         return 0
       }
+    },
+    filteredList() {
+      const filteredList = this.cardData
+        .filter(data => {
+          return this.selection.includes(data.name)
+      })
+      return filteredList
     }
+  },
+  components: {
+    CardTransferResult
   }
 }
 </script>
