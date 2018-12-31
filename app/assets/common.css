@@ -24,7 +24,7 @@ html {
 
 .el-card {
   flex: 1;
-  margin-top: 30px;
+  margin: 10px auto;
 }
 
 .container:not(.__nuxt-error-page) {
@@ -35,10 +35,6 @@ html {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-}
-
-p {
-  margin: 16px, 0;
 }
 
 .el-transfer-panel {
@@ -52,4 +48,3 @@ p {
 .el-transfer-panel__list.is-filterable {
   height: 468px;
 }
-

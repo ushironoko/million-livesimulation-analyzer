@@ -4,14 +4,21 @@
       <span>{{ `${lcmData}秒後にすべてのスキル発動が被ります`}}</span>
     </div>
     <hr>
-    <div v-for="selectedCard in filteredList" :key="selectedCard.id">
-      {{ selectedCard }}
-    </div>
+    <el-table :data="filteredList" height="300">
+      <el-table-column label="カード名" prop="name">
+      </el-table-column>
+      <el-table-column label="スキル名" prop="skillName">
+      </el-table-column>
+      <el-table-column label="インターバル" prop="skill[0].interval">
+      </el-table-column>
+      <el-table-column label="スキル秒数" prop="skill[0].duration">
+      </el-table-column>
+    </el-table>
   </el-card>
 </template>
 
 <script>
 export default {
-  props:['filteredList','lcmData']
+  props: ['lcmData', 'filteredList']
 }
 </script>

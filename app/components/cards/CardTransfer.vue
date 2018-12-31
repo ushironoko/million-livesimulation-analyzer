@@ -35,19 +35,20 @@ export default {
   },
   computed: {
     lcmData() {
-      if(this.selection.length > 1) {
-        const lcmResult = math.lcm(...this.filteredList.map(x => {
-          return x.skill[0].interval
-      }))
+      if (this.selection.length > 1) {
+        const lcmResult = math.lcm(
+          ...this.filteredList.map(x => {
+            return x.skill[0].interval
+          })
+        )
         return lcmResult
       } else {
         return 0
       }
     },
     filteredList() {
-      const filteredList = this.cardData
-        .filter(data => {
-          return this.selection.includes(data.name)
+      const filteredList = this.cardData.filter(data => {
+        return this.selection.includes(data.name)
       })
       return filteredList
     }
