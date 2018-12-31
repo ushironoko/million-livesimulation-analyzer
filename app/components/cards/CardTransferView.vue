@@ -13,12 +13,11 @@ export default {
     await this.$store
       .dispatch('fetchSsrCard')
       .then(() => {
-        this.$notify({
+        this.$notify.success({
           title: '成功',
           message: 'SSRカード情報を更新しました',
           position: 'top-right',
-          duration: '3000',
-          type: 'success'
+          duration: '3000'
         })
       })
       .catch(err => {
