@@ -8,8 +8,12 @@ export const getters = {
 
 export const mutations = {
   setSsrCardData(state, { datas }) {
-    datas.forEach(data => {
-      state.ssrCardData.push(data)
+    datas.map(x => {
+      x.resourceId = `https://storage.matsurihi.me/mltd/icon_l/${x.resourceId}_1.png`
+    })
+
+    datas.forEach(x => {
+      state.ssrCardData.push(x)
     })
   }
 }
