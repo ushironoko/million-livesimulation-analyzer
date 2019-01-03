@@ -4,10 +4,10 @@
       <span>{{ `${lcmData}秒後にすべてのスキル発動が被ります`}}</span>
     </div>
     <hr>
-    <el-table :data="filteredList" max-height="960">
+    <el-table :data="filteredList" max-height="960" style="width: 800px;">
       <el-table-column label="カード">
           <template slot-scope="scope">
-            <img :src="scope.row.resourceId" />
+            <img :src="scope.row.resourceId"/>
           </template>
       </el-table-column>
       <el-table-column label="インターバル" prop="skill[0].interval">
