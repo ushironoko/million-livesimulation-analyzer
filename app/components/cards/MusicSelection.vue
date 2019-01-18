@@ -31,9 +31,7 @@ export default {
       cb(results)
     },
     musicFilter(x, songName) {
-      return x.SongName.toLowerCase().indexOf(songName.toLowerCase()) === -1
-        ? false
-        : true
+      return x.SongName.toLowerCase().indexOf(songName.toLowerCase()) != -1
     }
   },
   watch: {}
