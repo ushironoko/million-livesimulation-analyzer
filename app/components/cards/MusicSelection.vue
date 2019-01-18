@@ -21,7 +21,9 @@ export default {
   },
   methods: {
     handleSelect() {
-      this.$nuxt.$emit('SELECTED_MUSIC', this.field)
+      const musicData = this.musicData
+      const result = musicData.filter(x => x.SongName === this.field)
+      this.$nuxt.$emit('SELECTED_MUSIC', result)
     },
     querySearch(songName, cb) {
       const musicData = this.musicData

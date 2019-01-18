@@ -11,7 +11,7 @@ import MusicSelection from '~/components/cards/MusicSelection.vue'
 export default {
   data() {
     return {
-      selectMusic: ''
+      selectMusic: {}
     }
   },
   async created() {
@@ -42,7 +42,8 @@ export default {
   },
   mounted() {
     this.$nuxt.$on('SELECTED_MUSIC', val => {
-      this.selectMusic = val
+      console.log(val)
+      this.selectMusic = Object.assign(...val)
     })
   }
 }
