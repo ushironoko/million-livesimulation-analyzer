@@ -15,14 +15,10 @@
       @change="transferChange"
       >
     </el-transfer>
-    <card-transfer-result :filteredList="filteredList" :lcmData="lcmData" />
   </section>
 </template>
 
 <script>
-import CardTransferResult from '@/components/cards/CardTransferResult.vue'
-import math from 'mathjs'
-
 const emitData = []
 
 export default {
@@ -34,18 +30,6 @@ export default {
     }
   },
   computed: {
-    lcmData() {
-      if (this.selection.length > 1) {
-        const lcmResult = math.lcm(
-          ...this.filteredList.map(x => {
-            return x.skill[0].interval
-          })
-        )
-        return lcmResult
-      } else {
-        return 0
-      }
-    },
     filteredList() {
       const filteredList = this.cardData.filter(data => {
         return this.selection.includes(data.name)
@@ -64,9 +48,6 @@ export default {
     setTimeout(() => {
       this.loading = !this.loading
     }, 1500)
-  },
-  components: {
-    CardTransferResult
   }
 }
 </script>

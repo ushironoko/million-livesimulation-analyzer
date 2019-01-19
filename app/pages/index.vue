@@ -3,6 +3,7 @@
     <div>
       <song-selection-view />
       <card-transfer-view />
+      <live-simulate-result />
     </div>
   </section>
 </template>
@@ -10,12 +11,14 @@
 <script>
 import CardTransferView from '~/components/cards/CardTransferView.vue'
 import SongSelectionView from '~/components/songs/SongSelectionView.vue'
+import LiveSimulateResult from '~/components/livesimulates/LiveSimulateResult.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
     CardTransferView,
-    SongSelectionView
+    SongSelectionView,
+    LiveSimulateResult
   },
   mounted() {
     this.$nuxt.$on('SELECTED_MUSIC', val => {

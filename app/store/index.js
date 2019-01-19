@@ -1,15 +1,17 @@
 export const state = () => ({
   ssrCardData: [],
   musicData: [],
-  selectedMusic: '',
-  selectedCardList: []
+  selectedMusic: [],
+  selectedCardList: [],
+  liveSimulationData: []
 })
 
 export const getters = {
   ssrCardData: state => state.ssrCardData,
   musicData: state => state.musicData,
   selectedMusic: state => state.selectedMusic,
-  selectedCardList: state => state.selectedCardList
+  selectedCardList: state => state.selectedCardList,
+  setLiveSimulationData: state => state.liveSimulationData
 }
 
 export const mutations = {
@@ -33,6 +35,9 @@ export const mutations = {
   setSelectedCardList(state, data) {
     state.selectedCardList = data
   },
+  setLiveSimulationData(state, data) {
+    state.liveSimulationData = data
+  }
 }
 
 export const actions = {
@@ -42,20 +47,19 @@ export const actions = {
     commit('setSsrCardData', { data })
   },
   async fetchMusicData({ commit }) {
-    const data= await this.$axios.$get(
+    const data = await this.$axios.$get(
       `https://api.megmeg.work/mltd/v1/song/ `
     )
     if (data.length === 0) throw new Error('Invalid Music data')
     commit('setMusicData', { data })
   },
   async fetchLiveSimulationData({ commit }, requestParams) {
-    requestParams = {}
-    const resultData = await this.$axios.$get({
-      url: 'https://api.megmeg.work/mltd/v1/score/singleunit/',
-      params: {
-        ...requestParams
+    const resultData = await this.$axios.$get(
+      `https://api.megmeg.work/mltd/v1/score/singleunit/`,
+      {
+        params: requestParams
       }
-    })
+    )
     commit('setLiveSimulationData', resultData)
   }
 }
