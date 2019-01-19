@@ -11,7 +11,7 @@ export const getters = {
   musicData: state => state.musicData,
   selectedMusic: state => state.selectedMusic,
   selectedCardList: state => state.selectedCardList,
-  setLiveSimulationData: state => state.liveSimulationData
+  liveSimulationData: state => state.liveSimulationData
 }
 
 export const mutations = {
@@ -36,7 +36,9 @@ export const mutations = {
     state.selectedCardList = data
   },
   setLiveSimulationData(state, data) {
-    state.liveSimulationData = data
+    data.forEach(x => {
+      state.liveSimulationData.push(x)
+    })
   }
 }
 
@@ -53,11 +55,11 @@ export const actions = {
     if (data.length === 0) throw new Error('Invalid Music data')
     commit('setMusicData', { data })
   },
-  async fetchLiveSimulationData({ commit }, requestParams) {
+  async fetchLiveSimulationData({ commit }, payload) {
     const resultData = await this.$axios.$get(
       `https://api.megmeg.work/mltd/v1/score/singleunit/`,
       {
-        params: requestParams
+        params: payload
       }
     )
     commit('setLiveSimulationData', resultData)
