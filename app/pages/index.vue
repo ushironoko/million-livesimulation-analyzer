@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <music-view />
+      <song-selection-view />
       <card-transfer-view />
     </div>
   </section>
@@ -9,13 +9,22 @@
 
 <script>
 import CardTransferView from '~/components/cards/CardTransferView.vue'
-import MusicView from '~/components/cards/MusicView.vue'
+import SongSelectionView from '~/components/songs/SongSelectionView.vue'
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
     CardTransferView,
-    MusicView
+    SongSelectionView
+  },
+  mounted() {
+    this.$nuxt.$on('SELECTED_MUSIC', val => {
+      this.$store.commit('setSelectedMusic', val)
+    })
+
+    this.$nuxt.$on('SELECTED_CARD_LIST', val => {
+      this.$store.commit('setSelectedCardList', val)
+    })
   }
 }
 </script>

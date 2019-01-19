@@ -2,6 +2,7 @@
   <el-autocomplete
   class="inline-input"
   v-model="field"
+  v-loading="loading"
   :debounce="0"
   :fetch-suggestions="querySearch"
   value-key="SongName"
@@ -16,7 +17,8 @@ export default {
   props: ['musicData'],
   data() {
     return {
-      field: ''
+      field: '',
+      loading: true
     }
   },
   methods: {
@@ -36,7 +38,11 @@ export default {
       return x.SongName.toLowerCase().indexOf(songName.toLowerCase()) != -1
     }
   },
-  watch: {}
+  mounted() {
+    setTimeout(() => {
+      this.loading = !this.loading
+    }, 1000)
+  }
 }
 </script>
 

@@ -1,12 +1,12 @@
 <template>
   <section>
-    <music-selection :musicData="musicData"/>
+    <song-selection :musicData="musicData"/>
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import MusicSelection from '~/components/cards/MusicSelection.vue'
+import SongSelection from '~/components/songs/SongSelection.vue'
 
 export default {
   data() {
@@ -38,13 +38,7 @@ export default {
     ...mapGetters(['musicData'])
   },
   components: {
-    MusicSelection
-  },
-  mounted() {
-    this.$nuxt.$on('SELECTED_MUSIC', val => {
-      console.log(val)
-      this.selectMusic = Object.assign(...val)
-    })
+    SongSelection
   }
 }
 </script>
