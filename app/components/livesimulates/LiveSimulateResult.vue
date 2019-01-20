@@ -10,6 +10,10 @@
           </el-table-column>
           <el-table-column label="最小スコア" prop="ScoreInfo.Total.Min">
           </el-table-column>
+          <el-table-column label="1%" prop="ScoreInfo.Total.p[0]">
+          </el-table-column>
+          <el-table-column label="50%" prop="ScoreInfo.Total.p[1]">
+          </el-table-column>
         </el-table>
       </el-tab-pane>
       <el-tab-pane label="編成">

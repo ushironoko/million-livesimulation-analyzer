@@ -16,9 +16,10 @@
       @change="transferChange"
       >
       <div slot="right-footer">
-        <el-button class="transfer-footer" style="margin: 2px 0 0 15px;" size="medium" @click="simuResultData">計算開始</el-button>
-        <el-button class="transfer-footer" size="medium">編成保存</el-button>
-        <el-input class="transfer-footer" size="medium" style="max-width: 120px; margin-left: 10px;" placeholder="総アピール値" v-model="appealValue"></el-input>
+        <el-button class="transfer-footer" style="margin: 5px 0 0 5px;" size="mini" @click="simuResultData">計算開始</el-button>
+        <el-button class="transfer-footer" size="mini" @click="saveTeam">編成保存</el-button>
+        <el-button class="transfer-footer" size="mini" @click="callTeam">編成呼出</el-button>
+        <el-input class="transfer-footer" size="mini" style="max-width: 80px; margin-left: 5px;" placeholder="総アピール" v-model="appealValue"></el-input>
       </div>
     </el-transfer>
   </section>
@@ -34,7 +35,7 @@ export default {
     return {
       selection: [],
       loading: true,
-      appealValue: ''
+      appealValue: 360000
     }
   },
   computed: {
@@ -52,8 +53,17 @@ export default {
       this.emitData = this.filteredList
       this.$nuxt.$emit('SELECTED_CARD_LIST', this.emitData)
     },
+    saveTeam(){
+      localStorage.setItem(this.appealValue.toString(), this.selection)
+    },
+    callTeam(){
+      const calledTeam = localStorage.getItem(this.appealValue.toString())
+      const parse = calledTeam.split(',')
+      this.selection = parse
+      this.transferChange()
+    },
     async simuResultData() {
-      if (this.selectedCardList.length != 0 && this.selectedMusic.length != 0) {
+      if (this.selectedCardList.length != 0 && this.selectedMusic.length != 0 && this.appealValue.length != 0) {
         const music = this.selectedMusic
         const team = this.selectedCardList
 
@@ -102,7 +112,7 @@ export default {
       } else {
         this.$notify.error({
               title: '失敗',
-              message: 'チーム編成が不完全か計算できません',
+              message: '曲、編成が不完全かアピール値が不正です',
               position: 'top-right',
               duration: '3000'
             })
