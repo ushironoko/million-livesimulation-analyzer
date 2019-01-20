@@ -89,9 +89,9 @@ export default {
           return x.id
         })
         const GuestId = team[0].id
-        const SkillLvs = [7, 7, 7, 7, 7]
-        const TryNumber = 100
-        const Prob = [1, 50]
+        const SkillLvs = [10, 10, 10, 10, 10]
+        const TryNumber = 10000
+        const Prob = [0.1, 1, 50]
         const Minimize = false
 
         const requestParams = {
