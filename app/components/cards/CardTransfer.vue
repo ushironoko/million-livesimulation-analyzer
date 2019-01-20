@@ -15,7 +15,11 @@
       :data="cardData.filter(data => data.name.toLowerCase())"
       @change="transferChange"
       >
-      <el-button class="transfer-footer" slot="right-footer" @click="simuResultData">計算開始</el-button>
+      <div slot="right-footer">
+        <el-button class="transfer-footer" style="margin: 2px 0 0 15px;" size="medium" @click="simuResultData">計算開始</el-button>
+        <el-button class="transfer-footer" size="medium">編成保存</el-button>
+        <el-input class="transfer-footer" size="medium" style="max-width: 120px; margin-left: 10px;" placeholder="総アピール値" v-model="appealValue"></el-input>
+      </div>
     </el-transfer>
   </section>
 </template>
@@ -29,7 +33,8 @@ export default {
   data() {
     return {
       selection: [],
-      loading: true
+      loading: true,
+      appealValue: ''
     }
   },
   computed: {
@@ -54,13 +59,13 @@ export default {
 
         const SongId = music[0].SongId
         const Course = 4
-        const AppealValue = 30000
+        const AppealValue = this.appealValue
         const Unitlds = team.map(x => {
           return x.id
         })
         const GuestId = team[0].id
         const SkillLvs = [7, 7, 7, 7, 7]
-        const TryNumber = 10
+        const TryNumber = 100
         const Prob = [1, 50]
         const Minimize = false
 
