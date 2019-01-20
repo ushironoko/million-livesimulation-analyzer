@@ -55,12 +55,27 @@ export default {
     },
     saveTeam(){
       localStorage.setItem(this.appealValue.toString(), this.selection)
+      this.$notify.success({
+              title: '成功',
+              message: 'アピール値で編成を保存しました',
+              position: 'top-right',
+              duration: '3000'
+            })
     },
     callTeam(){
       const calledTeam = localStorage.getItem(this.appealValue.toString())
-      const parse = calledTeam.split(',')
-      this.selection = parse
-      this.transferChange()
+      if(calledTeam != null) {
+        const parse = calledTeam.split(',')
+        this.selection = parse
+        this.transferChange()
+      } else {
+        this.$notify.error({
+          title: '失敗',
+          message: `アピール値に対応する編成がありません`,
+          position: 'top-right',
+          duration: '3000'
+        })
+      }
     },
     async simuResultData() {
       if (this.selectedCardList.length != 0 && this.selectedMusic.length != 0 && this.appealValue.length != 0) {
