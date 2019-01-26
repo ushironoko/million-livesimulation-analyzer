@@ -1,5 +1,7 @@
 <template>
-  <el-card>
+  <el-card
+    v-loading="isLiveSimulationLoading"
+  >
     <el-tabs tab-position="left">
       <el-tab-pane label="結果">
         <div>
@@ -25,7 +27,7 @@
         <el-table :data="selectedCardList" max-height="960" style="max-width: 800px;">
           <el-table-column label="カード">
               <template slot-scope="scope">
-                <img :src="scope.row.resourceId" style="max-width: 150px;"/>
+                <img :src="scope.row.resourceId" style="max-width: 100px;"/>
               </template>
           </el-table-column>
           <el-table-column label="インターバル" prop="skill[0].interval">
@@ -44,13 +46,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  data() {
-    return {
-      loading: false
-    }
-  },
   computed: {
-    ...mapGetters(['selectedCardList', 'liveSimulationData'])
+    ...mapGetters(['selectedCardList', 'liveSimulationData','isLiveSimulationLoading'])
   }
 }
 </script>
