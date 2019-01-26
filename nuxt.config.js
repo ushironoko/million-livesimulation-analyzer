@@ -45,7 +45,9 @@ module.exports = {
   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    // Doc: https://pwa.nuxtjs.org
+    '@nuxtjs/pwa'
   ],
   /*
   ** Axios module configuration
@@ -62,7 +64,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    analyze: true,
+    analyze: false,
     extend(config, ctx) {
 
     }
