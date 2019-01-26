@@ -4,6 +4,21 @@ module.exports = {
   mode:'spa',
   srcDir: 'app',
 
+  /**
+   * PWA manifests
+   */
+  manifest: {
+    name: 'MillionLive Team Analyzer',
+    short_name: 'MTA',
+    title: 'ミリシタチームアナライザー',
+    'og:title': 'ミリシタチームアナライザー',
+    description: 'ミリシタチームアナライザー',
+    'og:description': 'ミリシタチームアナライザー',
+    lang: 'ja',
+    theme_color: '#00adb8',
+    background_color: '#FAFAFA'
+  },
+
   /*
   ** Headers of the page
   */
