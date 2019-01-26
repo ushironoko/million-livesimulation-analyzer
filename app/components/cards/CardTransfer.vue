@@ -16,7 +16,7 @@
       @change="transferChange"
       >
       <div slot="right-footer">
-        <el-button class="transfer-footer" style="margin: 5px 0 0 5px;" size="mini" @click="simuResultData">計算</el-button>
+        <el-button class="transfer-footer" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">計算</el-button>
         <el-button class="transfer-footer" size="mini" @click="openSaveTeamModal">保存</el-button>
         <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
         <el-input class="transfer-footer" size="mini" style="max-width: 80px; margin-left: 10px;" placeholder="総アピール" v-model="appealValue"></el-input>

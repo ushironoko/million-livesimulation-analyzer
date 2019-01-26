@@ -27,7 +27,7 @@
         <el-table :data="selectedCardList" target-order="push" max-height="960" style="max-width: 800px;">
           <el-table-column label="カード">
               <template slot-scope="scope">
-                <img :src="scope.row.resourceId" style="max-width: 100px;"/>
+                <a :href="createImgUrl(scope.row.id)" target="_blunk"><img :src="scope.row.resourceId" style="max-width: 100px;"/></a>
               </template>
           </el-table-column>
           <el-table-column label="インターバル" prop="skill[0].interval">
@@ -52,6 +52,11 @@ export default {
       'liveSimulationData',
       'isLiveSimulationLoading'
     ])
+  },
+  methods: {
+    createImgUrl(id) {
+      return `https://mltd.matsurihi.me/cards/${id}`
+    }
   }
 }
 </script>
