@@ -79,7 +79,7 @@ export default {
     },
     isCalc() {
       const isCalc =
-        this.selectedCardList.length != 0 &&
+        this.selectedCardList.length != 5 &&
         this.selectedMusic.length != 0 &&
         this.appealValue.length != 0
           ? false
