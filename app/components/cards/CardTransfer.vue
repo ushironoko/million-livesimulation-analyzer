@@ -16,7 +16,7 @@
       @change="transferChange"
       >
       <div slot="right-footer">
-        <el-button class="transfer-footer" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">計算</el-button>
+        <el-button class="transfer-footer" :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">計算</el-button>
         <el-button class="transfer-footer" size="mini" @click="openSaveTeamModal">保存</el-button>
         <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
         <el-input class="transfer-footer" size="mini" style="max-width: 80px; margin-left: 10px;" placeholder="総アピール" v-model="appealValue"></el-input>
@@ -76,6 +76,16 @@ export default {
       })
 
       return filteredList
+    },
+    isCalc() {
+      const isCalc =
+        this.selectedCardList.length != 0 &&
+        this.selectedMusic.length != 0 &&
+        this.appealValue.length != 0
+          ? false
+          : true
+
+      return isCalc
     },
     ...mapGetters([
       'selectedMusic',
@@ -162,64 +172,51 @@ export default {
       this.$store.commit('deleteSyncTeamData', this.currentRow)
     },
     async simuResultData() {
-      if (
-        this.selectedCardList.length != 0 &&
-        this.selectedMusic.length != 0 &&
-        this.appealValue.length != 0
-      ) {
-        const music = this.selectedMusic
-        const team = this.selectedCardList
+      const music = this.selectedMusic
+      const team = this.selectedCardList
 
-        const SongId = music[0].SongId
-        const Course = 4
-        const AppealValue = this.appealValue
-        const Unitlds = team.map(x => {
-          return x.id
-        })
-        const GuestId = team[0].id
-        const SkillLvs = [10, 10, 10, 10, 10]
-        const TryNumber = 10000
-        const Prob = [0.1, 1, 50]
-        const Minimize = false
+      const SongId = music[0].SongId
+      const Course = 4
+      const AppealValue = this.appealValue
+      const Unitlds = team.map(x => {
+        return x.id
+      })
+      const GuestId = team[0].id
+      const SkillLvs = [10, 10, 10, 10, 10]
+      const TryNumber = 10000
+      const Prob = [0.1, 1, 50]
+      const Minimize = false
 
-        const requestParams = {
-          SongId: SongId,
-          Course: Course,
-          AppealValue: AppealValue,
-          UnitIds: Unitlds,
-          GuestId: GuestId,
-          SkillLvs: SkillLvs,
-          TryNumber: TryNumber,
-          p: Prob,
-          Minimize: Minimize
-        }
-
-        await this.$store
-          .dispatch('fetchLiveSimulationData', requestParams)
-          .then(() => {
-            this.$notify.success({
-              title: '成功',
-              message: 'ライブシミュレートを更新しました',
-              position: 'top-right',
-              duration: '3000'
-            })
-          })
-          .catch(err => {
-            this.$notify.error({
-              title: '失敗',
-              message: `${err}`,
-              position: 'top-right',
-              duration: '3000'
-            })
-          })
-      } else {
-        this.$notify.error({
-          title: '失敗',
-          message: '曲、編成が不完全かアピール値が不正です',
-          position: 'top-right',
-          duration: '3000'
-        })
+      const requestParams = {
+        SongId: SongId,
+        Course: Course,
+        AppealValue: AppealValue,
+        UnitIds: Unitlds,
+        GuestId: GuestId,
+        SkillLvs: SkillLvs,
+        TryNumber: TryNumber,
+        p: Prob,
+        Minimize: Minimize
       }
+
+      await this.$store
+        .dispatch('fetchLiveSimulationData', requestParams)
+        .then(() => {
+          this.$notify.success({
+            title: '成功',
+            message: 'ライブシミュレートを更新しました',
+            position: 'top-right',
+            duration: '3000'
+          })
+        })
+        .catch(err => {
+          this.$notify.error({
+            title: '失敗',
+            message: `${err}`,
+            position: 'top-right',
+            duration: '3000'
+          })
+        })
     }
   },
   mounted() {
