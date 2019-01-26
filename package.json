@@ -8,6 +8,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
+    "analyze":"nuxt build -a",
     "generate": "nuxt generate",
     "fmt": "prettier --write app/**/*.vue app/**/*.js app/**/*.css *.json",
     "dev-debug": "node --inspect-brk=9229 node_modules/nuxt/bin/nuxt"
@@ -16,8 +17,6 @@
     "@nuxtjs/axios": "^5.0.0",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
-    "lodash": "^4.17.11",
-    "mathjs": "^5.3.1",
     "nuxt": "^2.3.4",
     "vuex-persistedstate": "^2.5.4"
   },
