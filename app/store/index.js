@@ -61,7 +61,6 @@ export const actions = {
     commit('setMusicData', { data })
   },
   async fetchLiveSimulationData({ commit }, payload) {
-
     commit('ChangeLiveSimulationLoading')
 
     const resultData = await this.$axios.$get(

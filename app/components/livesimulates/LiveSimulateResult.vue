@@ -47,7 +47,11 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['selectedCardList', 'liveSimulationData','isLiveSimulationLoading'])
+    ...mapGetters([
+      'selectedCardList',
+      'liveSimulationData',
+      'isLiveSimulationLoading'
+    ])
   }
 }
 </script>

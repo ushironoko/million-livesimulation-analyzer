@@ -22,6 +22,14 @@
         <el-input class="transfer-footer" size="mini" style="max-width: 80px; margin-left: 10px;" placeholder="総アピール" v-model="appealValue"></el-input>
       </div>
     </el-transfer>
+
+    <el-dialog title="Shipping address" :visible.sync="callTeamDialog">
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="callTeamDialog = false">キャンセル</el-button>
+        <el-button type="primary" @click="callTeam">決定</el-button>
+      </span>
+    </el-dialog>
+
   </section>
 </template>
 
@@ -35,7 +43,8 @@ export default {
     return {
       selection: [],
       loading: true,
-      appealValue: 350000
+      appealValue: 350000,
+      callTeamDialog: false
     }
   },
   computed: {
@@ -53,34 +62,46 @@ export default {
       this.emitData = this.filteredList
       this.$nuxt.$emit('SELECTED_CARD_LIST', this.emitData)
     },
-    saveTeam(key){
-      const saveValue = {
-        team: this.selection,
-        appealValue: this.appealValue
-      }
-      localStorage.setItem(key, saveValue)
-    },
     openSaveTeamModal() {
-        this.$prompt('チーム名を決めてください。選択カードを保存します。', '編成保存', {
+      this.$prompt(
+        `編成名を決めてください。編成とアピール値を保存します。`,
+        '編成保存',
+        {
           confirmButtonText: 'OK',
-          cancelButtonText: 'Cancel',
+          cancelButtonText: 'キャンセル',
           inputErrorMessage: '登録できません'
-        }).then(({ value }) => {
+        }
+      )
+        .then(({ value }) => {
           this.saveTeam(value)
+
           this.$message({
             type: 'success',
             message: `チーム名:${value}で登録しました`
-          });
-        }).catch(() => {
+          })
+        })
+        .catch(() => {
           this.$message({
             type: 'info',
             message: 'キャンセルしました'
-          });
-        });
+          })
+        })
     },
-    callTeam(key){
-      const calledTeam = localStorage.getItem(key)
-      if(calledTeam != null) {
+    saveTeam(key) {
+      const setValue = {
+        team: this.selection,
+        appealValue: this.appealValue
+      }
+      //保存処理
+    },
+    openCallTeamModal() {
+      this.callTeamDialog = true
+    },
+    callTeam() {
+      //呼び出し処理
+      const calledTeam = localStorage.getItem('xxx')
+
+      try {
         const parse = calledTeam.team.split(',')
         this.selection = parse
 
@@ -88,7 +109,8 @@ export default {
         this.appealValue = appealValue
 
         this.transferChange()
-      } else {
+      } catch {
+        this.callTeamDialog = false
         this.$notify.error({
           title: '失敗',
           message: `チームが見つかりませんでした`,
@@ -96,26 +118,14 @@ export default {
           duration: '3000'
         })
       }
-    },
-    openCallTeamModal() {
-      const h = this.$createElement;
-      this.$msgbox({
-        title: 'チーム呼び出し',
-        message: h('p', null, [
-          h('span', null, 'Message can be '),
-          h('i', { style: 'color: teal' }, 'VNode')
-        ]),
-      }).then(({ value }) => {
-        this.callTeam(value)
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: 'キャンセルしました'
-        });
-      });
+      this.callTeamDialog = false
     },
     async simuResultData() {
-      if (this.selectedCardList.length != 0 && this.selectedMusic.length != 0 && this.appealValue.length != 0) {
+      if (
+        this.selectedCardList.length != 0 &&
+        this.selectedMusic.length != 0 &&
+        this.appealValue.length != 0
+      ) {
         const music = this.selectedMusic
         const team = this.selectedCardList
 
@@ -144,7 +154,7 @@ export default {
         }
 
         await this.$store
-          .dispatch('fetchLiveSimulationData',requestParams)
+          .dispatch('fetchLiveSimulationData', requestParams)
           .then(() => {
             this.$notify.success({
               title: '成功',
@@ -163,11 +173,11 @@ export default {
           })
       } else {
         this.$notify.error({
-              title: '失敗',
-              message: '曲、編成が不完全かアピール値が不正です',
-              position: 'top-right',
-              duration: '3000'
-            })
+          title: '失敗',
+          message: '曲、編成が不完全かアピール値が不正です',
+          position: 'top-right',
+          duration: '3000'
+        })
       }
     }
   },
