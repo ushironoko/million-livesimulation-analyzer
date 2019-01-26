@@ -47,6 +47,11 @@ export const mutations = {
   setSyncTeamData(state, data) {
     state.syncTeamData.push(data)
   },
+  deleteSyncTeamData(state, data) {
+    if(!data) return
+    const currentNum = state.syncTeamData.indexOf(x => x.key === data.key)
+    state.syncTeamData.splice(currentNum ,1)
+  },
   changeLiveSimulationLoading(state) {
     state.isLiveSimulationLoading = !state.isLiveSimulationLoading
   }

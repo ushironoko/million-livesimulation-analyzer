@@ -24,7 +24,7 @@
         <div>
           <span>編成</span>
         </div>
-        <el-table :data="selectedCardList" max-height="960" style="max-width: 800px;">
+        <el-table :data="selectedCardList" target-order="push" max-height="960" style="max-width: 800px;">
           <el-table-column label="カード">
               <template slot-scope="scope">
                 <img :src="scope.row.resourceId" style="max-width: 100px;"/>

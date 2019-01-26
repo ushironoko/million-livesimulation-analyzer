@@ -24,13 +24,19 @@
     </el-transfer>
 
     <el-dialog title="保存中の編成" :visible.sync="callTeamDialog">
-      <el-table :data="syncTeamData" max-height="560" style="max-width: 800px;">
+      <el-table
+        :data="syncTeamData"
+        max-height="560"
+        style="max-width: 800px;"
+        highlight-current-row
+        @current-change="handleCurrentChange"
+      >
         <el-table-column label="編成名" prop="key">
         </el-table-column>
         <el-table-column label="カード">
             <template slot-scope="scope">
               <span v-for="(payload, i) in scope.row.team" :key="payload">
-                <img v-if="i === 0" :src="syncImgUrl(payload)" style="max-width: 40px; border:solid 2px #ff4500;"/>
+                <img v-if="i === 0" :src="syncImgUrl(payload)" style="max-width: 40px; border:solid 2px #9eceff; border-radius: 0.5em;"/>
                 <img v-else :src="syncImgUrl(payload)" style="max-width: 40px;"/>
               </span>
             </template>
@@ -39,6 +45,7 @@
         </el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
+        <el-button type="danger" @click="deleteTeam">削除</el-button>
         <el-button @click="callTeamDialog = false">キャンセル</el-button>
         <el-button type="primary" @click="callTeam">決定</el-button>
       </span>
@@ -58,7 +65,8 @@ export default {
       selection: [],
       loading: true,
       appealValue: 350000,
-      callTeamDialog: false
+      callTeamDialog: false,
+      currentRow: null
     }
   },
   computed: {
@@ -85,6 +93,9 @@ export default {
       this.emitData = this.filteredList
       this.$nuxt.$emit('SELECTED_CARD_LIST', this.emitData)
     },
+    handleCurrentChange(val) {
+      this.currentRow = val
+    },
     openSaveTeamModal() {
       this.$prompt(
         `編成名を決めてください。編成とアピール値を保存します。`,
@@ -100,7 +111,7 @@ export default {
 
           this.$message({
             type: 'success',
-            message: `チーム名:${value}で登録しました`
+            message: `${value} を登録しました`
           })
         })
         .catch(() => {
@@ -122,19 +133,21 @@ export default {
       this.callTeamDialog = true
     },
     callTeam() {
-      //呼び出し処理
-      const calledTeam = localStorage.getItem('xxx')
+      const calledTeam = this.currentRow
 
       try {
-        const parse = calledTeam.team.split(',')
-        this.selection = parse
-
+        this.selection = calledTeam.team
         const appealValue = calledTeam.appealValue
         this.appealValue = appealValue
 
         this.transferChange()
+        this.$notify.success({
+          title: '成功',
+          message: `チームをセットしました`,
+          position: 'top-right',
+          duration: '3000'
+        })
       } catch {
-        this.callTeamDialog = false
         this.$notify.error({
           title: '失敗',
           message: `チームが見つかりませんでした`,
@@ -143,6 +156,9 @@ export default {
         })
       }
       this.callTeamDialog = false
+    },
+    deleteTeam() {
+      this.$store.commit('deleteSyncTeamData', this.currentRow)
     },
     async simuResultData() {
       if (
