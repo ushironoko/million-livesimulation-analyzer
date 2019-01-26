@@ -16,7 +16,7 @@
       @change="transferChange"
       >
       <div slot="right-footer">
-        <el-button class="transfer-footer" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">計算</el-button>
+        <el-button class="transfer-footer" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">計算</el-button>
         <el-button class="transfer-footer" size="mini" @click="openSaveTeamModal">保存</el-button>
         <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
         <el-input class="transfer-footer" size="mini" style="max-width: 80px; margin-left: 10px;" placeholder="総アピール" v-model="appealValue"></el-input>
@@ -45,9 +45,9 @@
         </el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
-        <el-button type="danger" @click="deleteTeam">削除</el-button>
-        <el-button @click="callTeamDialog = false">キャンセル</el-button>
         <el-button type="primary" @click="callTeam">決定</el-button>
+        <el-button @click="callTeamDialog = false">キャンセル</el-button>
+        <el-button type="danger" @click="deleteTeam">削除</el-button>
       </span>
     </el-dialog>
 
@@ -81,7 +81,8 @@ export default {
       'selectedMusic',
       'selectedCardList',
       'liveSimulationData',
-      'syncTeamData'
+      'syncTeamData',
+      'isLiveSimulationLoading'
     ])
   },
   methods: {

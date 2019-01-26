@@ -30,11 +30,11 @@
                 <a :href="createImgUrl(scope.row.id)" target="_blunk"><img :src="scope.row.resourceId" style="max-width: 100px;"/></a>
               </template>
           </el-table-column>
-          <el-table-column label="インターバル" prop="skill[0].interval">
+          <el-table-column label="発動間隔" prop="skill[0].interval">
           </el-table-column>
-          <el-table-column label="スキル秒数" prop="skill[0].duration">
+          <el-table-column label="発動秒数" prop="skill[0].duration">
           </el-table-column>
-          <el-table-column label="効果量" prop="skill[0].value">
+          <el-table-column label="上昇率" prop="skill[0].value">
           </el-table-column>
         </el-table>
       </el-tab-pane>
