@@ -1,5 +1,7 @@
 <template>
-  <el-card>
+  <el-card
+    v-loading="isLiveSimulationLoading"
+  >
     <el-tabs tab-position="left">
       <el-tab-pane label="結果">
         <div>
@@ -22,17 +24,17 @@
         <div>
           <span>編成</span>
         </div>
-        <el-table :data="selectedCardList" max-height="960" style="max-width: 800px;">
+        <el-table :data="selectedCardList" target-order="push" max-height="960" style="max-width: 800px;">
           <el-table-column label="カード">
               <template slot-scope="scope">
-                <img :src="scope.row.resourceId" style="max-width: 150px;"/>
+                <a :href="createImgUrl(scope.row.id)" target="_blunk"><img :src="scope.row.resourceId" style="max-width: 100px;"/></a>
               </template>
           </el-table-column>
-          <el-table-column label="インターバル" prop="skill[0].interval">
+          <el-table-column label="発動間隔" prop="skill[0].interval">
           </el-table-column>
-          <el-table-column label="スキル秒数" prop="skill[0].duration">
+          <el-table-column label="発動秒数" prop="skill[0].duration">
           </el-table-column>
-          <el-table-column label="効果量" prop="skill[0].value">
+          <el-table-column label="上昇率" prop="skill[0].value">
           </el-table-column>
         </el-table>
       </el-tab-pane>
@@ -44,13 +46,17 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  data() {
-    return {
-      loading: false
-    }
-  },
   computed: {
-    ...mapGetters(['selectedCardList', 'liveSimulationData'])
+    ...mapGetters([
+      'selectedCardList',
+      'liveSimulationData',
+      'isLiveSimulationLoading'
+    ])
+  },
+  methods: {
+    createImgUrl(id) {
+      return `https://mltd.matsurihi.me/cards/${id}`
+    }
   }
 }
 </script>
