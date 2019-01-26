@@ -4,6 +4,7 @@ export const state = () => ({
   selectedMusic: [],
   selectedCardList: [],
   liveSimulationData: [],
+  syncTeamData: [],
   isLiveSimulationLoading: false
 })
 
@@ -13,6 +14,7 @@ export const getters = {
   selectedMusic: state => state.selectedMusic,
   selectedCardList: state => state.selectedCardList,
   liveSimulationData: state => state.liveSimulationData,
+  syncTeamData: state => state.syncTeamData,
   isLiveSimulationLoading: state => state.isLiveSimulationLoading
 }
 
@@ -42,7 +44,10 @@ export const mutations = {
       state.liveSimulationData.push(x)
     })
   },
-  ChangeLiveSimulationLoading(state) {
+  setSyncTeamData(state, data) {
+    state.syncTeamData.push(data)
+  },
+  changeLiveSimulationLoading(state) {
     state.isLiveSimulationLoading = !state.isLiveSimulationLoading
   }
 }
@@ -61,7 +66,7 @@ export const actions = {
     commit('setMusicData', { data })
   },
   async fetchLiveSimulationData({ commit }, payload) {
-    commit('ChangeLiveSimulationLoading')
+    commit('changeLiveSimulationLoading')
 
     const resultData = await this.$axios.$get(
       `https://api.megmeg.work/mltd/v1/score/singleunit/`,
@@ -70,6 +75,6 @@ export const actions = {
       }
     )
     commit('setLiveSimulationData', resultData)
-    commit('ChangeLiveSimulationLoading')
+    commit('changeLiveSimulationLoading')
   }
 }

@@ -23,7 +23,21 @@
       </div>
     </el-transfer>
 
-    <el-dialog title="Shipping address" :visible.sync="callTeamDialog">
+    <el-dialog title="保存中の編成" :visible.sync="callTeamDialog">
+      <el-table :data="syncTeamData" max-height="560" style="max-width: 800px;">
+        <el-table-column label="編成名" prop="key">
+        </el-table-column>
+        <el-table-column label="カード">
+            <template slot-scope="scope">
+              <span v-for="(payload, i) in scope.row.team" :key="payload">
+                <img v-if="i === 0" :src="syncImgUrl(payload)" style="max-width: 40px; border:solid 2px #ff4500;"/>
+                <img v-else :src="syncImgUrl(payload)" style="max-width: 40px;"/>
+              </span>
+            </template>
+        </el-table-column>
+        <el-table-column label="総アピール" prop="appealValue">
+        </el-table-column>
+      </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button @click="callTeamDialog = false">キャンセル</el-button>
         <el-button type="primary" @click="callTeam">決定</el-button>
@@ -55,9 +69,18 @@ export default {
 
       return filteredList
     },
-    ...mapGetters(['selectedMusic', 'selectedCardList', 'liveSimulationData'])
+    ...mapGetters([
+      'selectedMusic',
+      'selectedCardList',
+      'liveSimulationData',
+      'syncTeamData'
+    ])
   },
   methods: {
+    syncImgUrl(payload) {
+      const data = this.cardData.find(x => x.name === payload)
+      return data.resourceId
+    },
     transferChange() {
       this.emitData = this.filteredList
       this.$nuxt.$emit('SELECTED_CARD_LIST', this.emitData)
@@ -89,10 +112,11 @@ export default {
     },
     saveTeam(key) {
       const setValue = {
+        key: key,
         team: this.selection,
         appealValue: this.appealValue
       }
-      //保存処理
+      this.$store.commit('setSyncTeamData', setValue)
     },
     openCallTeamModal() {
       this.callTeamDialog = true
