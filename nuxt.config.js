@@ -62,7 +62,7 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     // Doc: https://pwa.nuxtjs.org
-    //'@nuxtjs/pwa'
+    '@nuxtjs/pwa'
   ],
   /*
   ** Axios module configuration
@@ -71,16 +71,6 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL:'https://api.matsurihi.me/mltd/v1'
   },
-
-  /**
-  * Workbox Configuration
-  */
-  workbox: {
-    skipWaiting: true,
-    clientsClaim: true,
-    dev: false
-  },
-
   /*
   ** Build configuration
   */

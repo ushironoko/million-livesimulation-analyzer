@@ -25,7 +25,7 @@ export default {
         .then(() => {
           this.$notify.success({
             title: '成功',
-            message: '楽曲情報を取得しました',
+            message: '楽曲情報を初期化しました',
             position: 'top-right',
             duration: '3000'
           })
@@ -46,7 +46,7 @@ export default {
         .then(() => {
           this.$notify.success({
             title: '成功',
-            message: '追加の楽曲を取得しました',
+            message: '楽曲情報が最新になりました',
             position: 'top-right',
             duration: '3000'
           })
