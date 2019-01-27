@@ -1,3 +1,5 @@
+import { resolve } from 'url'
+
 export const state = () => ({
   ssrCardData: [],
   musicData: [],
@@ -11,6 +13,13 @@ export const state = () => ({
 export const getters = {
   ssrCardData: state => state.ssrCardData,
   musicData: state => state.musicData,
+  getMusicDataLength: state => {
+    return state.musicData.length
+  },
+  getMusicDataEndSongId: state => {
+    const endMusicData = state.musicData.slice(-1)[0]
+    return endMusicData.SongId
+  },
   selectedMusic: state => state.selectedMusic,
   selectedCardList: state => state.selectedCardList,
   liveSimulationData: state => state.liveSimulationData,
@@ -35,6 +44,12 @@ export const mutations = {
   },
   setSelectedMusic(state, data) {
     state.selectedMusic = data
+  },
+  setSelectedMusicUpdate(state, data) {
+    data.forEach(x => {
+      console.log(x)
+      state.selectedMusic.push(x)
+    })
   },
   setSelectedCardList(state, data) {
     state.selectedCardList = data
@@ -81,5 +96,13 @@ export const actions = {
     )
     commit('setLiveSimulationData', resultData)
     commit('changeLiveSimulationLoading')
+  },
+  async fetchMusicDataIncrementalUpdate({ commit }, songId) {
+    const data = await this.$axios.$get(
+      `https://api.megmeg.work/mltd/v1/test/?SongId=75&IncrementalUpdate=true `
+    )
+
+    if (data.message) return new Promise(resolve => resolve(data))
+    commit('setSelectedMusicUpdate', data)
   }
 }

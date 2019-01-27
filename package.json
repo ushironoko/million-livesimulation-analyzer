@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "npm run build && nuxt start",
     "analyze": "nuxt build -a",
     "generate": "nuxt generate",
     "fmt": "prettier --write app/**/*.vue app/**/*.js app/**/*.css *.json",

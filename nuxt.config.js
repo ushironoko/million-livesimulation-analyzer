@@ -62,7 +62,7 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     // Doc: https://pwa.nuxtjs.org
-    '@nuxtjs/pwa'
+    //'@nuxtjs/pwa'
   ],
   /*
   ** Axios module configuration
@@ -72,6 +72,15 @@ module.exports = {
     baseURL:'https://api.matsurihi.me/mltd/v1'
   },
 
+  /**
+  * Workbox Configuration
+  */
+  workbox: {
+    skipWaiting: true,
+    clientsClaim: true,
+    dev: false
+  },
+
   /*
   ** Build configuration
   */
@@ -79,7 +88,6 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    analyze: false,
     extend(config, ctx) {
 
     }
