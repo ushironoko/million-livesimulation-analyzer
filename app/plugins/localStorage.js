@@ -3,8 +3,8 @@ import createPersistedState from 'vuex-persistedstate'
 export default ({ store }) => {
   window.onNuxtReady(() => {
     createPersistedState({
-      key: 'teams',
-      paths: ['syncTeamData']
+      key: 'mta',
+      paths: ['syncTeamData', 'musicData']
     })(store)
   })
 }

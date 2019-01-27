@@ -71,7 +71,6 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL:'https://api.matsurihi.me/mltd/v1'
   },
-
   /*
   ** Build configuration
   */
@@ -79,7 +78,6 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    analyze: false,
     extend(config, ctx) {
 
     }

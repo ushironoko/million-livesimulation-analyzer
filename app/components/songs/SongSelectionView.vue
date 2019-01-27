@@ -14,25 +14,52 @@ export default {
       selectMusic: {}
     }
   },
-  async created() {
-    await this.$store
-      .dispatch('fetchMusicData')
-      .then(() => {
-        this.$notify.success({
-          title: '成功',
-          message: '楽曲情報を更新しました',
-          position: 'top-right',
-          duration: '3000'
+  async mounted() {
+    const delayMsg = await setTimeout(() => {}, 1)
+    const musicDataLength = this.$store.getters['getMusicDataLength']
+
+    if (musicDataLength === 0) {
+      console.log('Music Full Download')
+      await this.$store
+        .dispatch('fetchMusicData')
+        .then(() => {
+          this.$notify.success({
+            title: '成功',
+            message: '楽曲情報を初期化しました',
+            position: 'top-right',
+            duration: '3000'
+          })
         })
-      })
-      .catch(err => {
-        this.$notify.error({
-          title: '失敗',
-          message: `${err}`,
-          position: 'top-right',
-          duration: '3000'
+        .catch(err => {
+          this.$notify.error({
+            title: '失敗',
+            message: `${err}`,
+            position: 'top-right',
+            duration: '3000'
+          })
         })
-      })
+    } else {
+      console.log('Music Update')
+      const endSongId = this.$store.getters['getMusicDataEndSongId']
+      await this.$store
+        .dispatch('fetchMusicDataIncrementalUpdate', endSongId)
+        .then(() => {
+          this.$notify.success({
+            title: '成功',
+            message: '楽曲情報が最新になりました',
+            position: 'top-right',
+            duration: '3000'
+          })
+        })
+        .catch(err => {
+          this.$notify.error({
+            title: '失敗',
+            message: `${err}`,
+            position: 'top-right',
+            duration: '3000'
+          })
+        })
+    }
   },
   computed: {
     ...mapGetters(['musicData'])

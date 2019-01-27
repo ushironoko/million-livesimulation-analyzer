@@ -11,6 +11,13 @@ export const state = () => ({
 export const getters = {
   ssrCardData: state => state.ssrCardData,
   musicData: state => state.musicData,
+  getMusicDataLength: state => {
+    return state.musicData.length
+  },
+  getMusicDataEndSongId: state => {
+    const endMusicData = state.musicData.slice(-1)[0]
+    return endMusicData.SongId
+  },
   selectedMusic: state => state.selectedMusic,
   selectedCardList: state => state.selectedCardList,
   liveSimulationData: state => state.liveSimulationData,
@@ -35,6 +42,11 @@ export const mutations = {
   },
   setSelectedMusic(state, data) {
     state.selectedMusic = data
+  },
+  setSelectedMusicUpdate(state, data) {
+    data.forEach(x => {
+      state.selectedMusic.push(x)
+    })
   },
   setSelectedCardList(state, data) {
     state.selectedCardList = data
@@ -69,6 +81,14 @@ export const actions = {
     )
     if (data.length === 0) throw new Error('Invalid Music data')
     commit('setMusicData', { data })
+  },
+  async fetchMusicDataIncrementalUpdate({ commit }, songId) {
+    const data = await this.$axios.$get(
+      `https://api.megmeg.work/mltd/v1/song/?SongId=${songId}&IncrementalUpdate=true `
+    )
+
+    if (!data) return new Promise(resolve => resolve(data))
+    commit('setSelectedMusicUpdate', data)
   },
   async fetchLiveSimulationData({ commit }, payload) {
     commit('changeLiveSimulationLoading')
