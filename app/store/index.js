@@ -43,9 +43,10 @@ export const mutations = {
   setSelectedMusic(state, data) {
     state.selectedMusic = data
   },
-  setSelectedMusicUpdate(state, data) {
+  updateMusicData(state, data) {
     data.forEach(x => {
-      state.selectedMusic.push(x)
+      console.log(x)
+      state.musicData.push(x)
     })
   },
   setSelectedCardList(state, data) {
@@ -88,7 +89,7 @@ export const actions = {
     )
 
     if (!data) return new Promise(resolve => resolve(data))
-    commit('setSelectedMusicUpdate', data)
+    commit('updateMusicData', data)
   },
   async fetchLiveSimulationData({ commit }, payload) {
     commit('changeLiveSimulationLoading')
