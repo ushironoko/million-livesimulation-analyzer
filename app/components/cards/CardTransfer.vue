@@ -17,9 +17,11 @@
       >
       <div slot="right-footer">
         <el-button class="transfer-footer" :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">計算</el-button>
-        <el-button class="transfer-footer" size="mini" @click="openSaveTeamModal">保存</el-button>
-        <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
-        <el-input class="transfer-footer" size="mini" style="max-width: 80px; margin-left: 10px;" placeholder="総アピール" v-model="appealValue"></el-input>
+        <el-button class="transfer-footer" size="mini" @click="openSaveTeamModal" style="margin: 0 0 0 6px;">保存</el-button>
+        <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
+          <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
+        </el-badge>
+        <el-input class="transfer-footer" size="mini" style="max-width: 80px; margin-left: 5px;" placeholder="総アピール" v-model="appealValue"></el-input>
       </div>
     </el-transfer>
 
@@ -46,7 +48,6 @@
       </el-table>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="callTeam">決定</el-button>
-        <el-button @click="callTeamDialog = false">キャンセル</el-button>
         <el-button type="danger" @click="deleteTeam">削除</el-button>
       </span>
     </el-dialog>
