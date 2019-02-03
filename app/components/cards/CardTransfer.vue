@@ -15,20 +15,8 @@
       :data="transferDataFilter"
       @change="transferChange"
       >
-      <div slot="left-footer">
-        <el-button class="transfer-footer" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">画像</el-button>
-        <el-switch
-          v-model="isPrincess"
-          active-text="Pr">
-        </el-switch>
-        <el-switch
-          v-model="isFairy"
-          active-text="Fa">
-        </el-switch>
-        <el-switch
-          v-model="isAngel"
-          active-text="An">
-        </el-switch>
+      <div slot="left-footer" style="margin: 10px 0 0 0;" size="mini">
+        <el-checkbox v-model="isPrincess">Pr</el-checkbox><el-checkbox v-model="isFairy">Fa</el-checkbox><el-checkbox v-model="isAngel">An</el-checkbox>
       </div>
 
       <div slot="right-footer">
@@ -72,10 +60,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import checkedIcons from '~/components/base/checkedIcons'
 const emitData = []
 
 export default {
   props: ['cardData'],
+  components: {
+    checkedIcons
+  },
   data() {
     return {
       selection: [],
