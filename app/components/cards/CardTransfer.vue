@@ -110,7 +110,7 @@ export default {
     },
     openSaveTeamModal() {
       this.$prompt(
-        `編成名を決めてください。編成とアピール値を保存します。`,
+        `編成名を決めてください`,
         '編成保存',
         {
           confirmButtonText: 'OK',
@@ -119,8 +119,11 @@ export default {
         }
       )
         .then(({ value }) => {
-          this.saveTeam(value)
-
+          if(value) {
+            this.saveTeam(value)
+          } else {
+            throw new Error()
+          }
           this.$message({
             type: 'success',
             message: `${value} を登録しました`
@@ -207,7 +210,7 @@ export default {
             title: '成功',
             message: 'ライブシミュレートを更新しました',
             position: 'top-right',
-            duration: '3000'
+            duration: '1000'
           })
         })
         .catch(err => {
@@ -215,7 +218,7 @@ export default {
             title: '失敗',
             message: `${err}`,
             position: 'top-right',
-            duration: '3000'
+            duration: '1000'
           })
         })
     }

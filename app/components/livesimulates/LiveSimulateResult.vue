@@ -3,9 +3,11 @@
     v-loading="isLiveSimulationLoading"
   >
     <el-tabs tab-position="left">
-      <el-tab-pane label="結果">
+      <el-tab-pane>
+        <span slot="label"><i class="el-icon-document"></i></span>
         <div>
-          <span>結果</span>
+          <span>ライブレポート
+          </span>
         </div>
         <el-table :data="liveSimulationData" max-height="960">
           <el-table-column label="最大" prop="ScoreInfo.Total.Ideal">
@@ -17,12 +19,6 @@
           <el-table-column label="50%" prop="ScoreInfo.Total.p[2]">
           </el-table-column>
         </el-table>
-      </el-tab-pane>
-      <el-tab-pane label="編成">
-        <div>
-          <span>編成
-          </span>
-        </div>
         <el-table :data="selectedCardList" target-order="push" max-height="960">
           <el-table-column label="カード">
               <template slot-scope="scope">

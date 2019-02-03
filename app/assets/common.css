@@ -22,11 +22,6 @@ html {
   min-height: calc(100vh - 61px);
 }
 
-.el-card {
-  flex: 1;
-  margin: 10px auto;
-}
-
 .container:not(.__nuxt-error-page) {
   width: 70%;
   padding: 30px, 0;
@@ -35,6 +30,13 @@ html {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+}
+
+/* Element Utils */
+
+.el-card {
+  flex: 1;
+  margin: 10px auto;
 }
 
 .el-transfer-panel {
@@ -53,4 +55,25 @@ html {
 
 .el-transfer-panel__list.is-filterable {
   height: 200px;
+}
+
+
+.el-message-box {
+  width: 200px;
+}
+
+.el-dialog {
+  min-width: 250px;
+}
+
+.el-dialog__header {
+  min-width: 250px;
+}
+
+.el-dialog__body {
+  min-width: 250px;
+}
+
+.el-dialog__footer {
+  min-width: 250px;
 }
