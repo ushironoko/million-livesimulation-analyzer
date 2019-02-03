@@ -31,17 +31,17 @@
           </el-table-column>
           <el-table-column label="ボーカル値">
               <template slot-scope="scope">
-                <span>{{ scope.row.vocalMaxAwakened }}<br>{{ "(" + `${scope.row.vocalMaxAwakened + scope.row.vocalMasterBonus}` + ")" }}</span>
+                <span>{{ scope.row.vocalMaxAwakened }}<br>{{ "(" + `${scope.row.vocalMaxAwakened + scope.row.vocalMasterBonus * 4}` + ")" }}</span>
               </template>
           </el-table-column>
           <el-table-column label="ビジュアル値">
               <template slot-scope="scope">
-                <span>{{ scope.row.visualMaxAwakened }}<br>{{ "(" + `${scope.row.visualMaxAwakened + scope.row.visualMasterBonus}` + ")" }}</span>
+                <span>{{ scope.row.visualMaxAwakened }}<br>{{ "(" + `${scope.row.visualMaxAwakened + scope.row.visualMasterBonus * 4}` + ")" }}</span>
               </template>
           </el-table-column>
           <el-table-column label="ダンス値">
               <template slot-scope="scope">
-                <span>{{ scope.row.danceMaxAwakened }}<br>{{ "(" + `${scope.row.danceMaxAwakened + scope.row.danceMasterBonus}` + ")" }}</span>
+                <span>{{ scope.row.danceMaxAwakened }}<br>{{ "(" + `${scope.row.danceMaxAwakened + scope.row.danceMasterBonus * 4}` + ")" }}</span>
               </template>
           </el-table-column>
         </el-table>
