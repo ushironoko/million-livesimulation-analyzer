@@ -72,7 +72,7 @@ export const mutations = {
 
 export const actions = {
   async fetchSsrCard({ commit }) {
-    const data = await this.$axios.$get(`/cards?rarity=4`)
+    const data = await this.$axios.$get(`https://api.matsurihi.me/mltd/v1/cards?rarity=4`)
     if (data.length === 0) throw new Error('Invalid SSR card data')
     commit('setSsrCardData', { data })
   },
