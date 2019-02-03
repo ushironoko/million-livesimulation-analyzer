@@ -12,9 +12,25 @@
         label:'カード名'
       }"
       :titles="['カード一覧','編成']"
-      :data="cardData.filter(data => data.name.toLowerCase())"
+      :data="transferDataFilter"
       @change="transferChange"
       >
+      <div slot="left-footer">
+        <el-button class="transfer-footer" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">画像</el-button>
+        <el-switch
+          v-model="isPrincess"
+          active-text="Pr">
+        </el-switch>
+        <el-switch
+          v-model="isFairy"
+          active-text="Fa">
+        </el-switch>
+        <el-switch
+          v-model="isAngel"
+          active-text="An">
+        </el-switch>
+      </div>
+
       <div slot="right-footer">
         <el-button class="transfer-footer" :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">計算</el-button>
         <el-button class="transfer-footer" size="mini" @click="openSaveTeamModal" style="margin: 0 0 0 6px;">保存</el-button>
@@ -51,7 +67,6 @@
         <el-button type="danger" @click="deleteTeam">削除</el-button>
       </span>
     </el-dialog>
-
   </section>
 </template>
 
@@ -67,7 +82,12 @@ export default {
       loading: true,
       appealValue: 350000,
       callTeamDialog: false,
-      currentRow: null
+      currentRow: null,
+      isBNP: false,
+      isPrincess: true,
+      isFairy: true,
+      isAngel: true
+
     }
   },
   computed: {
@@ -87,6 +107,13 @@ export default {
           : true
 
       return isCalc
+    },
+    transferDataFilter() {
+      let data =  this.cardData.filter(data => data.name.toLowerCase())
+      data = this.isPrincess ? data : data.filter(data => data.idolType != 1)
+      data = this.isFairy ? data : data.filter(data => data.idolType != 2)
+      data = this.isAngel ? data : data.filter(data => data.idolType != 3)
+      return data
     },
     ...mapGetters([
       'selectedMusic',
