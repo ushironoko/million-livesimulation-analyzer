@@ -1,7 +1,7 @@
 <template>
   <section>
-    <simu-data-settings @isPrincess="isPrincess" @isFairy="isFairy" @isAngel="isAngel"/>
-    <team-transfer :cardData="ssrCardData" :typeFilter="typeFilter" @simuStart="simuStart"/>
+    <simu-data-settings @princessEmit="princessEmit" @fairyEmit="fairyEmit" @angleEmit="angleEmit" @filterWordEmit="filterWordEmit"/>
+    <team-transfer :cardData="ssrCardData" :typeFilter="typeFilter" :filterWord="filterWord" @simuStart="simuStart"/>
   </section>
 </template>
 
@@ -37,7 +37,8 @@ export default {
         isPrincess: true,
         isFairy: true,
         isAngel: true
-      }
+      },
+      filterWord: ''
     }
   },
   methods: {
@@ -61,14 +62,17 @@ export default {
           })
         })
     },
-    isPrincess(val) {
+    princessEmit(val) {
       this.typeFilter.isPrincess = val
     },
-    isFairy(val) {
+    fairyEmit(val) {
       this.typeFilter.isFairy = val
     },
-    isAngel(val) {
+    angleEmit(val) {
       this.typeFilter.isAngel = val
+    },
+    filterWordEmit(val) {
+      this.filterWord = val
     },
     simuStart(requestParams) {
       this.simuResultData(requestParams)

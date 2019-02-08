@@ -1,3 +1,1 @@
-export function mtldImgUrl(id) {
-return `https://mltd.matsurihi.me/cards/${id}`
-}
+export const createMtldImgUrl = id => `https://mltd.matsurihi.me/cards/${id}`

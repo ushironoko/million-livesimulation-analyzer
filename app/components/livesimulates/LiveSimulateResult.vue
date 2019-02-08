@@ -22,7 +22,7 @@
         <el-table :data="selectedCardList" target-order="push" max-height="960">
           <el-table-column label="カード">
               <template slot-scope="scope">
-                <a :href="getImg(scope.row.id)" target="_blunk"><img :src="scope.row.resourceId" style="max-width: 100px; width: 100%;"/></a>
+                <a :href="mtldImgUrl(scope.row.id)" target="_blunk" rel="noopener"><img :src="scope.row.resourceId" style="max-width: 100px; width: 100%;"/></a>
               </template>
           </el-table-column>
           <el-table-column label="ボーカル値">
@@ -48,7 +48,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { mtldImgUrl } from '~/utils/CreateUrl.js'
+import { createMtldImgUrl } from '~/utils/CreateUrl.js'
 
 export default {
   computed: {
@@ -59,8 +59,8 @@ export default {
     ])
   },
   methods: {
-    getImg(id) {
-      return mtldImgUrl(id)
+    mtldImgUrl(id) {
+      return createMtldImgUrl(id)
     }
   }
 }

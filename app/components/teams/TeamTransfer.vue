@@ -5,13 +5,13 @@
       v-loading="loading"
       target-order="push"
       class="transfer"
-      filterable
       v-model="selection"
       :props="{
         key:'name',
         label:'カード名'
       }"
       :titles="['カード一覧','編成']"
+      :button-texts="['OUT', 'IN']"
       :data="transferDataFilter"
       @change="transferChange"
       >
@@ -26,7 +26,7 @@
       </div>
     </el-transfer>
 
-    <el-dialog title="保存中の編成" :visible.sync="callTeamDialog">
+    <el-dialog title="チームを選んで下さい" :visible.sync="callTeamDialog">
       <el-table
         :data="syncTeamData"
         max-height="560"
@@ -48,8 +48,8 @@
         </el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="callTeam">決定</el-button>
         <el-button type="danger" @click="deleteTeam">削除</el-button>
+        <el-button type="primary" @click="callTeam">決定</el-button>
       </span>
     </el-dialog>
   </section>
@@ -60,17 +60,14 @@ import { mapGetters } from 'vuex'
 const emitData = []
 
 export default {
-  props: ['cardData', 'typeFilter'],
+  props: ['cardData', 'typeFilter', 'filterWord'],
   data() {
     return {
       selection: [],
       loading: true,
-      appealValue: 350000,
+      appealValue: 0,
       callTeamDialog: false,
-      currentRow: null,
-      isPrincess: true,
-      isFairy: true,
-      isAngel: true
+      currentRow: null
     }
   },
   computed: {
@@ -92,7 +89,11 @@ export default {
       return isCalc
     },
     transferDataFilter() {
-      let data = this.cardData.filter(data => data.name.toLowerCase())
+      const filterWord = this.filterWord
+      let data = this.cardData.filter(
+        x => x.name.toLowerCase().indexOf(filterWord.toLowerCase()) > -1
+      )
+
       data = this.typeFilter.isPrincess
         ? data
         : data.filter(data => data.idolType != 1)
@@ -152,6 +153,9 @@ export default {
           })
         })
     },
+    openCallTeamModal() {
+      this.callTeamDialog = true
+    },
     saveTeam(key) {
       const setValue = {
         key: key,
@@ -159,9 +163,6 @@ export default {
         appealValue: this.appealValue
       }
       this.$store.commit('setSyncTeamData', setValue)
-    },
-    openCallTeamModal() {
-      this.callTeamDialog = true
     },
     callTeam() {
       const calledTeam = this.currentRow
@@ -188,7 +189,20 @@ export default {
       this.callTeamDialog = false
     },
     deleteTeam() {
-      this.$store.commit('deleteSyncTeamData', this.currentRow)
+      this.$confirm('ほんとうに？', {
+        confirmButtonText: '消す',
+        cancelButtonText: 'やめとく',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$store.commit('deleteSyncTeamData', this.currentRow)
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'キャンセルしました'
+          })
+        })
     },
     simuStartEmit() {
       const song = this.selectedSong

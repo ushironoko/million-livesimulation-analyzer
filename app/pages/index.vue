@@ -21,7 +21,7 @@ export default {
     LiveSimulateResult
   },
   mounted() {
-    this.$nuxt.$on('SELECTED_MUSIC', val => {
+    this.$nuxt.$on('SELECTED_SONG', val => {
       this.$store.commit('setSelectedSong', val)
     })
 
