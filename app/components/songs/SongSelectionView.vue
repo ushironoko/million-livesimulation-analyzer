@@ -1,6 +1,6 @@
 <template>
   <section>
-    <song-selection :songData="songData"/>
+    <song-selection :songData="songData" @handleSelectEmit="handleSelectEmit"/>
   </section>
 </template>
 
@@ -59,6 +59,11 @@ export default {
             duration: '3000'
           })
         })
+    }
+  },
+  methods: {
+    handleSelectEmit(val) {
+      this.$store.commit('setSelectedSong', val)
     }
   },
   computed: {

@@ -19,15 +19,6 @@ export default {
     TeamView,
     SongSelectionView,
     LiveSimulateResult
-  },
-  mounted() {
-    this.$nuxt.$on('SELECTED_SONG', val => {
-      this.$store.commit('setSelectedSong', val)
-    })
-
-    this.$nuxt.$on('SELECTED_CARD_LIST', val => {
-      this.$store.commit('setSelectedCardList', val)
-    })
   }
 }
 </script>

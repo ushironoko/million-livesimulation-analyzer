@@ -13,7 +13,7 @@
       :titles="['カード一覧','編成']"
       :button-texts="['OUT', 'IN']"
       :data="transferDataFilter"
-      @change="transferChange"
+      @change="transferChangeEmit"
       >
 
       <div slot="right-footer">
@@ -118,13 +118,9 @@ export default {
       const data = this.cardData.find(x => x.name === payload)
       return data.resourceId
     },
-    transferChange() {
-      try {
-        this.emitData = this.filteredList
-        this.$nuxt.$emit('SELECTED_CARD_LIST', this.emitData)
-      } catch {
-        throw new Error('ぐぇえ')
-      }
+    transferChangeEmit() {
+      this.emitData = this.filteredList
+      this.$emit('transferChangeEmit', this.emitData)
     },
     handleCurrentChange(val) {
       this.currentRow = val
@@ -171,7 +167,7 @@ export default {
         const appealValue = calledTeam.appealValue
         this.appealValue = appealValue
 
-        this.transferChange()
+        this.transferChangeEmit()
         this.$notify.success({
           title: '成功',
           message: `チームをセットしました`,

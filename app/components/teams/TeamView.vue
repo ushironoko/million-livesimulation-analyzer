@@ -1,7 +1,7 @@
 <template>
   <section>
     <simu-data-settings @princessEmit="princessEmit" @fairyEmit="fairyEmit" @angleEmit="angleEmit" @filterWordEmit="filterWordEmit"/>
-    <team-transfer :cardData="ssrCardData" :typeFilter="typeFilter" :filterWord="filterWord" @simuStart="simuStart"/>
+    <team-transfer :cardData="ssrCardData" :typeFilter="typeFilter" :filterWord="filterWord" @transferChangeEmit="transferChangeEmit" @simuStart="simuStart"/>
   </section>
 </template>
 
@@ -42,6 +42,9 @@ export default {
     }
   },
   methods: {
+    transferChangeEmit(val) {
+      this.$store.commit('setSelectedCardList', val)
+    },
     async simuResultData(requestParams) {
       await this.$store
         .dispatch('fetchLiveSimulationData', requestParams)

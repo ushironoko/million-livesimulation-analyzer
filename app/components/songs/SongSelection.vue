@@ -8,7 +8,7 @@
   value-key="SongName"
   placeholder="楽曲名で検索"
   :minlength="200"
-  @select="handleSelect"
+  @select="handleSelectEmit"
  ></el-autocomplete>
 </template>
 
@@ -22,10 +22,10 @@ export default {
     }
   },
   methods: {
-    handleSelect() {
+    handleSelectEmit() {
       const songData = this.songData
       const result = songData.filter(x => x.SongName === this.field)
-      this.$nuxt.$emit('SELECTED_SONG', result)
+      this.$emit('handleSelectEmit', result)
     },
     querySearch(songName, cb) {
       const songData = this.songData
