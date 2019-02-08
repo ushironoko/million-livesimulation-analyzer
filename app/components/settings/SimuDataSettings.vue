@@ -1,7 +1,6 @@
 <template>
   <section>
     <el-card style="width: 100%;">
-      <span slot="header">設定</span>
       <el-checkbox v-model="isPrincess" @change="princessEmit">Pr</el-checkbox>
       <el-checkbox v-model="isFairy" @change="fairyEmit">Fa</el-checkbox>
       <el-checkbox v-model="isAngel" @change="angleEmit">An</el-checkbox>

@@ -1,19 +1,14 @@
 <template>
   <section>
-    <el-switch class="switch" v-model="transferMode"
-      active-text="テキストモード"
-      inactive-text="アイコンモード"></el-switch>
-    <card-transfer v-if="transferMode" :cardData="ssrCardData" :typeFilter="typeFilter"/>
-    <card-icons-table v-else :cardData="ssrCardData"/>
     <simu-data-settings @isPrincess="isPrincess" @isFairy="isFairy" @isAngel="isAngel"/>
+    <card-transfer :cardData="ssrCardData" :typeFilter="typeFilter" @simuStart="simuStart"/>
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import CardTransfer from '~/components/cards/CardTransfer.vue'
-import CardIconsTable from '~/components/cards/CardIconsTable.vue'
-import SimuDataSettings from '~/components/cards/SimuDataSettings.vue'
+import SimuDataSettings from '~/components/settings/SimuDataSettings.vue'
 
 export default {
   async created() {
@@ -38,7 +33,6 @@ export default {
   },
   data() {
     return {
-      transferMode: true,
       typeFilter: {
         isPrincess: true,
         isFairy: true,
@@ -75,19 +69,16 @@ export default {
     },
     isAngel(val) {
       this.typeFilter.isAngel = val
-    }
-  },
-  mounted() {
-    this.$nuxt.$on('SIMU_START', requestParams => {
+    },
+    simuStart(requestParams) {
       this.simuResultData(requestParams)
-    })
+    }
   },
   computed: {
     ...mapGetters(['ssrCardData'])
   },
   components: {
     CardTransfer,
-    CardIconsTable,
     SimuDataSettings
   }
 }

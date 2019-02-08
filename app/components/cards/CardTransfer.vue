@@ -200,7 +200,7 @@ export default {
         TryNumber: 10000,
         p: [0.1, 1, 50]
       }
-      this.$nuxt.$emit('SIMU_START', requestParams)
+      this.$emit('simuStart', requestParams)
     }
   },
   mounted() {

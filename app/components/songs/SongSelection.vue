@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  props: ['musicData'],
+  props: ['songData'],
   data() {
     return {
       field: '',
@@ -23,18 +23,18 @@ export default {
   },
   methods: {
     handleSelect() {
-      const musicData = this.musicData
-      const result = musicData.filter(x => x.SongName === this.field)
+      const songData = this.songData
+      const result = songData.filter(x => x.SongName === this.field)
       this.$nuxt.$emit('SELECTED_MUSIC', result)
     },
     querySearch(songName, cb) {
-      const musicData = this.musicData
+      const songData = this.songData
       const results = songName
-        ? musicData.filter(x => this.musicFilter(x, songName))
-        : musicData
+        ? songData.filter(x => this.songFilter(x, songName))
+        : songData
       cb(results)
     },
-    musicFilter(x, songName) {
+    songFilter(x, songName) {
       return x.SongName.toLowerCase().indexOf(songName.toLowerCase()) != -1
     }
   },
