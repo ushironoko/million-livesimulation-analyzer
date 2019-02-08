@@ -5,22 +5,19 @@
       v-loading="loading"
       target-order="push"
       class="transfer"
-      filterable
       v-model="selection"
       :props="{
         key:'name',
         label:'カード名'
       }"
       :titles="['カード一覧','編成']"
+      :button-texts="['OUT', 'IN']"
       :data="transferDataFilter"
-      @change="transferChange"
+      @change="transferChangeEmit"
       >
-      <div slot="left-footer" style="margin: 10px 0 0 0;" size="mini">
-        <el-checkbox v-model="isPrincess">Pr</el-checkbox><el-checkbox v-model="isFairy">Fa</el-checkbox><el-checkbox v-model="isAngel">An</el-checkbox>
-      </div>
 
       <div slot="right-footer">
-        <el-button class="transfer-footer" :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuResultData">計算</el-button>
+        <el-button class="transfer-footer" :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuStartEmit">計算</el-button>
         <el-button class="transfer-footer" size="mini" @click="openSaveTeamModal" style="margin: 0 0 0 6px;">保存</el-button>
         <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
           <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
@@ -29,7 +26,7 @@
       </div>
     </el-transfer>
 
-    <el-dialog title="保存中の編成" :visible.sync="callTeamDialog">
+    <el-dialog title="チームを選んで下さい" :visible.sync="callTeamDialog">
       <el-table
         :data="syncTeamData"
         max-height="560"
@@ -51,8 +48,8 @@
         </el-table-column>
       </el-table>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="callTeam">決定</el-button>
         <el-button type="danger" @click="deleteTeam">削除</el-button>
+        <el-button type="primary" @click="callTeam">決定</el-button>
       </span>
     </el-dialog>
   </section>
@@ -60,26 +57,17 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import checkedIcons from '~/components/base/checkedIcons'
 const emitData = []
 
 export default {
-  props: ['cardData'],
-  components: {
-    checkedIcons
-  },
+  props: ['cardData', 'typeFilter', 'filterWord'],
   data() {
     return {
       selection: [],
       loading: true,
-      appealValue: 350000,
+      appealValue: 0,
       callTeamDialog: false,
-      currentRow: null,
-      isBNP: false,
-      isPrincess: true,
-      isFairy: true,
-      isAngel: true
-
+      currentRow: null
     }
   },
   computed: {
@@ -93,7 +81,7 @@ export default {
     isCalc() {
       const isCalc =
         this.selectedCardList.length === 5 &&
-        this.selectedMusic.length != 0 &&
+        this.selectedSong.length != 0 &&
         this.appealValue.length != 0
           ? false
           : true
@@ -101,14 +89,24 @@ export default {
       return isCalc
     },
     transferDataFilter() {
-      let data =  this.cardData.filter(data => data.name.toLowerCase())
-      data = this.isPrincess ? data : data.filter(data => data.idolType != 1)
-      data = this.isFairy ? data : data.filter(data => data.idolType != 2)
-      data = this.isAngel ? data : data.filter(data => data.idolType != 3)
+      const filterWord = this.filterWord
+      let data = this.cardData.filter(
+        x => x.name.toLowerCase().indexOf(filterWord.toLowerCase()) > -1
+      )
+
+      data = this.typeFilter.isPrincess
+        ? data
+        : data.filter(data => data.idolType != 1)
+      data = this.typeFilter.isFairy
+        ? data
+        : data.filter(data => data.idolType != 2)
+      data = this.typeFilter.isAngel
+        ? data
+        : data.filter(data => data.idolType != 3)
       return data
     },
     ...mapGetters([
-      'selectedMusic',
+      'selectedSong',
       'selectedCardList',
       'liveSimulationData',
       'syncTeamData',
@@ -120,28 +118,24 @@ export default {
       const data = this.cardData.find(x => x.name === payload)
       return data.resourceId
     },
-    transferChange() {
+    transferChangeEmit() {
       this.emitData = this.filteredList
-      this.$nuxt.$emit('SELECTED_CARD_LIST', this.emitData)
+      this.$emit('transferChangeEmit', this.emitData)
     },
     handleCurrentChange(val) {
       this.currentRow = val
     },
     openSaveTeamModal() {
-      this.$prompt(
-        `編成名を決めてください`,
-        '編成保存',
-        {
-          confirmButtonText: 'OK',
-          cancelButtonText: 'キャンセル',
-          inputErrorMessage: '登録できません'
-        }
-      )
+      this.$prompt(`編成名を決めてください`, '編成保存', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'キャンセル',
+        inputErrorMessage: '登録できません'
+      })
         .then(({ value }) => {
-          if(value) {
+          if (value) {
             this.saveTeam(value)
           } else {
-            throw new Error()
+            throw new Error('ひえええ')
           }
           this.$message({
             type: 'success',
@@ -155,6 +149,9 @@ export default {
           })
         })
     },
+    openCallTeamModal() {
+      this.callTeamDialog = true
+    },
     saveTeam(key) {
       const setValue = {
         key: key,
@@ -163,18 +160,14 @@ export default {
       }
       this.$store.commit('setSyncTeamData', setValue)
     },
-    openCallTeamModal() {
-      this.callTeamDialog = true
-    },
     callTeam() {
       const calledTeam = this.currentRow
-
       try {
         this.selection = calledTeam.team
         const appealValue = calledTeam.appealValue
         this.appealValue = appealValue
 
-        this.transferChange()
+        this.transferChangeEmit()
         this.$notify.success({
           title: '成功',
           message: `チームをセットしました`,
@@ -192,54 +185,35 @@ export default {
       this.callTeamDialog = false
     },
     deleteTeam() {
-      this.$store.commit('deleteSyncTeamData', this.currentRow)
+      this.$confirm('ほんとうに？', {
+        confirmButtonText: '消す',
+        cancelButtonText: 'やめとく',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$store.commit('deleteSyncTeamData', this.currentRow)
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: 'キャンセルしました'
+          })
+        })
     },
-    async simuResultData() {
-      const music = this.selectedMusic
+    simuStartEmit() {
+      const song = this.selectedSong
       const team = this.selectedCardList
 
-      const SongId = music[0].SongId
-      const Course = 4
-      const AppealValue = this.appealValue
-      const Unitlds = team.map(x => {
-        return x.id
-      })
-      const GuestId = team[0].id
-      const SkillLvs = [10, 10, 10, 10, 10]
-      const TryNumber = 10000
-      const Prob = [0.1, 1, 50]
-      const Minimize = false
-
       const requestParams = {
-        SongId: SongId,
-        Course: Course,
-        AppealValue: AppealValue,
-        UnitIds: Unitlds,
-        GuestId: GuestId,
-        SkillLvs: SkillLvs,
-        TryNumber: TryNumber,
-        p: Prob,
-        Minimize: Minimize
+        SongId: song[0].SongId,
+        Course: 4,
+        AppealValue: this.appealValue,
+        UnitIds: team.map(x => x.id),
+        GuestId: team[0].id,
+        TryNumber: 10000,
+        p: [0.1, 1, 50]
       }
-
-      await this.$store
-        .dispatch('fetchLiveSimulationData', requestParams)
-        .then(() => {
-          this.$notify.success({
-            title: '成功',
-            message: 'ライブシミュレートを更新しました',
-            position: 'top-right',
-            duration: '1000'
-          })
-        })
-        .catch(err => {
-          this.$notify.error({
-            title: '失敗',
-            message: `${err}`,
-            position: 'top-right',
-            duration: '1000'
-          })
-        })
+      this.$emit('simuStart', requestParams)
     }
   },
   mounted() {
@@ -252,6 +226,6 @@ export default {
 
 <style scoped>
 .transfer {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 </style>

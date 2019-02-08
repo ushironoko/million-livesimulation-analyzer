@@ -1,7 +1,7 @@
 export const state = () => ({
   ssrCardData: [],
-  musicData: [],
-  selectedMusic: [],
+  songData: [],
+  selectedSong: [],
   selectedCardList: [],
   liveSimulationData: [],
   syncTeamData: [],
@@ -10,15 +10,15 @@ export const state = () => ({
 
 export const getters = {
   ssrCardData: state => state.ssrCardData,
-  musicData: state => state.musicData,
-  getMusicDataLength: state => {
-    return state.musicData.length
+  songData: state => state.songData,
+  getSongDataLength: state => {
+    return state.songData.length
   },
-  getMusicDataEndSongId: state => {
-    const endMusicData = state.musicData.slice(-1)[0]
-    return endMusicData.SongId
+  getSongDataEndSongId: state => {
+    const endSongData = state.songData.slice(-1)[0]
+    return endSongData.SongId
   },
-  selectedMusic: state => state.selectedMusic,
+  selectedSong: state => state.selectedSong,
   selectedCardList: state => state.selectedCardList,
   liveSimulationData: state => state.liveSimulationData,
   syncTeamData: state => state.syncTeamData,
@@ -37,16 +37,16 @@ export const mutations = {
       state.ssrCardData.push(x)
     })
   },
-  setMusicData(state, { data }) {
-    state.musicData = data
+  setSongData(state, { data }) {
+    state.songData = data
   },
-  setSelectedMusic(state, data) {
-    state.selectedMusic = data
+  setSelectedSong(state, data) {
+    state.selectedSong = data
   },
-  updateMusicData(state, data) {
+  updateSongData(state, data) {
     data.forEach(x => {
       console.log(x)
-      state.musicData.push(x)
+      state.songData.push(x)
     })
   },
   setSelectedCardList(state, data) {
@@ -72,24 +72,26 @@ export const mutations = {
 
 export const actions = {
   async fetchSsrCard({ commit }) {
-    const data = await this.$axios.$get(`https://api.matsurihi.me/mltd/v1/cards?rarity=4`)
+    const data = await this.$axios.$get(
+      `https://api.matsurihi.me/mltd/v1/cards?rarity=4`
+    )
     if (data.length === 0) throw new Error('Invalid SSR card data')
     commit('setSsrCardData', { data })
   },
-  async fetchMusicData({ commit }) {
+  async fetchSongData({ commit }) {
     const data = await this.$axios.$get(
       `https://api.megmeg.work/mltd/v1/song/ `
     )
-    if (data.length === 0) throw new Error('Invalid Music data')
-    commit('setMusicData', { data })
+    if (data.length === 0) throw new Error('Invalid Song data')
+    commit('setSongData', { data })
   },
-  async fetchMusicDataIncrementalUpdate({ commit }, songId) {
+  async fetchSongDataIncrementalUpdate({ commit }, songId) {
     const data = await this.$axios.$get(
       `https://api.megmeg.work/mltd/v1/song/?SongId=${songId}&IncrementalUpdate=true `
     )
 
     if (!data) return new Promise(resolve => resolve(data))
-    commit('updateMusicData', data)
+    commit('updateSongData', data)
   },
   async fetchLiveSimulationData({ commit }, payload) {
     commit('changeLiveSimulationLoading')

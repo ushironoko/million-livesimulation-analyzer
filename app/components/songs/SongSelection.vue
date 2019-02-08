@@ -8,13 +8,13 @@
   value-key="SongName"
   placeholder="楽曲名で検索"
   :minlength="200"
-  @select="handleSelect"
+  @select="handleSelectEmit"
  ></el-autocomplete>
 </template>
 
 <script>
 export default {
-  props: ['musicData'],
+  props: ['songData'],
   data() {
     return {
       field: '',
@@ -22,19 +22,19 @@ export default {
     }
   },
   methods: {
-    handleSelect() {
-      const musicData = this.musicData
-      const result = musicData.filter(x => x.SongName === this.field)
-      this.$nuxt.$emit('SELECTED_MUSIC', result)
+    handleSelectEmit() {
+      const songData = this.songData
+      const result = songData.filter(x => x.SongName === this.field)
+      this.$emit('handleSelectEmit', result)
     },
     querySearch(songName, cb) {
-      const musicData = this.musicData
+      const songData = this.songData
       const results = songName
-        ? musicData.filter(x => this.musicFilter(x, songName))
-        : musicData
+        ? songData.filter(x => this.songFilter(x, songName))
+        : songData
       cb(results)
     },
-    musicFilter(x, songName) {
+    songFilter(x, songName) {
       return x.SongName.toLowerCase().indexOf(songName.toLowerCase()) != -1
     }
   },

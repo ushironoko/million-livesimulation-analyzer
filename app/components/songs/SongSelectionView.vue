@@ -1,6 +1,6 @@
 <template>
   <section>
-    <song-selection :musicData="musicData"/>
+    <song-selection :songData="songData" @handleSelectEmit="handleSelectEmit"/>
   </section>
 </template>
 
@@ -11,17 +11,17 @@ import SongSelection from '~/components/songs/SongSelection.vue'
 export default {
   data() {
     return {
-      selectMusic: {}
+      selectSong: {}
     }
   },
   async mounted() {
     const delayMsg = await setTimeout(() => {}, 1)
-    const musicDataLength = this.$store.getters['getMusicDataLength']
+    const songDataLength = this.$store.getters['getSongDataLength']
 
-    if (musicDataLength === 0) {
-      console.log('Music Full Download')
+    if (songDataLength === 0) {
+      console.log('Song Full Download')
       await this.$store
-        .dispatch('fetchMusicData')
+        .dispatch('fetchSongData')
         .then(() => {
           this.$notify.success({
             title: '成功',
@@ -39,10 +39,10 @@ export default {
           })
         })
     } else {
-      console.log('Music Update')
-      const endSongId = this.$store.getters['getMusicDataEndSongId']
+      console.log('Song Update')
+      const endSongId = this.$store.getters['getSongDataEndSongId']
       await this.$store
-        .dispatch('fetchMusicDataIncrementalUpdate', endSongId)
+        .dispatch('fetchSongDataIncrementalUpdate', endSongId)
         .then(() => {
           this.$notify.success({
             title: '成功',
@@ -61,8 +61,13 @@ export default {
         })
     }
   },
+  methods: {
+    handleSelectEmit(val) {
+      this.$store.commit('setSelectedSong', val)
+    }
+  },
   computed: {
-    ...mapGetters(['musicData'])
+    ...mapGetters(['songData'])
   },
   components: {
     SongSelection
