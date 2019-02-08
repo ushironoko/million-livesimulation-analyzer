@@ -84,7 +84,7 @@ export default {
     isCalc() {
       const isCalc =
         this.selectedCardList.length === 5 &&
-        this.selectedMusic.length != 0 &&
+        this.selectedSong.length != 0 &&
         this.appealValue.length != 0
           ? false
           : true
@@ -105,7 +105,7 @@ export default {
       return data
     },
     ...mapGetters([
-      'selectedMusic',
+      'selectedSong',
       'selectedCardList',
       'liveSimulationData',
       'syncTeamData',
@@ -118,8 +118,12 @@ export default {
       return data.resourceId
     },
     transferChange() {
-      this.emitData = this.filteredList
-      this.$nuxt.$emit('SELECTED_CARD_LIST', this.emitData)
+      try {
+        this.emitData = this.filteredList
+        this.$nuxt.$emit('SELECTED_CARD_LIST', this.emitData)
+      } catch {
+        throw new Error('ぐぇえ')
+      }
     },
     handleCurrentChange(val) {
       this.currentRow = val
@@ -134,7 +138,7 @@ export default {
           if (value) {
             this.saveTeam(value)
           } else {
-            throw new Error()
+            throw new Error('ひえええ')
           }
           this.$message({
             type: 'success',
@@ -161,7 +165,6 @@ export default {
     },
     callTeam() {
       const calledTeam = this.currentRow
-
       try {
         this.selection = calledTeam.team
         const appealValue = calledTeam.appealValue
@@ -188,11 +191,11 @@ export default {
       this.$store.commit('deleteSyncTeamData', this.currentRow)
     },
     simuStartEmit() {
-      const music = this.selectedMusic
+      const song = this.selectedSong
       const team = this.selectedCardList
 
       const requestParams = {
-        SongId: music[0].SongId,
+        SongId: song[0].SongId,
         Course: 4,
         AppealValue: this.appealValue,
         UnitIds: team.map(x => x.id),

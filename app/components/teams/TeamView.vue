@@ -1,13 +1,13 @@
 <template>
   <section>
     <simu-data-settings @isPrincess="isPrincess" @isFairy="isFairy" @isAngel="isAngel"/>
-    <card-transfer :cardData="ssrCardData" :typeFilter="typeFilter" @simuStart="simuStart"/>
+    <team-transfer :cardData="ssrCardData" :typeFilter="typeFilter" @simuStart="simuStart"/>
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import CardTransfer from '~/components/cards/CardTransfer.vue'
+import TeamTransfer from '~/components/teams/TeamTransfer.vue'
 import SimuDataSettings from '~/components/settings/SimuDataSettings.vue'
 
 export default {
@@ -78,7 +78,7 @@ export default {
     ...mapGetters(['ssrCardData'])
   },
   components: {
-    CardTransfer,
+    TeamTransfer,
     SimuDataSettings
   }
 }

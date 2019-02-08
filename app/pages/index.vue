@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import TeamView from '~/components/cards/TeamView.vue'
+import TeamView from '~/components/teams/TeamView.vue'
 import SongSelectionView from '~/components/songs/SongSelectionView.vue'
 import LiveSimulateResult from '~/components/livesimulates/LiveSimulateResult.vue'
 import { mapGetters } from 'vuex'
@@ -22,7 +22,7 @@ export default {
   },
   mounted() {
     this.$nuxt.$on('SELECTED_MUSIC', val => {
-      this.$store.commit('setSelectedMusic', val)
+      this.$store.commit('setSelectedSong', val)
     })
 
     this.$nuxt.$on('SELECTED_CARD_LIST', val => {
