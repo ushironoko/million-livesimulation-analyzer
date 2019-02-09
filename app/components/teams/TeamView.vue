@@ -1,16 +1,43 @@
 <template>
   <section>
-    <simu-data-settings @princessEmit="princessEmit" @fairyEmit="fairyEmit" @angleEmit="angleEmit" @filterWordEmit="filterWordEmit"/>
-    <team-transfer :cardData="ssrCardData" :typeFilter="typeFilter" :filterWord="filterWord" @transferChangeEmit="transferChangeEmit" @simuStart="simuStart"/>
+    <simu-data-settings
+      @princessEmit="princessEmit"
+      @fairyEmit="fairyEmit"
+      @angleEmit="angleEmit"
+      @filterWordEmit="filterWordEmit"
+    />
+
+    <team-edit
+      :cardData="ssrCardData"
+      :selectedSong="selectedSong"
+      :selectedCardList="selectedCardList"
+      :liveSimulationData="liveSimulationData"
+      :syncTeamData="syncTeamData"
+      :isLiveSimulationLoading="isLiveSimulationLoading"
+      :typeFilter="typeFilter"
+      :filterWord="filterWord"
+      @transferChangeEmit="transferChangeEmit"
+      @simuStart="simuStart"
+    />
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import TeamTransfer from '~/components/teams/TeamTransfer.vue'
+import TeamEdit from '~/components/teams/TeamEdit.vue'
 import SimuDataSettings from '~/components/settings/SimuDataSettings.vue'
 
 export default {
+  computed: {
+    ...mapGetters([
+      'ssrCardData',
+      'selectedSong',
+      'selectedCardList',
+      'liveSimulationData',
+      'syncTeamData',
+      'isLiveSimulationLoading'
+    ])
+  },
   async created() {
     await this.$store
       .dispatch('fetchSsrCard')
@@ -79,11 +106,8 @@ export default {
       this.filterWord = val
     }
   },
-  computed: {
-    ...mapGetters(['ssrCardData'])
-  },
   components: {
-    TeamTransfer,
+    TeamEdit,
     SimuDataSettings
   }
 }

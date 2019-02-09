@@ -61,7 +61,16 @@ import cloneDeep from 'lodash/cloneDeep'
 const emitData = []
 
 export default {
-  props: ['cardData', 'typeFilter', 'filterWord'],
+  props: [
+    'cardData',
+    'selectedSong',
+    'selectedCardList',
+    'liveSimulationData',
+    'syncTeamData',
+    'isLiveSimulationLoading',
+    'typeFilter',
+    'filterWord',
+  ],
   data() {
     return {
       selection: [],
@@ -72,6 +81,9 @@ export default {
     }
   },
   computed: {
+    /**
+     * 選択した編成のpayloadをストアデータから切り出して取得するメソッド
+     */
     filteredList() {
       const filteredList = this.cardData.filter(data => {
         return this.selection.includes(data.name)
@@ -79,6 +91,10 @@ export default {
 
       return filteredList
     },
+
+    /**
+     * シミュレーション可能状態かどうか判定するメソッド
+     */
     isCalc() {
       const isCalc =
         this.selectedCardList.length === 5 &&
@@ -89,6 +105,10 @@ export default {
 
       return isCalc
     },
+
+    /**
+     * 親から受け取ったワードと属性フラグで表示カードをフィルタするメソッド
+     */
     transferDataFilter() {
       const filterWord = this.filterWord
       let data = this.cardData.filter(
@@ -105,27 +125,35 @@ export default {
         ? data
         : data.filter(data => data.idolType != 3)
       return data
-    },
-    ...mapGetters([
-      'selectedSong',
-      'selectedCardList',
-      'liveSimulationData',
-      'syncTeamData',
-      'isLiveSimulationLoading'
-    ])
+    }
   },
   methods: {
+    /**
+     * 保存中のチームアイコンを全て取り出すメソッド
+     */
     syncImgUrl(payload) {
       const data = this.cardData.find(x => x.name === payload)
       return data.resourceId
     },
+
+    /**
+     * 編成にカード情報を移した時に親へ編成情報を渡すEmitter
+     */
     transferChangeEmit() {
       this.emitData = this.filteredList
       this.$emit('transferChangeEmit', this.emitData)
     },
+
+    /**
+     * 選択中の保存チームを保持するクリックイベント
+     */
     handleCurrentChange(val) {
       this.currentRow = val
     },
+
+    /**
+     * 現在のチームと総アピール値をストアへ保存するためのメッセージプロンプト
+     */
     openSaveTeamModal() {
       this.$prompt(`編成名を決めてください`, '編成保存', {
         confirmButtonText: 'OK',
@@ -150,9 +178,17 @@ export default {
           })
         })
     },
+
+    /**
+     * 保存中チーム一覧のダイアログを開くメソッド
+     */
     openCallTeamModal() {
       this.callTeamDialog = true
     },
+
+    /**
+     *　openSaveTeamModalから呼び出されるチーム保存メソッド
+     */
     saveTeam(key) {
       const setValue = {
         key: key,
@@ -161,6 +197,10 @@ export default {
       }
       this.$store.commit('setSyncTeamData', setValue)
     },
+
+    /**
+     *  選択した保存中チームをセットするメソッド
+     */
     callTeam() {
       const calledTeam = this.currentRow
       try {
@@ -185,6 +225,10 @@ export default {
       }
       this.callTeamDialog = false
     },
+
+    /**
+     * 選択した保存中チームを削除するメソッド
+     */
     deleteTeam() {
       this.$confirm('ほんとうに？', {
         confirmButtonText: '消す',
@@ -201,6 +245,10 @@ export default {
           })
         })
     },
+
+    /**
+     * シミュ用データを作って親へ渡すEmitter
+     */
     simuStartEmit() {
       const song = this.selectedSong
       const team = cloneDeep(this.selectedCardList)
