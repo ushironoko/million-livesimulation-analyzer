@@ -45,7 +45,7 @@ export default {
     transferChangeEmit(val) {
       this.$store.commit('setSelectedCardList', val)
     },
-    async simuResultData(requestParams) {
+    async simuStart(requestParams, team) {
       await this.$store
         .dispatch('fetchLiveSimulationData', requestParams)
         .then(() => {
@@ -55,6 +55,7 @@ export default {
             position: 'top-right',
             duration: '1000'
           })
+          this.$emit('snapshotEmit', team)
         })
         .catch(err => {
           this.$notify.error({
@@ -76,9 +77,6 @@ export default {
     },
     filterWordEmit(val) {
       this.filterWord = val
-    },
-    simuStart(requestParams) {
-      this.simuResultData(requestParams)
     }
   },
   computed: {

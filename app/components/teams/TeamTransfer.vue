@@ -37,12 +37,12 @@
         <el-table-column label="編成名" prop="key">
         </el-table-column>
         <el-table-column label="カード">
-            <template slot-scope="scope">
-              <span v-for="(payload, i) in scope.row.team" :key="payload">
-                <img v-if="i === 0" :src="syncImgUrl(payload)" style="max-width: 40px; border:solid 2px #9eceff; border-radius: 0.5em;"/>
-                <img v-else :src="syncImgUrl(payload)" style="max-width: 40px;"/>
-              </span>
-            </template>
+          <template slot-scope="scope">
+            <span v-for="(payload, i) in scope.row.team" :key="payload">
+              <img v-if="i === 0" :src="syncImgUrl(payload)" style="max-width: 40px; border:solid 2px #9eceff; border-radius: 0.5em;"/>
+              <img v-else :src="syncImgUrl(payload)" style="max-width: 40px;"/>
+            </span>
+          </template>
         </el-table-column>
         <el-table-column label="総アピール" prop="appealValue">
         </el-table-column>
@@ -57,6 +57,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import cloneDeep from 'lodash/cloneDeep'
 const emitData = []
 
 export default {
@@ -202,7 +203,7 @@ export default {
     },
     simuStartEmit() {
       const song = this.selectedSong
-      const team = this.selectedCardList
+      const team = cloneDeep(this.selectedCardList)
 
       const requestParams = {
         SongId: song[0].SongId,
@@ -213,7 +214,7 @@ export default {
         TryNumber: 10000,
         p: [0.1, 1, 50]
       }
-      this.$emit('simuStart', requestParams)
+      this.$emit('simuStart', requestParams, team)
     }
   },
   mounted() {
