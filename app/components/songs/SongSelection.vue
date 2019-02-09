@@ -8,7 +8,7 @@
   value-key="SongName"
   placeholder="楽曲名で検索"
   :minlength="200"
-  @select="handleSelectEmit"
+  @select="selectEmit"
  ></el-autocomplete>
 </template>
 
@@ -22,10 +22,10 @@ export default {
     }
   },
   methods: {
-    handleSelectEmit() {
+    selectEmit() {
       const songData = this.songData
       const result = songData.filter(x => x.SongName === this.field)
-      this.$emit('handleSelectEmit', result)
+      this.$emit('selectEmit', result)
     },
     querySearch(songName, cb) {
       const songData = this.songData

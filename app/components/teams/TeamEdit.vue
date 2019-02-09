@@ -10,10 +10,9 @@
         key:'name',
         label:'カード名'
       }"
-      :titles="['カード一覧','編成']"
+      :titles="['SSR一覧','編成（先頭リーダー/ゲスト）']"
       :button-texts="['OUT', 'IN']"
       :data="transferDataFilter"
-      @change="transferChangeEmit"
       >
 
       <div slot="right-footer">
@@ -39,8 +38,8 @@
         <el-table-column label="カード">
           <template slot-scope="scope">
             <span v-for="(payload, i) in scope.row.team" :key="payload">
-              <img v-if="i === 0" :src="syncImgUrl(payload)" style="max-width: 40px; border:solid 2px #9eceff; border-radius: 0.5em;"/>
-              <img v-else :src="syncImgUrl(payload)" style="max-width: 40px;"/>
+              <img v-if="i === 0" :src="mtldImgUrl(payload)" style="max-width: 40px; border:solid 2px #9eceff; border-radius: 0.5em;"/>
+              <img v-else :src="mtldImgUrl(payload)" style="max-width: 40px;"/>
             </span>
           </template>
         </el-table-column>
@@ -61,13 +60,10 @@ import cloneDeep from 'lodash/cloneDeep'
 
 export default {
   props: {
-    cardData: {
+    cardDataList: {
       type: Array
     },
     selectedSong: {
-      type: Array
-    },
-    selectedCardList: {
       type: Array
     },
     liveSimulationData: {
@@ -100,7 +96,7 @@ export default {
      * 選択した編成のpayloadをストアデータから切り出して取得するメソッド
      */
     filteredList() {
-      const filteredList = this.cardData.filter(data => {
+      const filteredList = this.cardDataList.filter(data => {
         return this.selection.includes(data.name)
       })
 
@@ -108,25 +104,11 @@ export default {
     },
 
     /**
-     * シミュレーション可能状態かどうか判定するメソッド
-     */
-    isCalc() {
-      const isCalc =
-        this.selectedCardList.length === 5 &&
-        this.selectedSong.length != 0 &&
-        this.appealValue.length != 0
-          ? false
-          : true
-
-      return isCalc
-    },
-
-    /**
      * 親から受け取ったワードと属性フラグで表示カードをフィルタするメソッド
      */
     transferDataFilter() {
       const filterWord = this.filterWord
-      let data = this.cardData.filter(
+      let data = this.cardDataList.filter(
         x => x.name.toLowerCase().indexOf(filterWord.toLowerCase()) > -1
       )
 
@@ -140,23 +122,29 @@ export default {
         ? data
         : data.filter(data => data.idolType != 3)
       return data
-    }
+    },
+
+    /**
+     * シミュレーション可能状態かどうか判定するメソッド
+     */
+    isCalc() {
+      const isCalc =
+        this.filteredList.length === 5 &&
+        this.selectedSong.length != 0 &&
+        this.appealValue.length != 0
+          ? false
+          : true
+
+      return isCalc
+    },
   },
   methods: {
     /**
      * 保存中のチームアイコンを全て取り出すメソッド
      */
-    syncImgUrl(payload) {
-      const data = this.cardData.find(x => x.name === payload)
+    mtldImgUrl(payload) {
+      const data = this.cardDataList.find(x => x.name === payload)
       return data.resourceId
-    },
-
-    /**
-     * 編成にカード情報を移した時に親へ編成情報を渡すEmitter
-     */
-    transferChangeEmit() {
-      const payload = cloneDeep(this.filteredList)
-      this.$emit('transferChangeEmit', payload)
     },
 
     /**
@@ -223,7 +211,6 @@ export default {
         const appealValue = calledTeam.appealValue
         this.appealValue = appealValue
 
-        this.transferChangeEmit()
         this.$notify.success({
           title: '成功',
           message: `チームをセットしました`,
@@ -266,7 +253,7 @@ export default {
      */
     simuStartEmit() {
       const song = this.selectedSong
-      const team = cloneDeep(this.selectedCardList)
+      const team = cloneDeep(this.filteredList)
 
       const requestParams = {
         SongId: song[0].SongId,
@@ -277,7 +264,7 @@ export default {
         TryNumber: 10000,
         p: [0.1, 1, 50]
       }
-      this.$emit('simuStart', requestParams, team)
+      this.$emit('simuStartEmit', requestParams, team)
     }
   },
   mounted() {

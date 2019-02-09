@@ -1,23 +1,21 @@
 <template>
   <section>
     <simu-data-settings
-      @princessEmit="princessEmit"
-      @fairyEmit="fairyEmit"
-      @angleEmit="angleEmit"
-      @filterWordEmit="filterWordEmit"
+      @princessEmit="setPrincess"
+      @fairyEmit="setFairy"
+      @angleEmit="setAngle"
+      @filterWordEmit="setFilterWord"
     />
 
     <team-edit
-      :cardData="ssrCardData"
+      :cardDataList="cloneSsrCardData"
       :selectedSong="selectedSong"
-      :selectedCardList="selectedCardList"
       :liveSimulationData="liveSimulationData"
       :syncTeamData="syncTeamData"
       :isLiveSimulationLoading="isLiveSimulationLoading"
       :typeFilter="typeFilter"
       :filterWord="filterWord"
-      @transferChangeEmit="transferChangeEmit"
-      @simuStart="simuStart"
+      @simuStartEmit="startSimu"
     />
   </section>
 </template>
@@ -26,6 +24,7 @@
 import { mapGetters } from 'vuex'
 import TeamEdit from '~/components/teams/TeamEdit.vue'
 import SimuDataSettings from '~/components/settings/SimuDataSettings.vue'
+import cloneDeep from 'lodash/cloneDeep'
 
 export default {
   data() {
@@ -39,10 +38,12 @@ export default {
     }
   },
   computed: {
+    cloneSsrCardData() {
+      return cloneDeep(this.ssrCardData)
+    },
     ...mapGetters([
       'ssrCardData',
       'selectedSong',
-      'selectedCardList',
       'liveSimulationData',
       'syncTeamData',
       'isLiveSimulationLoading'
@@ -69,10 +70,7 @@ export default {
       })
   },
   methods: {
-    transferChangeEmit(val) {
-      this.$store.commit('setSelectedCardList', val)
-    },
-    async simuStart(requestParams, team) {
+    async startSimu(requestParams, team) {
       await this.$store
         .dispatch('fetchLiveSimulationData', requestParams)
         .then(() => {
@@ -93,16 +91,16 @@ export default {
           })
         })
     },
-    princessEmit(val) {
+    setPrincess(val) {
       this.typeFilter.isPrincess = val
     },
-    fairyEmit(val) {
+    setFairy(val) {
       this.typeFilter.isFairy = val
     },
-    angleEmit(val) {
+    setAngle(val) {
       this.typeFilter.isAngel = val
     },
-    filterWordEmit(val) {
+    setFilterWord(val) {
       this.filterWord = val
     }
   },
