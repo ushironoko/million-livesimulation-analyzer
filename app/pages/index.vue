@@ -2,8 +2,8 @@
   <section>
     <div>
       <song-selection-view />
-      <team-view />
-      <live-simulate-result />
+      <team-view @snapshotEmit="setSnapshot" />
+      <live-simulate-result-view :snapshot="snapshot" />
     </div>
   </section>
 </template>
@@ -11,14 +11,23 @@
 <script>
 import TeamView from '~/components/teams/TeamView.vue'
 import SongSelectionView from '~/components/songs/SongSelectionView.vue'
-import LiveSimulateResult from '~/components/livesimulates/LiveSimulateResult.vue'
-import { mapGetters } from 'vuex'
+import LiveSimulateResultView from '~/components/livesimulates/LiveSimulateResultView.vue'
 
 export default {
+  data() {
+    return {
+      snapshot: []
+    }
+  },
+  methods: {
+    setSnapshot(team) {
+      this.snapshot = team
+    }
+  },
   components: {
     TeamView,
     SongSelectionView,
-    LiveSimulateResult
+    LiveSimulateResultView
   }
 }
 </script>

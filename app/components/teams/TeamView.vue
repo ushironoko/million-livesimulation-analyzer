@@ -1,16 +1,52 @@
 <template>
   <section>
-    <simu-data-settings @princessEmit="princessEmit" @fairyEmit="fairyEmit" @angleEmit="angleEmit" @filterWordEmit="filterWordEmit"/>
-    <team-transfer :cardData="ssrCardData" :typeFilter="typeFilter" :filterWord="filterWord" @transferChangeEmit="transferChangeEmit" @simuStart="simuStart"/>
+    <simu-data-settings
+      @princessEmit="setPrincess"
+      @fairyEmit="setFairy"
+      @angleEmit="setAngle"
+      @filterWordEmit="setFilterWord"
+    />
+
+    <team-edit
+      :cardDataList="cloneSsrCardData"
+      :selectedSong="selectedSong"
+      :syncTeamData="syncTeamData"
+      :isLiveSimulationLoading="isLiveSimulationLoading"
+      :typeFilter="typeFilter"
+      :filterWord="filterWord"
+      @simuStartEmit="startSimu"
+    />
   </section>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import TeamTransfer from '~/components/teams/TeamTransfer.vue'
-import SimuDataSettings from '~/components/settings/SimuDataSettings.vue'
+import TeamEdit from '~/components/teams/TeamEdit.vue'
+import SimuDataSettings from '~/components/teams/settings/SimuDataSettings.vue'
+import cloneDeep from 'lodash/cloneDeep'
 
 export default {
+  data() {
+    return {
+      typeFilter: {
+        isPrincess: true,
+        isFairy: true,
+        isAngel: true
+      },
+      filterWord: ''
+    }
+  },
+  computed: {
+    cloneSsrCardData() {
+      return cloneDeep(this.ssrCardData)
+    },
+    ...mapGetters([
+      'ssrCardData',
+      'selectedSong',
+      'syncTeamData',
+      'isLiveSimulationLoading'
+    ])
+  },
   async created() {
     await this.$store
       .dispatch('fetchSsrCard')
@@ -31,21 +67,8 @@ export default {
         })
       })
   },
-  data() {
-    return {
-      typeFilter: {
-        isPrincess: true,
-        isFairy: true,
-        isAngel: true
-      },
-      filterWord: ''
-    }
-  },
   methods: {
-    transferChangeEmit(val) {
-      this.$store.commit('setSelectedCardList', val)
-    },
-    async simuResultData(requestParams) {
+    async startSimu(requestParams, team) {
       await this.$store
         .dispatch('fetchLiveSimulationData', requestParams)
         .then(() => {
@@ -55,6 +78,7 @@ export default {
             position: 'top-right',
             duration: '1000'
           })
+          this.$emit('snapshotEmit', team)
         })
         .catch(err => {
           this.$notify.error({
@@ -65,27 +89,21 @@ export default {
           })
         })
     },
-    princessEmit(val) {
+    setPrincess(val) {
       this.typeFilter.isPrincess = val
     },
-    fairyEmit(val) {
+    setFairy(val) {
       this.typeFilter.isFairy = val
     },
-    angleEmit(val) {
+    setAngle(val) {
       this.typeFilter.isAngel = val
     },
-    filterWordEmit(val) {
+    setFilterWord(val) {
       this.filterWord = val
-    },
-    simuStart(requestParams) {
-      this.simuResultData(requestParams)
     }
   },
-  computed: {
-    ...mapGetters(['ssrCardData'])
-  },
   components: {
-    TeamTransfer,
+    TeamEdit,
     SimuDataSettings
   }
 }

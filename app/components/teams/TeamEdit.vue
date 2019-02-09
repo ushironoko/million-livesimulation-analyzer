@@ -10,10 +10,9 @@
         key:'name',
         label:'カード名'
       }"
-      :titles="['カード一覧','編成']"
+      :titles="['SSR一覧','編成（先頭リーダー/ゲスト）']"
       :button-texts="['OUT', 'IN']"
       :data="transferDataFilter"
-      @change="transferChangeEmit"
       >
 
       <div slot="right-footer">
@@ -37,12 +36,12 @@
         <el-table-column label="編成名" prop="key">
         </el-table-column>
         <el-table-column label="カード">
-            <template slot-scope="scope">
-              <span v-for="(payload, i) in scope.row.team" :key="payload">
-                <img v-if="i === 0" :src="syncImgUrl(payload)" style="max-width: 40px; border:solid 2px #9eceff; border-radius: 0.5em;"/>
-                <img v-else :src="syncImgUrl(payload)" style="max-width: 40px;"/>
-              </span>
-            </template>
+          <template slot-scope="scope">
+            <span v-for="(payload, i) in scope.row.team" :key="payload">
+              <img v-if="i === 0" :src="mtldImgUrl(payload)" style="max-width: 40px; border:solid 2px #9eceff; border-radius: 0.5em;"/>
+              <img v-else :src="mtldImgUrl(payload)" style="max-width: 40px;"/>
+            </span>
+          </template>
         </el-table-column>
         <el-table-column label="総アピール" prop="appealValue">
         </el-table-column>
@@ -56,11 +55,27 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-const emitData = []
-
 export default {
-  props: ['cardData', 'typeFilter', 'filterWord'],
+  props: {
+    cardDataList: {
+      type: Array
+    },
+    selectedSong: {
+      type: Array
+    },
+    syncTeamData: {
+      type: Array
+    },
+    isLiveSimulationLoading: {
+      type: Boolean
+    },
+    typeFilter: {
+      type: Object
+    },
+    filterWord: {
+      type: String
+    }
+  },
   data() {
     return {
       selection: [],
@@ -71,26 +86,21 @@ export default {
     }
   },
   computed: {
+    /**
+     * 選択した編成のpayloadをストアデータから切り出して取得するメソッド
+     */
     filteredList() {
-      const filteredList = this.cardData.filter(data => {
-        return this.selection.includes(data.name)
-      })
-
-      return filteredList
+      return this.cardDataList.filter(data =>
+        this.selection.includes(data.name)
+      )
     },
-    isCalc() {
-      const isCalc =
-        this.selectedCardList.length === 5 &&
-        this.selectedSong.length != 0 &&
-        this.appealValue.length != 0
-          ? false
-          : true
 
-      return isCalc
-    },
+    /**
+     * 親から受け取ったワードと属性フラグで表示カードをフィルタするメソッド
+     */
     transferDataFilter() {
       const filterWord = this.filterWord
-      let data = this.cardData.filter(
+      let data = this.cardDataList.filter(
         x => x.name.toLowerCase().indexOf(filterWord.toLowerCase()) > -1
       )
 
@@ -105,26 +115,40 @@ export default {
         : data.filter(data => data.idolType != 3)
       return data
     },
-    ...mapGetters([
-      'selectedSong',
-      'selectedCardList',
-      'liveSimulationData',
-      'syncTeamData',
-      'isLiveSimulationLoading'
-    ])
+
+    /**
+     * シミュレーション可能状態かどうか判定するメソッド
+     */
+    isCalc() {
+      const isCalc =
+        this.filteredList.length === 5 &&
+        this.selectedSong.length != 0 &&
+        this.appealValue.length != 0
+          ? false
+          : true
+
+      return isCalc
+    }
   },
   methods: {
-    syncImgUrl(payload) {
-      const data = this.cardData.find(x => x.name === payload)
+    /**
+     * 保存中のチームアイコンを全て取り出すメソッド
+     */
+    mtldImgUrl(payload) {
+      const data = this.cardDataList.find(x => x.name === payload)
       return data.resourceId
     },
-    transferChangeEmit() {
-      this.emitData = this.filteredList
-      this.$emit('transferChangeEmit', this.emitData)
-    },
+
+    /**
+     * 選択中の保存チームを保持するクリックイベント
+     */
     handleCurrentChange(val) {
       this.currentRow = val
     },
+
+    /**
+     * 現在のチームと総アピール値をストアへ保存するためのメッセージプロンプト
+     */
     openSaveTeamModal() {
       this.$prompt(`編成名を決めてください`, '編成保存', {
         confirmButtonText: 'OK',
@@ -149,9 +173,17 @@ export default {
           })
         })
     },
+
+    /**
+     * 保存中チーム一覧のダイアログを開くメソッド
+     */
     openCallTeamModal() {
       this.callTeamDialog = true
     },
+
+    /**
+     *　openSaveTeamModalから呼び出されるチーム保存メソッド
+     */
     saveTeam(key) {
       const setValue = {
         key: key,
@@ -160,6 +192,10 @@ export default {
       }
       this.$store.commit('setSyncTeamData', setValue)
     },
+
+    /**
+     *  選択した保存中チームをセットするメソッド
+     */
     callTeam() {
       const calledTeam = this.currentRow
       try {
@@ -167,7 +203,6 @@ export default {
         const appealValue = calledTeam.appealValue
         this.appealValue = appealValue
 
-        this.transferChangeEmit()
         this.$notify.success({
           title: '成功',
           message: `チームをセットしました`,
@@ -184,6 +219,10 @@ export default {
       }
       this.callTeamDialog = false
     },
+
+    /**
+     * 選択した保存中チームを削除するメソッド
+     */
     deleteTeam() {
       this.$confirm('ほんとうに？', {
         confirmButtonText: '消す',
@@ -200,9 +239,13 @@ export default {
           })
         })
     },
+
+    /**
+     * シミュ用データを作って親へ渡すEmitter
+     */
     simuStartEmit() {
       const song = this.selectedSong
-      const team = this.selectedCardList
+      const team = this.filteredList
 
       const requestParams = {
         SongId: song[0].SongId,
@@ -213,7 +256,7 @@ export default {
         TryNumber: 10000,
         p: [0.1, 1, 50]
       }
-      this.$emit('simuStart', requestParams)
+      this.$emit('simuStartEmit', requestParams, team)
     }
   },
   mounted() {

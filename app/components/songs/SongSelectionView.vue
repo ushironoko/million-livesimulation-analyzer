@@ -1,6 +1,6 @@
 <template>
   <section>
-    <song-selection :songData="songData" @handleSelectEmit="handleSelectEmit"/>
+    <song-selection :songData="songData" @selectEmit="selectedSongCommitter"/>
   </section>
 </template>
 
@@ -62,7 +62,7 @@ export default {
     }
   },
   methods: {
-    handleSelectEmit(val) {
+    selectedSongCommitter(val) {
       this.$store.commit('setSelectedSong', val)
     }
   },
