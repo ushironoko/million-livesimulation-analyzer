@@ -24,9 +24,9 @@
 
 <script>
 export default {
-  props: ['snapshot','simuResult'],
+  props: ['snapshot', 'simuResult'],
   methods: {
-    mtldImgUrl:(id) => `https://mltd.matsurihi.me/cards/${id}`
+    mtldImgUrl: id => `https://mltd.matsurihi.me/cards/${id}`
   }
 }
 </script>

@@ -3,8 +3,8 @@ export const state = () => ({
   songData: [],
   selectedSong: [],
   selectedCardList: [],
-  liveSimulationData: [],
   syncTeamData: [],
+  liveSimulationData: [],
   isLiveSimulationLoading: false
 })
 
@@ -26,9 +26,9 @@ export const getters = {
 
   selectedCardList: state => state.selectedCardList,
 
-  liveSimulationData: state => state.liveSimulationData,
-
   syncTeamData: state => state.syncTeamData,
+
+  liveSimulationData: state => state.liveSimulationData,
 
   isLiveSimulationLoading: state => state.isLiveSimulationLoading
 }
@@ -65,10 +65,6 @@ export const mutations = {
     state.selectedCardList = data
   },
 
-  setLiveSimulationData(state, data) {
-    state.liveSimulationData = data
-  },
-
   setSyncTeamData(state, data) {
     state.syncTeamData.push(data)
   },
@@ -77,6 +73,10 @@ export const mutations = {
     if (!data) return
     const currentNum = state.syncTeamData.indexOf(x => x.key === data.key)
     state.syncTeamData.splice(currentNum, 1)
+  },
+
+  setLiveSimulationData(state, data) {
+    state.liveSimulationData = data
   },
 
   changeLiveSimulationLoading(state) {

@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
 
 export default {
@@ -66,10 +65,10 @@ export default {
     selectedSong: {
       type: Array
     },
-    liveSimulationData: {
+    syncTeamData: {
       type: Array
     },
-    syncTeamData: {
+    liveSimulationData: {
       type: Array
     },
     isLiveSimulationLoading: {
@@ -96,11 +95,9 @@ export default {
      * 選択した編成のpayloadをストアデータから切り出して取得するメソッド
      */
     filteredList() {
-      const filteredList = this.cardDataList.filter(data => {
-        return this.selection.includes(data.name)
-      })
-
-      return filteredList
+      return this.cardDataList.filter(data =>
+        this.selection.includes(data.name)
+      )
     },
 
     /**
@@ -136,7 +133,7 @@ export default {
           : true
 
       return isCalc
-    },
+    }
   },
   methods: {
     /**

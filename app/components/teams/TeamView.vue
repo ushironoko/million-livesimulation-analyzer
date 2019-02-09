@@ -10,8 +10,8 @@
     <team-edit
       :cardDataList="cloneSsrCardData"
       :selectedSong="selectedSong"
-      :liveSimulationData="liveSimulationData"
       :syncTeamData="syncTeamData"
+      :liveSimulationData="liveSimulationData"
       :isLiveSimulationLoading="isLiveSimulationLoading"
       :typeFilter="typeFilter"
       :filterWord="filterWord"
@@ -23,7 +23,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import TeamEdit from '~/components/teams/TeamEdit.vue'
-import SimuDataSettings from '~/components/settings/SimuDataSettings.vue'
+import SimuDataSettings from '~/components/teams/settings/SimuDataSettings.vue'
 import cloneDeep from 'lodash/cloneDeep'
 
 export default {
@@ -44,8 +44,8 @@ export default {
     ...mapGetters([
       'ssrCardData',
       'selectedSong',
-      'liveSimulationData',
       'syncTeamData',
+      'liveSimulationData',
       'isLiveSimulationLoading'
     ])
   },
