@@ -55,8 +55,6 @@
 </template>
 
 <script>
-import cloneDeep from 'lodash/cloneDeep'
-
 export default {
   props: {
     cardDataList: {
@@ -66,9 +64,6 @@ export default {
       type: Array
     },
     syncTeamData: {
-      type: Array
-    },
-    liveSimulationData: {
       type: Array
     },
     isLiveSimulationLoading: {
@@ -250,7 +245,7 @@ export default {
      */
     simuStartEmit() {
       const song = this.selectedSong
-      const team = cloneDeep(this.filteredList)
+      const team = this.filteredList
 
       const requestParams = {
         SongId: song[0].SongId,

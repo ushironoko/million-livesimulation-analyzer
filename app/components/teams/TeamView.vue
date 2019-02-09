@@ -11,7 +11,6 @@
       :cardDataList="cloneSsrCardData"
       :selectedSong="selectedSong"
       :syncTeamData="syncTeamData"
-      :liveSimulationData="liveSimulationData"
       :isLiveSimulationLoading="isLiveSimulationLoading"
       :typeFilter="typeFilter"
       :filterWord="filterWord"
@@ -45,7 +44,6 @@ export default {
       'ssrCardData',
       'selectedSong',
       'syncTeamData',
-      'liveSimulationData',
       'isLiveSimulationLoading'
     ])
   },
