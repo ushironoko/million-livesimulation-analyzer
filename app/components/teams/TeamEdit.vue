@@ -123,7 +123,8 @@ export default {
       const isCalc =
         this.filteredList.length === 5 &&
         this.selectedSong.length != 0 &&
-        this.appealValue.length != 0
+        this.appealValue.length != 0 &&
+        this.appealValue > 0
           ? false
           : true
 
