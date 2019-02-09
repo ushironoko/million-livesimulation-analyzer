@@ -58,19 +58,34 @@
 <script>
 import { mapGetters } from 'vuex'
 import cloneDeep from 'lodash/cloneDeep'
-const emitData = []
 
 export default {
-  props: [
-    'cardData',
-    'selectedSong',
-    'selectedCardList',
-    'liveSimulationData',
-    'syncTeamData',
-    'isLiveSimulationLoading',
-    'typeFilter',
-    'filterWord',
-  ],
+  props: {
+    cardData: {
+      type: Array
+    },
+    selectedSong: {
+      type: Array
+    },
+    selectedCardList: {
+      type: Array
+    },
+    liveSimulationData: {
+      type: Array
+    },
+    syncTeamData: {
+      type: Array
+    },
+    isLiveSimulationLoading: {
+      type: Boolean
+    },
+    typeFilter: {
+      type: Object
+    },
+    filterWord: {
+      type: String
+    }
+  },
   data() {
     return {
       selection: [],
@@ -140,8 +155,8 @@ export default {
      * 編成にカード情報を移した時に親へ編成情報を渡すEmitter
      */
     transferChangeEmit() {
-      this.emitData = this.filteredList
-      this.$emit('transferChangeEmit', this.emitData)
+      const payload = cloneDeep(this.filteredList)
+      this.$emit('transferChangeEmit', payload)
     },
 
     /**

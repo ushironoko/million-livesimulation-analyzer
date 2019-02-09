@@ -28,6 +28,16 @@ import TeamEdit from '~/components/teams/TeamEdit.vue'
 import SimuDataSettings from '~/components/settings/SimuDataSettings.vue'
 
 export default {
+  data() {
+    return {
+      typeFilter: {
+        isPrincess: true,
+        isFairy: true,
+        isAngel: true
+      },
+      filterWord: ''
+    }
+  },
   computed: {
     ...mapGetters([
       'ssrCardData',
@@ -57,16 +67,6 @@ export default {
           duration: '3000'
         })
       })
-  },
-  data() {
-    return {
-      typeFilter: {
-        isPrincess: true,
-        isFairy: true,
-        isAngel: true
-      },
-      filterWord: ''
-    }
   },
   methods: {
     transferChangeEmit(val) {
