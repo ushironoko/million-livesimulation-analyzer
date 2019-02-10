@@ -10,7 +10,9 @@
         </div>
 
         <div v-for="(data,i) in dataset" :key="i">
-          <live-simulate-result :snapshot="data.snapshot" :simuResult="data.simuData" />
+          <el-card style="width: 100%; max-width: 750px;">
+            <live-simulate-result :snapshot="data.snapshot" :simuResult="data.simuData" />
+          </el-card>
         </div>
 
       </el-tab-pane>
@@ -28,12 +30,15 @@ export default {
   },
   data() {
     return {
-      dataset:[]
+      dataset: []
     }
   },
   watch: {
     snapshot() {
-      this.dataset.unshift({snapshot:this.snapshot,simuData:this.liveSimulationData})
+      this.dataset.unshift({
+        snapshot: this.snapshot,
+        simuData: this.liveSimulationData
+      })
     }
   },
   computed: {

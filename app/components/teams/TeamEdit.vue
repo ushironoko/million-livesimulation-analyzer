@@ -90,9 +90,7 @@ export default {
      * 選択した編成のpayloadをストアデータから切り出して取得するメソッド
      */
     filteredList() {
-      return this.cardDataList.filter(data =>
-        this.selection.includes(data.name)
-      )
+      return this.selection.map(data => this.cardDataList.find(x => data === x.name))
     },
 
     /**
