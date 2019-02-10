@@ -90,7 +90,9 @@ export default {
      * 選択した編成のpayloadをストアデータから切り出して取得するメソッド
      */
     filteredList() {
-      return this.selection.map(data => this.cardDataList.find(x => data === x.name))
+      return this.selection.map(data =>
+        this.cardDataList.find(x => data === x.name)
+      )
     },
 
     /**
@@ -101,6 +103,9 @@ export default {
       let data = this.cardDataList.filter(
         x => x.name.toLowerCase().indexOf(filterWord.toLowerCase()) > -1
       )
+      data = this.typeFilter.isBNP
+        ? data
+        : data.filter(data => data.name.indexOf('BRAND') === -1)
 
       data = this.typeFilter.isPrincess
         ? data

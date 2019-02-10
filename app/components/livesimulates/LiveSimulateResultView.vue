@@ -26,7 +26,7 @@ import LiveSimulateResult from '~/components/livesimulates/LiveSimulateResult.vu
 
 export default {
   props: {
-    snapshot: Array
+    snapshot: {}
   },
   data() {
     return {
@@ -36,7 +36,7 @@ export default {
   watch: {
     snapshot() {
       this.dataset.unshift({
-        snapshot: this.snapshot,
+        snapshot: this.snapshot.payload,
         simuData: this.liveSimulationData
       })
     }
