@@ -1,5 +1,10 @@
 <template functional>
   <section>
+    <el-table :data="props.simuResult" max-height="960">
+      <el-table-column label="最大" prop="SongInfo.Name">
+      </el-table-column>
+    </el-table>
+
     <el-container>
       <span v-for="(payload, i) in props.snapshot" :key="i">
         <a :href="`https://mltd.matsurihi.me/cards/${payload.id}`" target="_blunk" rel="noopener">
