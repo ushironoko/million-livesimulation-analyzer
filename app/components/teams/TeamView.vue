@@ -108,9 +108,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.switch {
-  margin-top: 15px;
-}
-</style>

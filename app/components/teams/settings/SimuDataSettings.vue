@@ -4,8 +4,9 @@
       <el-checkbox v-model="isPrincess" @change="princessEmit">Pr</el-checkbox>
       <el-checkbox v-model="isFairy" @change="fairyEmit">Fa</el-checkbox>
       <el-checkbox v-model="isAngel" @change="angleEmit" style="padding-right: 10px;">An</el-checkbox>
-      <el-input style="max-width: 300px;" placeholder="カード名" v-model="filterWord" @input="filterWordEmit"></el-input>
+      <el-input style="max-width: 200px;" placeholder="カード名" v-model="filterWord" @input="filterWordEmit"></el-input>
     </el-card>
+
   </section>
 </template>
 
