@@ -9,7 +9,11 @@
           <span>ライブレポート</span>
         </div>
 
-        <live-simulate-result :snapshot="snapshot" :simuResult="liveSimulationData" />
+        <div v-for="(data,i) in dataset" :key="i">
+          <el-card style="width: 100%; max-width: 750px;">
+            <live-simulate-result :snapshot="data.snapshot" :simuResult="data.simuData" />
+          </el-card>
+        </div>
 
       </el-tab-pane>
     </el-tabs>
@@ -22,7 +26,20 @@ import LiveSimulateResult from '~/components/livesimulates/LiveSimulateResult.vu
 
 export default {
   props: {
-    snapshot: Array
+    snapshot: {}
+  },
+  data() {
+    return {
+      dataset: []
+    }
+  },
+  watch: {
+    snapshot() {
+      this.dataset.unshift({
+        snapshot: this.snapshot.payload,
+        simuData: this.liveSimulationData
+      })
+    }
   },
   computed: {
     ...mapGetters(['liveSimulationData', 'isLiveSimulationLoading'])

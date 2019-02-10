@@ -21,7 +21,7 @@
         <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
           <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
         </el-badge>
-        <el-input class="transfer-footer" size="mini" style="max-width: 80px; margin-left: 5px;" placeholder="総アピール" v-model="appealValue"></el-input>
+        <el-input class="transfer-footer" size="mini" style="max-width: 100px; margin-left: 5px;" placeholder="総アピール" v-model="appealValue"></el-input>
       </div>
     </el-transfer>
 
@@ -90,8 +90,8 @@ export default {
      * 選択した編成のpayloadをストアデータから切り出して取得するメソッド
      */
     filteredList() {
-      return this.cardDataList.filter(data =>
-        this.selection.includes(data.name)
+      return this.selection.map(data =>
+        this.cardDataList.find(x => data === x.name)
       )
     },
 
@@ -103,16 +103,19 @@ export default {
       let data = this.cardDataList.filter(
         x => x.name.toLowerCase().indexOf(filterWord.toLowerCase()) > -1
       )
+      data = this.typeFilter.isBNP
+        ? data
+        : data.filter(data => data.name.indexOf('BRAND') === -1)
 
       data = this.typeFilter.isPrincess
         ? data
-        : data.filter(data => data.idolType != 1)
+        : data.filter(data => data.idolType !== 1)
       data = this.typeFilter.isFairy
         ? data
-        : data.filter(data => data.idolType != 2)
+        : data.filter(data => data.idolType !== 2)
       data = this.typeFilter.isAngel
         ? data
-        : data.filter(data => data.idolType != 3)
+        : data.filter(data => data.idolType !== 3)
       return data
     },
 
@@ -122,8 +125,8 @@ export default {
     isCalc() {
       const isCalc =
         this.filteredList.length === 5 &&
-        this.selectedSong.length != 0 &&
-        this.appealValue.length != 0 &&
+        this.selectedSong.length !== 0 &&
+        this.appealValue.length !== 0 &&
         this.appealValue > 0
           ? false
           : true

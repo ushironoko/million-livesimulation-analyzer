@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     setSnapshot(team) {
-      this.snapshot = team
+      this.snapshot = { payload: team, timestamp: Date.now() }
     }
   },
   components: {

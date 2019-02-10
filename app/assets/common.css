@@ -39,8 +39,15 @@ html {
   margin: 10px auto;
 }
 
+@media screen and (max-width: 594px) {
+  .el-card {
+    max-width: 380px;
+    width: 100%;
+  }
+}
+
 .el-transfer-panel {
-  min-width: 375px;
+  min-width: 380px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 

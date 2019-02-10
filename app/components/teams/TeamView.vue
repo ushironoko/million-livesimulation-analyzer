@@ -4,6 +4,7 @@
       @princessEmit="setPrincess"
       @fairyEmit="setFairy"
       @angleEmit="setAngle"
+      @bnpEmit="setBNP"
       @filterWordEmit="setFilterWord"
     />
 
@@ -31,7 +32,8 @@ export default {
       typeFilter: {
         isPrincess: true,
         isFairy: true,
-        isAngel: true
+        isAngel: true,
+        isBNP: false
       },
       filterWord: ''
     }
@@ -98,6 +100,9 @@ export default {
     setAngle(val) {
       this.typeFilter.isAngel = val
     },
+    setBNP(val) {
+      this.typeFilter.isBNP = val
+    },
     setFilterWord(val) {
       this.filterWord = val
     }
@@ -108,9 +113,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.switch {
-  margin-top: 15px;
-}
-</style>
