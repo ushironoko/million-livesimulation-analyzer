@@ -11,7 +11,7 @@
 
         <div v-for="(data,i) in dataset" :key="i">
           <el-card style="width: 100%; max-width: 750px;">
-            <live-simulate-result :snapshot="data.snapshot" :simuResult="data.simuData" />
+            <live-simulate-result :snapshot="data.snapshot" :simuResult="data.simuData"/>
           </el-card>
         </div>
 

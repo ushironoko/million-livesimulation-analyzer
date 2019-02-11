@@ -41,7 +41,7 @@ html {
 
 @media screen and (max-width: 594px) {
   .el-card {
-    max-width: 380px;
+    max-width: 375px;
     width: 100%;
   }
 }
