@@ -1,7 +1,11 @@
 <template functional>
   <section>
     <el-table :data="props.simuResult" max-height="960">
-      <el-table-column label="最大" prop="SongInfo.Name">
+      <el-table-column label="楽曲" prop="SongInfo.Name">
+      </el-table-column>
+      <el-table-column label="難度" prop="SongInfo.Lv">
+      </el-table-column>
+      <el-table-column label="基本スコア" prop="SongInfo.parameter.base">
       </el-table-column>
     </el-table>
 
