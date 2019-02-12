@@ -36,9 +36,9 @@
           </el-table-column>
           <el-table-column label="スキル" prop="UnitInfo.Main1.SkillEffectDescription">
           </el-table-column>
-          <el-table-column label="最高回数" prop="UnitInfo.Main1.MaxActNum">
+          <el-table-column label="最大回数" prop="UnitInfo.Main1.MaxActNum">
           </el-table-column>
-          <el-table-column label="合計" prop="UnitInfo.Main1.TotalSimulatedActNum">
+          <el-table-column label="発動総数" prop="UnitInfo.Main1.TotalSimulatedActNum">
           </el-table-column>
         </el-table>
 
@@ -47,9 +47,9 @@
           </el-table-column>
           <el-table-column label="スキル" prop="UnitInfo.Main2.SkillEffectDescription">
           </el-table-column>
-          <el-table-column label="最高回数" prop="UnitInfo.Main2.MaxActNum">
+          <el-table-column label="最大回数" prop="UnitInfo.Main2.MaxActNum">
           </el-table-column>
-          <el-table-column label="合計" prop="UnitInfo.Main2.TotalSimulatedActNum">
+          <el-table-column label="発動総数" prop="UnitInfo.Main2.TotalSimulatedActNum">
           </el-table-column>
         </el-table>
 
@@ -58,9 +58,9 @@
           </el-table-column>
           <el-table-column label="スキル" prop="UnitInfo.Main3.SkillEffectDescription">
           </el-table-column>
-          <el-table-column label="最高回数" prop="UnitInfo.Main3.MaxActNum">
+          <el-table-column label="最大回数" prop="UnitInfo.Main3.MaxActNum">
           </el-table-column>
-          <el-table-column label="合計" prop="UnitInfo.Main3.TotalSimulatedActNum">
+          <el-table-column label="発動総数" prop="UnitInfo.Main3.TotalSimulatedActNum">
           </el-table-column>
         </el-table>
 
@@ -69,9 +69,9 @@
           </el-table-column>
           <el-table-column label="スキル" prop="UnitInfo.Main4.SkillEffectDescription">
           </el-table-column>
-          <el-table-column label="最高回数" prop="UnitInfo.Main4.MaxActNum">
+          <el-table-column label="最大回数" prop="UnitInfo.Main4.MaxActNum">
           </el-table-column>
-          <el-table-column label="合計" prop="UnitInfo.Main4.TotalSimulatedActNum">
+          <el-table-column label="発動総数" prop="UnitInfo.Main4.TotalSimulatedActNum">
           </el-table-column>
         </el-table>
 
@@ -82,7 +82,7 @@
           </el-table-column>
           <el-table-column label="最大回数" prop="UnitInfo.Main5.MaxActNum">
           </el-table-column>
-          <el-table-column label="合計" prop="UnitInfo.Main5.TotalSimulatedActNum">
+          <el-table-column label="発動総数" prop="UnitInfo.Main5.TotalSimulatedActNum">
           </el-table-column>
         </el-table>
       </el-collapse-item>

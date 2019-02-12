@@ -21,7 +21,7 @@
         <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
           <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
         </el-badge>
-        <el-input class="transfer-footer" size="mini" style="max-width: 100px; margin-left: 5px;" placeholder="総アピール" v-model="appealValue"></el-input>
+        <el-input class="transfer-footer" size="mini" style="max-width: 100px; margin-left: 5px;" placeholder="総アピ値" v-model="appealValue"></el-input>
       </div>
     </el-transfer>
 
