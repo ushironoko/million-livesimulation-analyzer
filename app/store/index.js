@@ -87,7 +87,7 @@ export const mutations = {
 export const actions = {
   async fetchSsrCard({ commit }) {
     const data = await this.$axios.$get(
-      `https://api.matsurihi.me/mltd/v1/cards?rarity=4`
+      `${process.env.FIREBASE_V1_CARDS_SSR_ENDPOINT}`
     )
     if (data.length === 0) throw new Error('Invalid SSR card data')
     commit('setSsrCardData', { data })
@@ -95,7 +95,7 @@ export const actions = {
 
   async fetchSongData({ commit }) {
     const data = await this.$axios.$get(
-      `https://api.megmeg.work/mltd/v1/song/ `
+      `${process.env.MEGMEGWORK_API_ENDPOINT}/song/ `
     )
     if (data.length === 0) throw new Error('Invalid Song data')
     commit('setSongData', { data })
@@ -103,7 +103,7 @@ export const actions = {
 
   async fetchSongDataIncrementalUpdate({ commit }, songId) {
     const data = await this.$axios.$get(
-      `https://api.megmeg.work/mltd/v1/song/?SongId=${songId}&IncrementalUpdate=true `
+      `${process.env.MEGMEGWORK_API_ENDPOINT}/song/?SongId=${songId}&IncrementalUpdate=true `
     )
 
     if (!data) return new Promise(resolve => resolve(data))
@@ -114,7 +114,7 @@ export const actions = {
     commit('changeLiveSimulationLoading')
 
     const resultData = await this.$axios.$get(
-      `https://api.megmeg.work/mltd/v1/score/singleunit/`,
+      `${process.env.MEGMEGWORK_API_ENDPOINT}/score/singleunit/`,
       {
         params: payload
       }
