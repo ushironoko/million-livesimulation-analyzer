@@ -83,3 +83,7 @@ html {
 .el-dialog__footer {
   min-width: 250px;
 }
+
+.el-input__inner {
+  font-size: 18px;
+}
