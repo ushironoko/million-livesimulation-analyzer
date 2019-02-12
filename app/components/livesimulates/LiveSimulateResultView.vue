@@ -2,21 +2,16 @@
   <el-card
     v-loading="isLiveSimulationLoading"
   >
-    <el-tabs tab-position="left">
-      <el-tab-pane>
-        <span slot="label"><i class="el-icon-document"></i></span>
-        <div>
-          <span>ライブレポート</span>
-        </div>
+    <div>
+      <span slot="label"><i class="el-icon-document"></i></span>
+      <span>ライブレポート</span>
+    </div>
 
-        <div v-for="(data,i) in dataset" :key="i">
-          <el-card style="width: 100%; max-width: 750px;">
-            <live-simulate-result :snapshot="data.snapshot" :simuResult="data.simuData"/>
-          </el-card>
-        </div>
-
-      </el-tab-pane>
-    </el-tabs>
+    <div v-for="(data,i) in dataset" :key="i">
+      <el-card style="width: 100%; max-width: 850px;">
+        <live-simulate-result :snapshot="data.snapshot" :simuResult="data.simuData"/>
+      </el-card>
+    </div>
   </el-card>
 </template>
 
