@@ -1,6 +1,22 @@
 <template>
   <section>
-    <el-transfer
+    <el-card style="height: 500px; overflow: auto;">
+      <el-row >
+        <el-col style="width: 20%; min-width: 50px;"
+         :span="2" v-for="(data, i) in transferDataFilter" :key="i">
+          <img :src="data.resourceId" style="width: 100%;" alt="data.name">
+        </el-col>
+      </el-row>
+    </el-card>
+    <el-card>
+      <el-button :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuStartEmit">計算</el-button>
+      <el-button size="mini" @click="openSaveTeamModal" style="margin: 0 0 0 6px;">保存</el-button>
+      <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
+        <el-button size="mini" @click="openCallTeamModal">呼出</el-button>
+      </el-badge>
+      <el-input size="mini" style="max-width: 100px; margin-left: 5px;" placeholder="総アピ値" v-model="appealValue"></el-input>
+    </el-card>
+    <!-- <el-transfer
       style="text-align: left; display: inline-block"
       v-loading="loading"
       target-order="push"
@@ -23,7 +39,7 @@
         </el-badge>
         <el-input class="transfer-footer" size="mini" style="max-width: 100px; margin-left: 5px;" placeholder="総アピ値" v-model="appealValue"></el-input>
       </div>
-    </el-transfer>
+    </el-transfer> -->
 
     <el-dialog title="チームを選んで下さい" :visible.sync="callTeamDialog">
       <el-table

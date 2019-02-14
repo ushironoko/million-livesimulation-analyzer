@@ -36,13 +36,17 @@ html {
 
 .el-card {
   flex: 1;
+  max-width: 750px;
+  min-width: 750px;
   margin: 10px auto;
 }
 
-@media screen and (max-width: 594px) {
+@media screen and (max-width: 780px) {
   .el-card {
-    max-width: 375px;
-    width: 100%;
+    flex: 1;
+    max-width: 750px;
+    min-width: 380px;
+    margin: 10px auto;
   }
 }
 
