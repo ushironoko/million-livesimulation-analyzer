@@ -6,16 +6,13 @@
     <el-menu-item index="4">
       <a href="https://api.megmeg.work/doc/" target="_blank" rel="noopener">music & live score calc API is from megmeg.work .</a>
     </el-menu-item>
-    <el-menu-item index="5">
+    <el-menu-item index="4">
       <a href="https://twitter.com/sirootosan" target="_blank" rel="noopener">twitter</a>
     </el-menu-item>
   </el-menu>
 </template>
 
 <style scoped>
-.footer > .el-menu-item {
-  display: flex;
-}
 .el-menu-item > a {
   color: #fff;
 }
