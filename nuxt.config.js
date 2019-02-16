@@ -2,7 +2,7 @@ const pkg = require('./package')
 require('dotenv').config()
 
 module.exports = {
-  mode:'ssr',
+  mode:'spa',
   srcDir: 'app',
 
   /**
@@ -33,7 +33,7 @@ module.exports = {
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://million-livesimulation-analyzer.netlify.com/' },
       { hid: 'og:title', property: 'og:title', content: 'ミリシタチームアナライザー' },
-      { hid: 'og:description', property: 'og:description', content: 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。'},
+      { hid: 'og:description', property: 'og:description', content: 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
