@@ -3,7 +3,7 @@
     <el-card style="height: 500px; overflow: auto;">
       <el-row>
         <el-col style="width: 20%;" :span="2" v-for="(data, i) in transferDataFilter" :key="i">
-          <img :src="data.resourceId" style="width: 100%;" @click="removeOrAddSelectionItem(data.name)">
+          <img :src="data.resourceId" style="width: 100%;" @click.prevent="removeOrAddSelectionItem(data.name)">
         </el-col>
       </el-row>
     </el-card>
