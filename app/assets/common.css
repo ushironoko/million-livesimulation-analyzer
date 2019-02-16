@@ -44,6 +44,15 @@ html {
   }
 }
 
+@media screen and (max-width: 360px) {
+  .el-card {
+    flex: 1;
+    max-width: 360px;
+    min-width: 360px;
+    margin: 5px auto;
+  }
+}
+
 .el-message-box {
   width: 200px;
 }
