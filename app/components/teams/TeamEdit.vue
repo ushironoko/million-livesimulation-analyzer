@@ -11,30 +11,35 @@
     <el-card id="select-team">
       <div slot="header">選択チーム</div>
       <el-container style="display: flex; justify-content: center; align-items: flex-start;">
-        <span>
-          <el-badge value="4" class="item" type="primary" style="margin: 0 0 0 5px;">
+        <span class="selected-icon">
+          <el-badge value="4" type="primary">
             <img v-if="filteredList[3]" :src="filteredList[3].resourceId" @click="removeOrAddSelectionItem(filteredList[3].name)">
+            <img v-else src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
-        <span>
-          <el-badge value="2" class="item" type="primary" style="margin: 0 0 0 5px;">
+        <span class="selected-icon">
+          <el-badge value="2" type="primary">
             <img v-if="filteredList[1]" :src="filteredList[1].resourceId" @click="removeOrAddSelectionItem(filteredList[1].name)">
+            <img v-else src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
-        <span>
-          <el-badge value="C/F" class="item" type="primary" style="margin: 0 0 0 5px; z-index:1;">
+        <span class="selected-icon">
+          <el-badge value="C/F" type="primary" style="z-index: 1;">
             <img v-if="filteredList[0]" :src="filteredList[0].resourceId" style="border:solid 2px #9eceff; border-radius: 0.5em;"
             @click="removeOrAddSelectionItem(filteredList[0].name)">
+            <img v-else src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
-        <span>
-          <el-badge value="3" class="item" type="primary" style="margin: 0 0 0 5px;">
+        <span class="selected-icon">
+          <el-badge value="3" type="primary">
             <img v-if="filteredList[2]" :src="filteredList[2].resourceId" @click="removeOrAddSelectionItem(filteredList[2].name)">
+            <img v-else src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
-        <span>
-          <el-badge value="5" class="item" type="primary" style="margin: 0 0 0 5px;">
+        <span class="selected-icon">
+          <el-badge value="5" type="primary">
             <img v-if="filteredList[4]" :src="filteredList[4].resourceId" @click="removeOrAddSelectionItem(filteredList[4].name)">
+            <img v-else src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
       </el-container>
@@ -121,7 +126,9 @@ export default {
       loading: true,
       appealValue: 0,
       callTeamDialog: false,
-      currentRow: null
+      currentRow: null,
+      isSelected: false,
+      selectedIconShadow: 'selected-icon-shadow'
     }
   },
   computed: {
@@ -177,16 +184,18 @@ export default {
     /**
      * 選択したカードアイコンをselectionに入れるメソッド
      */
-    removeOrAddSelectionItem(name) {
+    async removeOrAddSelectionItem(name) {
       if (this.selection.includes(name)) {
-        this.selection.splice(this.selection.findIndex(x => x === name), 1)
+        await this.selection.splice(this.selection.findIndex(x => x === name), 1)
+        this.isSelected = !this.isSelected
       } else {
         this.selection.length === 5
           ? this.$message({
               type: 'warning',
               message: '5枚以上選べません'
             })
-          : this.selection.push(name)
+          : await this.selection.push(name)
+            this.isSelected = !this.isSelected
       }
     },
     /**
@@ -333,5 +342,14 @@ export default {
 #select-team .el-badge > img {
   max-width: 100px;
   width: 100%;
+}
+
+.selected-icon {
+  margin: 5px;
+}
+
+.no-selected-icon {
+  border-radius: 0.5em;
+  opacity: 0.5;
 }
 </style>
