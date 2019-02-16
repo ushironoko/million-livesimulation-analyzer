@@ -252,9 +252,10 @@ export default {
      *　openSaveTeamModalから呼び出されるチーム保存メソッド
      */
     saveTeam(key) {
+      const team = cloneDeep(this.selection)
       const setValue = {
         key: key,
-        team: this.selection,
+        team: team,
         appealValue: this.appealValue
       }
       this.$store.commit('setSyncTeamData', setValue)
@@ -264,9 +265,9 @@ export default {
      *  選択した保存中チームをセットするメソッド
      */
     callTeam() {
-      const calledTeam = cloneDeep(this.currentRow)
+      const calledTeam = this.currentRow
       try {
-        this.selection = calledTeam.team
+        this.selection = cloneDeep(calledTeam.team)
         const appealValue = calledTeam.appealValue
         this.appealValue = appealValue
 
