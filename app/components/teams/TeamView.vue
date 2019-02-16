@@ -57,7 +57,7 @@ export default {
           title: '成功',
           message: 'SSRカード情報を更新しました',
           position: 'top-right',
-          duration: '3000'
+          duration: '1500'
         })
       })
       .catch(err => {
@@ -65,7 +65,7 @@ export default {
           title: '失敗',
           message: `${err}`,
           position: 'top-right',
-          duration: '3000'
+          duration: '1500'
         })
       })
   },
@@ -78,7 +78,7 @@ export default {
             title: '成功',
             message: 'ライブシミュレートを更新しました',
             position: 'top-right',
-            duration: '1000'
+            duration: '1500'
           })
           this.$emit('snapshotEmit', team)
         })
@@ -87,7 +87,7 @@ export default {
             title: '失敗',
             message: `${err}`,
             position: 'top-right',
-            duration: '1000'
+            duration: '1500'
           })
         })
     },

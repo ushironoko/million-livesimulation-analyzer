@@ -27,7 +27,7 @@ export default {
             title: '成功',
             message: '楽曲情報を初期化しました',
             position: 'top-right',
-            duration: '3000'
+            duration: '1500'
           })
         })
         .catch(err => {
@@ -35,7 +35,7 @@ export default {
             title: '失敗',
             message: `${err}`,
             position: 'top-right',
-            duration: '3000'
+            duration: '1500'
           })
         })
     } else {
@@ -48,7 +48,7 @@ export default {
             title: '成功',
             message: '楽曲情報が最新になりました',
             position: 'top-right',
-            duration: '3000'
+            duration: '1500'
           })
         })
         .catch(err => {
@@ -56,7 +56,7 @@ export default {
             title: '失敗',
             message: `${err}`,
             position: 'top-right',
-            duration: '3000'
+            duration: '1500'
           })
         })
     }
