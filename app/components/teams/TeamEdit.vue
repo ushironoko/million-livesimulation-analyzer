@@ -13,32 +13,32 @@
       <el-container style="display: flex; justify-content: center; align-items: flex-start;">
         <span class="selected-icon">
           <el-badge value="4" type="primary">
-            <img v-if="filteredList[3]" :src="filteredList[3].resourceId" @click="removeOrAddSelectionItem(filteredList[3].name)">
+            <img v-if="filteredList[3]" :src="filteredList[3].resourceId" @click.prevent="removeOrAddSelectionItem(filteredList[3].name)">
             <img v-show="!filteredList[3]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
         <span class="selected-icon">
           <el-badge value="2" type="primary">
-            <img v-if="filteredList[1]" :src="filteredList[1].resourceId" @click="removeOrAddSelectionItem(filteredList[1].name)">
+            <img v-if="filteredList[1]" :src="filteredList[1].resourceId" @click.prevent="removeOrAddSelectionItem(filteredList[1].name)">
             <img v-show="!filteredList[1]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
         <span class="selected-icon">
           <el-badge value="C/F" type="primary" style="z-index: 1;">
             <img v-if="filteredList[0]" :src="filteredList[0].resourceId" style="border:solid 2px #9eceff; border-radius: 0.5em;"
-            @click="removeOrAddSelectionItem(filteredList[0].name)">
+            @click.prevent="removeOrAddSelectionItem(filteredList[0].name)">
             <img v-show="!filteredList[0]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
         <span class="selected-icon">
           <el-badge value="3" type="primary">
-            <img v-if="filteredList[2]" :src="filteredList[2].resourceId" @click="removeOrAddSelectionItem(filteredList[2].name)">
+            <img v-if="filteredList[2]" :src="filteredList[2].resourceId" @click.prevent="removeOrAddSelectionItem(filteredList[2].name)">
             <img v-show="!filteredList[2]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
         <span class="selected-icon">
           <el-badge value="5" type="primary">
-            <img v-if="filteredList[4]" :src="filteredList[4].resourceId" @click="removeOrAddSelectionItem(filteredList[4].name)">
+            <img v-if="filteredList[4]" :src="filteredList[4].resourceId" @click.prevent="removeOrAddSelectionItem(filteredList[4].name)">
             <img v-show="!filteredList[4]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
           </el-badge>
         </span>
