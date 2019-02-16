@@ -36,32 +36,18 @@ html {
 
 .el-card {
   flex: 1;
-  margin: 10px auto;
+  max-width: 750px;
+  min-width: 750px;
+  margin: 5px auto;
 }
 
-@media screen and (max-width: 594px) {
+@media screen and (max-width: 780px) {
   .el-card {
-    max-width: 375px;
-    width: 100%;
+    flex: 1;
+    max-width: 380px;
+    min-width: 380px;
+    margin: 5px auto;
   }
-}
-
-.el-transfer-panel {
-  min-width: 380px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
-
-.el-transfer-panel__body {
-  height: 250px;
-}
-
-.el-transfer__buttons {
-  padding-top: 12px;
-  padding-bottom: 12px;
-}
-
-.el-transfer-panel__list.is-filterable {
-  height: 200px;
 }
 
 .el-message-box {

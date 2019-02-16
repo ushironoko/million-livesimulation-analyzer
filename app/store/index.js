@@ -103,7 +103,9 @@ export const actions = {
 
   async fetchSongDataIncrementalUpdate({ commit }, songId) {
     const data = await this.$axios.$get(
-      `${process.env.MEGMEGWORK_API_ENDPOINT}/song/?SongId=${songId}&IncrementalUpdate=true `
+      `${
+        process.env.MEGMEGWORK_API_ENDPOINT
+      }/song/?SongId=${songId}&IncrementalUpdate=true `
     )
 
     if (!data) return new Promise(resolve => resolve(data))

@@ -9,11 +9,30 @@
       </el-table-column>
     </el-table>
 
-    <el-container>
-      <span v-for="(payload, i) in props.snapshot" :key="i">
-        <a :href="`https://mltd.matsurihi.me/cards/${payload.id}`" target="_blunk" rel="noopener">
-          <img v-if="i === 0" :src="payload.resourceId" style="max-width: 100px; width: 100%; border:solid 2px #9eceff; border-radius: 0.5em;"/>
-          <img v-else :src="payload.resourceId" style="max-width: 100px; width: 100%;"/>
+    <el-container style="display: flex; justify-content: center; align-items: flex-start;">
+      <span>
+        <a :href="`https://mltd.matsurihi.me/cards/${props.snapshot[3].id}`" target="_blunk" rel="noopener">
+          <img :src="props.snapshot[3].resourceId" style="max-width: 100px; width: 100%;"/>
+        </a>
+      </span>
+      <span>
+        <a :href="`https://mltd.matsurihi.me/cards/${props.snapshot[1].id}`" target="_blunk" rel="noopener">
+          <img :src="props.snapshot[1].resourceId" style="max-width: 100px; width: 100%;"/>
+        </a>
+      </span>
+      <span>
+        <a :href="`https://mltd.matsurihi.me/cards/${props.snapshot[0].id}`" target="_blunk" rel="noopener">
+          <img :src="props.snapshot[0].resourceId" style="max-width: 100px; width: 100%; border:solid 2px #9eceff; border-radius: 0.5em;"/>
+        </a>
+      </span>
+      <span>
+        <a :href="`https://mltd.matsurihi.me/cards/${props.snapshot[2].id}`" target="_blunk" rel="noopener">
+          <img :src="props.snapshot[2].resourceId" style="max-width: 100px; width: 100%;"/>
+        </a>
+      </span>
+      <span>
+        <a :href="`https://mltd.matsurihi.me/cards/${props.snapshot[4].id}`" target="_blunk" rel="noopener">
+          <img :src="props.snapshot[4].resourceId" style="max-width: 100px; width: 100%;"/>
         </a>
       </span>
     </el-container>
@@ -89,14 +108,3 @@
     </el-collapse>
   </section>
 </template>
-
-<style scoped>
-.el-table {
-  max-width: 800px;
-  width: 100%;
-}
-.el-collapse {
-  max-width: 800px;
-  width: 100%;
-}
-</style>

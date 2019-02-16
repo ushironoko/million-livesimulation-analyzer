@@ -1,46 +1,83 @@
 <template>
   <section>
-    <el-transfer
-      style="text-align: left; display: inline-block"
-      v-loading="loading"
-      target-order="push"
-      class="transfer"
-      v-model="selection"
-      :props="{
-        key:'name',
-        label:'カード名'
-      }"
-      :titles="['SSR一覧','編成（先頭リーダー/ゲスト）']"
-      :button-texts="['OUT', 'IN']"
-      :data="transferDataFilter"
-      >
+    <el-card style="height: 500px; overflow: auto;">
+      <el-row>
+        <el-col style="width: 20%;" :span="2" v-for="(data, i) in transferDataFilter" :key="i">
+          <img :src="data.resourceId" style="width: 100%;" @click="removeOrAddSelectionItem(data.name)">
+        </el-col>
+      </el-row>
+    </el-card>
 
-      <div slot="right-footer">
-        <el-button class="transfer-footer" :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuStartEmit">計算</el-button>
-        <el-button class="transfer-footer" size="mini" @click="openSaveTeamModal" style="margin: 0 0 0 6px;">保存</el-button>
-        <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
-          <el-button class="transfer-footer" size="mini" @click="openCallTeamModal">呼出</el-button>
-        </el-badge>
-        <el-input class="transfer-footer" size="mini" style="max-width: 100px; margin-left: 5px;" placeholder="総アピ値" v-model="appealValue"></el-input>
-      </div>
-    </el-transfer>
+    <el-card id="select-team">
+      <div slot="header">選択チーム</div>
+      <el-container style="display: flex; justify-content: center; align-items: flex-start;">
+        <span>
+          <el-badge value="4" class="item" type="primary" style="margin: 0 0 0 5px;">
+            <img v-if="filteredList[3]" :src="filteredList[3].resourceId" @click="removeOrAddSelectionItem(filteredList[3].name)">
+          </el-badge>
+        </span>
+        <span>
+          <el-badge value="2" class="item" type="primary" style="margin: 0 0 0 5px;">
+            <img v-if="filteredList[1]" :src="filteredList[1].resourceId" @click="removeOrAddSelectionItem(filteredList[1].name)">
+          </el-badge>
+        </span>
+        <span>
+          <el-badge value="C/F" class="item" type="primary" style="margin: 0 0 0 5px; z-index:1;">
+            <img v-if="filteredList[0]" :src="filteredList[0].resourceId" style="border:solid 2px #9eceff; border-radius: 0.5em;"
+            @click="removeOrAddSelectionItem(filteredList[0].name)">
+          </el-badge>
+        </span>
+        <span>
+          <el-badge value="3" class="item" type="primary" style="margin: 0 0 0 5px;">
+            <img v-if="filteredList[2]" :src="filteredList[2].resourceId" @click="removeOrAddSelectionItem(filteredList[2].name)">
+          </el-badge>
+        </span>
+        <span>
+          <el-badge value="5" class="item" type="primary" style="margin: 0 0 0 5px;">
+            <img v-if="filteredList[4]" :src="filteredList[4].resourceId" @click="removeOrAddSelectionItem(filteredList[4].name)">
+          </el-badge>
+        </span>
+      </el-container>
+    </el-card>
+
+    <el-card>
+      <el-button :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuStartEmit">計算</el-button>
+      <el-button size="mini" @click="openSaveTeamModal" style="margin: 0 0 0 6px;">保存</el-button>
+      <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
+        <el-button size="mini" @click="openCallTeamModal">呼出</el-button>
+      </el-badge>
+      <el-input size="mini" style="max-width: 100px; margin-left: 5px;" placeholder="総アピ値" v-model="appealValue"></el-input>
+    </el-card>
 
     <el-dialog title="チームを選んで下さい" :visible.sync="callTeamDialog">
       <el-table
         :data="syncTeamData"
         max-height="560"
-        style="max-width: 800px;"
+        style="max-width: 800px; width: 100%;"
         highlight-current-row
         @current-change="handleCurrentChange"
       >
-        <el-table-column label="編成名" prop="key">
+        <el-table-column label="編成名" prop="key" width="100">
         </el-table-column>
-        <el-table-column label="カード">
+        <el-table-column label="カード" width="250">
           <template slot-scope="scope">
-            <span v-for="(payload, i) in scope.row.team" :key="payload">
-              <img v-if="i === 0" :src="mtldImgUrl(payload)" style="max-width: 40px; border:solid 2px #9eceff; border-radius: 0.5em;"/>
-              <img v-else :src="mtldImgUrl(payload)" style="max-width: 40px;"/>
-            </span>
+            <el-container>
+              <span>
+                <img v-if="scope.row.team[3]" :src="mtldImgUrl(scope.row.team[3])" style="max-width: 40px;"/>
+              </span>
+              <span>
+                <img v-if="scope.row.team[1]" :src="mtldImgUrl(scope.row.team[1])" style="max-width: 40px;"/>
+              </span>
+              <span>
+                <img v-if="scope.row.team[0]" :src="mtldImgUrl(scope.row.team[0])" style="max-width: 40px;"/>
+              </span>
+              <span>
+                <img v-if="scope.row.team[2]" :src="mtldImgUrl(scope.row.team[2])" style="max-width: 40px;"/>
+              </span>
+              <span>
+                <img v-if="scope.row.team[4]" :src="mtldImgUrl(scope.row.team[4])" style="max-width: 40px;"/>
+              </span>
+            </el-container>
           </template>
         </el-table-column>
         <el-table-column label="総アピール" prop="appealValue">
@@ -55,6 +92,8 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep'
+
 export default {
   props: {
     cardDataList: {
@@ -136,6 +175,21 @@ export default {
   },
   methods: {
     /**
+     * 選択したカードアイコンをselectionに入れるメソッド
+     */
+    removeOrAddSelectionItem(name) {
+      if (this.selection.includes(name)) {
+        this.selection.splice(this.selection.findIndex(x => x === name), 1)
+      } else {
+        this.selection.length === 5
+          ? this.$message({
+              type: 'warning',
+              message: '5枚以上選べません'
+            })
+          : this.selection.push(name)
+      }
+    },
+    /**
      * 保存中のチームアイコンを全て取り出すメソッド
      */
     mtldImgUrl(payload) {
@@ -201,7 +255,7 @@ export default {
      *  選択した保存中チームをセットするメソッド
      */
     callTeam() {
-      const calledTeam = this.currentRow
+      const calledTeam = cloneDeep(this.currentRow)
       try {
         this.selection = calledTeam.team
         const appealValue = calledTeam.appealValue
@@ -274,5 +328,10 @@ export default {
 <style scoped>
 .transfer {
   margin-top: 10px;
+}
+
+#select-team .el-badge > img {
+  max-width: 100px;
+  width: 100%;
 }
 </style>
