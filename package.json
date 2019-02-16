@@ -21,7 +21,6 @@
     "element-ui": "^2.4.6",
     "lodash": "^4.17.11",
     "nuxt": "^2.3.4",
-    "vue-lazyload": "^1.2.6",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {

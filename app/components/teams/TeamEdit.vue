@@ -1,10 +1,9 @@
 <template>
   <section>
     <el-card style="height: 500px; overflow: auto;">
-      <el-row >
-        <el-col style="width: 20%;"
-         :span="2" v-for="(data, i) in transferDataFilter" :key="i">
-          <img :src="data.resourceId" style="width: 100%;" alt="data.name">
+      <el-row>
+        <el-col style="width: 20%;" :span="2" v-for="(data, i) in transferDataFilter" :key="i">
+          <img :src="data.resourceId" style="width: 100%;" @click="removeOrAddSelectionItem(data.name)">
         </el-col>
       </el-row>
     </el-card>
@@ -14,27 +13,28 @@
       <el-container style="display: flex; justify-content: center; align-items: flex-start;">
         <span>
           <el-badge value="4" class="item" type="primary" style="margin: 0 0 0 5px;">
-            <img v-if="filteredList[3]" :src="filteredList[3].resourceId" alt="data.name">
+            <img v-if="filteredList[3]" :src="filteredList[3].resourceId" @click="removeOrAddSelectionItem(filteredList[3].name)">
           </el-badge>
         </span>
         <span>
           <el-badge value="2" class="item" type="primary" style="margin: 0 0 0 5px;">
-            <img v-if="filteredList[1]" :src="filteredList[1].resourceId" alt="data.name">
+            <img v-if="filteredList[1]" :src="filteredList[1].resourceId" @click="removeOrAddSelectionItem(filteredList[1].name)">
           </el-badge>
         </span>
         <span>
           <el-badge value="C/F" class="item" type="primary" style="margin: 0 0 0 5px; z-index:1;">
-            <img v-if="filteredList[0]" :src="filteredList[0].resourceId" style="border:solid 2px #9eceff; border-radius: 0.5em;" alt="data.name">
+            <img v-if="filteredList[0]" :src="filteredList[0].resourceId" style="border:solid 2px #9eceff; border-radius: 0.5em;"
+            @click="removeOrAddSelectionItem(filteredList[0].name)">
           </el-badge>
         </span>
         <span>
           <el-badge value="3" class="item" type="primary" style="margin: 0 0 0 5px;">
-            <img v-if="filteredList[2]" :src="filteredList[2].resourceId" alt="data.name">
+            <img v-if="filteredList[2]" :src="filteredList[2].resourceId" @click="removeOrAddSelectionItem(filteredList[2].name)">
           </el-badge>
         </span>
         <span>
           <el-badge value="5" class="item" type="primary" style="margin: 0 0 0 5px;">
-            <img v-if="filteredList[4]" :src="filteredList[4].resourceId" alt="data.name">
+            <img v-if="filteredList[4]" :src="filteredList[4].resourceId" @click="removeOrAddSelectionItem(filteredList[4].name)">
           </el-badge>
         </span>
       </el-container>
@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep'
+
 export default {
   props: {
     cardDataList: {
@@ -173,6 +175,21 @@ export default {
   },
   methods: {
     /**
+     * 選択したカードアイコンをselectionに入れるメソッド
+     */
+    removeOrAddSelectionItem(name) {
+      if (this.selection.includes(name)) {
+        this.selection.splice(this.selection.findIndex(x => x === name), 1)
+      } else {
+        this.selection.length === 5
+          ? this.$message({
+              type: 'warning',
+              message: '5枚以上選べません'
+            })
+          : this.selection.push(name)
+      }
+    },
+    /**
      * 保存中のチームアイコンを全て取り出すメソッド
      */
     mtldImgUrl(payload) {
@@ -238,7 +255,7 @@ export default {
      *  選択した保存中チームをセットするメソッド
      */
     callTeam() {
-      const calledTeam = this.currentRow
+      const calledTeam = cloneDeep(this.currentRow)
       try {
         this.selection = calledTeam.team
         const appealValue = calledTeam.appealValue

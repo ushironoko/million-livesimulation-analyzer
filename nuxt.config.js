@@ -53,8 +53,8 @@ module.exports = {
   */
   plugins: [
     '~/plugins/element-ui',
-    '~/plugins/localStorage',
-    { src: '~/plugins/vue-lazyload.js', ssr: false }
+    '~/plugins/localStorage'
+
   ],
 
   /*
