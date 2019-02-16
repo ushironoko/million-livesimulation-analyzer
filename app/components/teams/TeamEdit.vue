@@ -274,14 +274,14 @@ export default {
           title: '成功',
           message: `チームをセットしました`,
           position: 'top-right',
-          duration: '3000'
+          duration: '1500'
         })
       } catch {
         this.$notify.error({
           title: '失敗',
           message: `チームが見つかりませんでした`,
           position: 'top-right',
-          duration: '3000'
+          duration: '1500'
         })
       }
       this.callTeamDialog = false
