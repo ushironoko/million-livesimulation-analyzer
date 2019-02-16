@@ -71,7 +71,7 @@ export const mutations = {
 
   deleteSyncTeamData(state, data) {
     if (!data) return
-    const currentNum = state.syncTeamData.indexOf(x => x.key === data.key)
+    const currentNum = state.syncTeamData.findIndex(x => x.key === data.key)
     state.syncTeamData.splice(currentNum, 1)
   },
 
