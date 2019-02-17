@@ -59,7 +59,8 @@ module.exports = {
   */
   plugins: [
     '~/plugins/element-ui',
-    '~/plugins/localStorage'
+    '~/plugins/localStorage',
+    { src: '~plugins/ga.js', ssr: false }
 
   ],
 
@@ -71,7 +72,8 @@ module.exports = {
     '@nuxtjs/axios',
     // Doc: https://pwa.nuxtjs.org
     '@nuxtjs/pwa',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/google-analytics'
   ],
 
   /*
