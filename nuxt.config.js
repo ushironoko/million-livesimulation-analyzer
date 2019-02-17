@@ -9,30 +9,31 @@ module.exports = {
    * PWA manifests
    */
   manifest: {
-    name: 'MillionLive Team Analyzer',
-    short_name: 'MTA',
-    title: 'ミリシタチームアナライザー',
-    'og:title': 'ミリシタチームアナライザー',
-    description: 'ミリシタチームアナライザー',
-    'og:description': 'ミリシタチームアナライザー',
+    name: 'ミリシタスコア計算機',
+    short_name: 'MSC',
+    title: 'ミリシタスコア計算機',
+    'og:title': 'ミリシタスコア計算機',
+    description: 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。',
+    'og:description': 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。',
     lang: 'ja',
     theme_color: '#00adb8',
-    background_color: '#FAFAFA'
+    background_color: '#e6ecf0'
   },
 
   /*
   ** Headers of the page
   */
   head: {
-    title: 'ミリシタチームアナライザー',
+    title: 'ミリシタスコア計算機',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。' },
-      { hid: 'og:site_name', property: 'og:site_name', content: 'ミリシタチームアナライザー' },
+      { hid: 'keywords', name: 'keywords', content: 'ミリシタ スコア計算 編成 ミリオンライブ うしろのこ シミュ' },
+      { hid: 'og:site_name', property: 'og:site_name', content: 'ミリシタスコア計算機' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://million-livesimulation-analyzer.netlify.com/' },
-      { hid: 'og:title', property: 'og:title', content: 'ミリシタチームアナライザー' },
+      { hid: 'og:title', property: 'og:title', content: 'ミリシタスコア計算機' },
       { hid: 'og:description', property: 'og:description', content: 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。'}
     ],
     link: [
