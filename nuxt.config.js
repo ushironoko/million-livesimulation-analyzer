@@ -32,7 +32,7 @@ module.exports = {
       { hid: 'keywords', name: 'keywords', content: 'ミリシタ スコア計算 編成 ミリオンライブ うしろのこ シミュ' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'ミリシタスコア計算機' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
-      { hid: 'og:url', property: 'og:url', content: 'https://million-livesimulation-analyzer.netlify.com/' },
+      { hid: 'og:url', property: 'og:url', content: 'https://millionlive-simple-score-calc.me/' },
       { hid: 'og:title', property: 'og:title', content: 'ミリシタスコア計算機' },
       { hid: 'og:description', property: 'og:description', content: 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。'}
     ],
