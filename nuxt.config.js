@@ -59,8 +59,7 @@ module.exports = {
   */
   plugins: [
     '~/plugins/element-ui',
-    '~/plugins/localStorage',
-    { src: '~plugins/ga.js', ssr: false }
+    '~/plugins/localStorage'
 
   ],
 
@@ -73,7 +72,9 @@ module.exports = {
     // Doc: https://pwa.nuxtjs.org
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
-    '@nuxtjs/google-analytics'
+    ['@nuxtjs/google-analytics', {
+      id: process.env.GA_UA_ID
+    }]
   ],
 
   /*
@@ -89,6 +90,7 @@ module.exports = {
   env: {
     FIREBASE_V1_CARDS_SSR_ENDPOINT:process.env.FIREBASE_V1_CARDS_SSR_ENDPOINT,
     MEGMEGWORK_API_ENDPOINT:process.env.MEGMEGWORK_API_ENDPOINT,
+    GA_UA_ID:process.env.GA_UA_ID,
   },
 
   /*
