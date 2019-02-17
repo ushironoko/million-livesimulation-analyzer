@@ -16,7 +16,7 @@ module.exports = {
     description: 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。',
     'og:description': 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。',
     lang: 'ja',
-    theme_color: '#00adb8',
+    theme_color: '#24292D',
     background_color: '#e6ecf0'
   },
 
@@ -44,7 +44,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#ea5b76' },
+  loading: { color: '#00adb8' },
 
   /*
   ** Global CSS
