@@ -20,8 +20,8 @@ export default {
     }
   },
   methods: {
-    setSnapshot(team) {
-      this.snapshot = { payload: team, timestamp: Date.now() }
+    setSnapshot(team, appealValue) {
+      this.snapshot = { payload: team, appealValue: appealValue, timestamp: Date.now() }
     }
   },
   components: {

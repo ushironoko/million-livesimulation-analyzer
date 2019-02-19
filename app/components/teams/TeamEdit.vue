@@ -186,7 +186,10 @@ export default {
      */
     async removeOrAddSelectionItem(name) {
       if (this.selection.includes(name)) {
-        await this.selection.splice(this.selection.findIndex(x => x === name), 1)
+        await this.selection.splice(
+          this.selection.findIndex(x => x === name),
+          1
+        )
         this.isSelected = !this.isSelected
       } else {
         this.selection.length === 5
@@ -195,7 +198,7 @@ export default {
               message: '5枚以上選べません'
             })
           : await this.selection.push(name)
-            this.isSelected = !this.isSelected
+        this.isSelected = !this.isSelected
       }
     },
     /**
@@ -324,7 +327,7 @@ export default {
         TryNumber: 10000,
         p: [0.1, 1, 50]
       }
-      this.$emit('simuStartEmit', requestParams, team)
+      this.$emit('simuStartEmit', requestParams, team, this.appealValue)
     }
   },
   mounted() {
