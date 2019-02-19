@@ -8,7 +8,7 @@
     </div>
 
     <div v-for="(data,i) in dataset" :key="i">
-      <live-simulate-result :snapshot="data.snapshot" :simuResult="data.simuData"/>
+      <live-simulate-result :snapshot="data.snapshot" :appealValue="data.appealValue" :simuResult="data.simuData"/>
       <hr>
     </div>
   </el-card>
@@ -31,6 +31,7 @@ export default {
     snapshot() {
       this.dataset.unshift({
         snapshot: this.snapshot.payload,
+        appealValue: this.snapshot.appealValue,
         simuData: this.liveSimulationData
       })
     }

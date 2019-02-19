@@ -1,15 +1,6 @@
 <template functional>
   <section>
-    <el-table :data="props.simuResult" max-height="960">
-      <el-table-column label="楽曲" prop="SongInfo.Name">
-      </el-table-column>
-      <el-table-column label="難度" prop="SongInfo.Lv">
-      </el-table-column>
-      <el-table-column label="基本スコア" prop="SongInfo.parameter.base">
-      </el-table-column>
-    </el-table>
-
-    <el-container style="display: flex; justify-content: center; align-items: flex-start;">
+    <el-container style="display: flex; justify-content: center; align-items: flex-start; padding-top:20px;">
       <span>
         <a :href="`https://mltd.matsurihi.me/cards/${props.snapshot[3].id}`" target="_blunk" rel="noopener">
           <img :src="props.snapshot[3].resourceId" style="max-width: 100px; width: 100%;"/>
@@ -37,7 +28,19 @@
       </span>
     </el-container>
 
-    <el-table :data="props.simuResult" max-height="960">
+    <el-table border :data="props.simuResult" max-height="960">
+      <el-table-column label="楽曲" prop="SongInfo.Name">
+      </el-table-column>
+      <el-table-column label="難度" prop="SongInfo.Lv">
+      </el-table-column>
+      <el-table-column label="総アピール値">
+        <template slot-scope="_">
+          <span>{{props.appealValue}}</span>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <el-table border :data="props.simuResult" max-height="960">
       <el-table-column label="最大" prop="ScoreInfo.Total.Ideal">
       </el-table-column>
       <el-table-column label="0.1%" prop="ScoreInfo.Total.p[0]">
