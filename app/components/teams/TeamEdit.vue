@@ -327,7 +327,7 @@ export default {
         TryNumber: 10000,
         p: [0.1, 1, 50]
       }
-      this.$emit('simuStartEmit', requestParams, team, this.appealValue)
+      this.$emit('simuStartEmit', requestParams, team)
     }
   },
   mounted() {
