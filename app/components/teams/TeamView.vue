@@ -70,7 +70,7 @@ export default {
       })
   },
   methods: {
-    async startSimu(requestParams, team, appealValue) {
+    async startSimu(requestParams, team) {
       await this.$store
         .dispatch('fetchLiveSimulationData', requestParams)
         .then(() => {
@@ -80,7 +80,7 @@ export default {
             position: 'top-right',
             duration: '1500'
           })
-          this.$emit('snapshotEmit', team, appealValue)
+          this.$emit('snapshotEmit', team, requestParams.AppealValue)
         })
         .catch(err => {
           this.$notify.error({

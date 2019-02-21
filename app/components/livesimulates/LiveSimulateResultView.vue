@@ -7,7 +7,7 @@
       <span>ライブレポート</span>
     </div>
 
-    <div v-for="(data,i) in dataset" :key="i">
+    <div v-for="data in dataset" :key="data.snapshot.timestamp">
       <live-simulate-result :snapshot="data.snapshot" :appealValue="data.appealValue" :simuResult="data.simuData"/>
       <hr>
     </div>
@@ -32,7 +32,8 @@ export default {
       this.dataset.unshift({
         snapshot: this.snapshot.payload,
         appealValue: this.snapshot.appealValue,
-        simuData: this.liveSimulationData
+        simuData: this.liveSimulationData,
+        timestamp: this.snapshot.timestamp
       })
     }
   },
