@@ -94,6 +94,18 @@ module.exports = {
   },
 
   /*
+   ** PWA module ops
+   */
+  workbox: {
+    runtimeCaching: [
+      {
+        urlPattern: 'https:\/\/storage.matsurihi.me\/mltd/icon_l\/*',
+        handler: 'staleWhileRevalidate'
+      }
+    ]
+  },
+
+  /*
   ** Build configuration
   */
   build: {

@@ -65,7 +65,7 @@
         <el-table-column label="編成名" prop="key" width="100">
         </el-table-column>
         <el-table-column label="カード" width="250">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-container>
               <span>
                 <img v-if="scope.row.team[3]" :src="mtldImgUrl(scope.row.team[3])" style="max-width: 40px;"/>

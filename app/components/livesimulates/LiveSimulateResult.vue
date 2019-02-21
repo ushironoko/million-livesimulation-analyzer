@@ -34,7 +34,7 @@
       <el-table-column label="難度" prop="SongInfo.Lv">
       </el-table-column>
       <el-table-column label="総アピール値">
-        <template slot-scope="_">
+        <template v-slot="_">
           <span>{{props.appealValue}}</span>
         </template>
       </el-table-column>
