@@ -1,15 +1,15 @@
 <template>
   <el-autocomplete
-  class="inline-input"
-  v-model="field"
-  v-loading="loading"
-  :debounce="0"
-  :fetch-suggestions="querySearch"
-  value-key="SongName"
-  placeholder="楽曲名で検索"
-  :minlength="200"
-  @select="selectEmit"
- ></el-autocomplete>
+    class="inline-input"
+    v-model="field"
+    v-loading="loading"
+    :debounce="0"
+    :fetch-suggestions="querySearch"
+    value-key="SongName"
+    placeholder="楽曲名で検索"
+    :minlength="200"
+    @select="selectEmit"
+  ></el-autocomplete>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <section>
-    <song-selection :songData="songData" @selectEmit="selectedSongCommitter"/>
+    <song-selection :songData="songData" @selectEmit="selectedSongCommitter" />
   </section>
 </template>
 

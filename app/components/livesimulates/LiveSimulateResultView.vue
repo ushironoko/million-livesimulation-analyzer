@@ -1,15 +1,17 @@
 <template>
-  <el-card
-    v-loading="isLiveSimulationLoading"
-  >
+  <el-card v-loading="isLiveSimulationLoading">
     <div>
       <span slot="label"><i class="el-icon-document"></i></span>
       <span>ライブレポート</span>
     </div>
 
     <div v-for="data in dataset" :key="data.snapshot.timestamp">
-      <live-simulate-result :snapshot="data.snapshot" :appealValue="data.appealValue" :simuResult="data.simuData"/>
-      <hr>
+      <live-simulate-result
+        :snapshot="data.snapshot"
+        :appealValue="data.appealValue"
+        :simuResult="data.simuData"
+      />
+      <hr />
     </div>
   </el-card>
 </template>

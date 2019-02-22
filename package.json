@@ -8,7 +8,7 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "npm run build && nuxt start",
-    "start-pwa":"npm run build && nuxt --host 0.0.0.0 --port 8000",
+    "start-pwa": "npm run build && nuxt --host 0.0.0.0 --port 8000",
     "analyze": "nuxt build -a",
     "generate": "nuxt generate",
     "fmt": "prettier --write app/**/*.vue app/**/*.js app/**/*.css *.json",

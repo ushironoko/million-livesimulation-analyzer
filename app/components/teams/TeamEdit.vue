@@ -2,56 +2,133 @@
   <section>
     <el-card style="height: 500px; overflow: auto;">
       <el-row>
-        <el-col style="width: 20%;" :span="2" v-for="(data, i) in transferDataFilter" :key="i">
-          <img :src="data.resourceId" style="width: 100%;" @click.prevent="removeOrAddSelectionItem(data.name)" :alt="data.mame" :title="data.name">
+        <el-col
+          style="width: 20%;"
+          :span="2"
+          v-for="(data, i) in transferDataFilter"
+          :key="i"
+        >
+          <img
+            :src="data.resourceId"
+            style="width: 100%;"
+            @click.prevent="removeOrAddSelectionItem(data.name)"
+            :alt="data.mame"
+            :title="data.name"
+          />
         </el-col>
       </el-row>
     </el-card>
 
     <el-card id="select-team">
       <div slot="header">選択チーム</div>
-      <el-container style="display: flex; justify-content: center; align-items: flex-start;">
+      <el-container
+        style="display: flex; justify-content: center; align-items: flex-start;"
+      >
         <span class="selected-icon">
           <el-badge value="4" type="primary">
-            <img v-if="filteredList[3]" :src="filteredList[3].resourceId" @click.prevent="removeOrAddSelectionItem(filteredList[3].name)">
-            <img v-show="!filteredList[3]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
+            <img
+              v-if="filteredList[3]"
+              :src="filteredList[3].resourceId"
+              @click.prevent="removeOrAddSelectionItem(filteredList[3].name)"
+            />
+            <img
+              v-show="!filteredList[3]"
+              src="~/static/noSelectedIcon.png"
+              class="no-selected-icon"
+            />
           </el-badge>
         </span>
         <span class="selected-icon">
           <el-badge value="2" type="primary">
-            <img v-if="filteredList[1]" :src="filteredList[1].resourceId" @click.prevent="removeOrAddSelectionItem(filteredList[1].name)">
-            <img v-show="!filteredList[1]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
+            <img
+              v-if="filteredList[1]"
+              :src="filteredList[1].resourceId"
+              @click.prevent="removeOrAddSelectionItem(filteredList[1].name)"
+            />
+            <img
+              v-show="!filteredList[1]"
+              src="~/static/noSelectedIcon.png"
+              class="no-selected-icon"
+            />
           </el-badge>
         </span>
         <span class="selected-icon">
           <el-badge value="C/F" type="primary" style="z-index: 1;">
-            <img v-if="filteredList[0]" :src="filteredList[0].resourceId" style="border:solid 2px #9eceff; border-radius: 0.5em;"
-            @click.prevent="removeOrAddSelectionItem(filteredList[0].name)">
-            <img v-show="!filteredList[0]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
+            <img
+              v-if="filteredList[0]"
+              :src="filteredList[0].resourceId"
+              style="border:solid 2px #9eceff; border-radius: 0.5em;"
+              @click.prevent="removeOrAddSelectionItem(filteredList[0].name)"
+            />
+            <img
+              v-show="!filteredList[0]"
+              src="~/static/noSelectedIcon.png"
+              class="no-selected-icon"
+            />
           </el-badge>
         </span>
         <span class="selected-icon">
           <el-badge value="3" type="primary">
-            <img v-if="filteredList[2]" :src="filteredList[2].resourceId" @click.prevent="removeOrAddSelectionItem(filteredList[2].name)">
-            <img v-show="!filteredList[2]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
+            <img
+              v-if="filteredList[2]"
+              :src="filteredList[2].resourceId"
+              @click.prevent="removeOrAddSelectionItem(filteredList[2].name)"
+            />
+            <img
+              v-show="!filteredList[2]"
+              src="~/static/noSelectedIcon.png"
+              class="no-selected-icon"
+            />
           </el-badge>
         </span>
         <span class="selected-icon">
           <el-badge value="5" type="primary">
-            <img v-if="filteredList[4]" :src="filteredList[4].resourceId" @click.prevent="removeOrAddSelectionItem(filteredList[4].name)">
-            <img v-show="!filteredList[4]" src="~/static/noSelectedIcon.png" class="no-selected-icon" />
+            <img
+              v-if="filteredList[4]"
+              :src="filteredList[4].resourceId"
+              @click.prevent="removeOrAddSelectionItem(filteredList[4].name)"
+            />
+            <img
+              v-show="!filteredList[4]"
+              src="~/static/noSelectedIcon.png"
+              class="no-selected-icon"
+            />
           </el-badge>
         </span>
       </el-container>
     </el-card>
 
     <el-card>
-      <el-button :disabled="isCalc" :loading="isLiveSimulationLoading" type="primary" style="margin: 5px 0 0 15px;" size="mini" @click="simuStartEmit">計算</el-button>
-      <el-button size="mini" @click="openSaveTeamModal" style="margin: 0 0 0 6px;">保存</el-button>
-      <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
+      <el-button
+        :disabled="isCalc"
+        :loading="isLiveSimulationLoading"
+        type="primary"
+        style="margin: 5px 0 0 15px;"
+        size="mini"
+        @click="simuStartEmit"
+        >計算</el-button
+      >
+      <el-button
+        size="mini"
+        @click="openSaveTeamModal"
+        style="margin: 0 0 0 6px;"
+        >保存</el-button
+      >
+      <el-badge
+        :value="syncTeamData.length"
+        class="item"
+        type="primary"
+        style="margin: 0 0 0 5px;"
+      >
         <el-button size="mini" @click="openCallTeamModal">呼出</el-button>
       </el-badge>
-      <el-input type="number" size="mini" style="max-width: 120px; margin-left: 5px;" placeholder="総アピ値" v-model="appealValue"></el-input>
+      <el-input
+        type="number"
+        size="mini"
+        style="max-width: 120px; margin-left: 5px;"
+        placeholder="総アピ値"
+        v-model="appealValue"
+      ></el-input>
     </el-card>
 
     <el-dialog title="チームを選んで下さい" :visible.sync="callTeamDialog">
@@ -68,19 +145,39 @@
           <template v-slot="scope">
             <el-container>
               <span>
-                <img v-if="scope.row.team[3]" :src="mtldImgUrl(scope.row.team[3])" style="max-width: 40px;"/>
+                <img
+                  v-if="scope.row.team[3]"
+                  :src="mtldImgUrl(scope.row.team[3])"
+                  style="max-width: 40px;"
+                />
               </span>
               <span>
-                <img v-if="scope.row.team[1]" :src="mtldImgUrl(scope.row.team[1])" style="max-width: 40px;"/>
+                <img
+                  v-if="scope.row.team[1]"
+                  :src="mtldImgUrl(scope.row.team[1])"
+                  style="max-width: 40px;"
+                />
               </span>
               <span>
-                <img v-if="scope.row.team[0]" :src="mtldImgUrl(scope.row.team[0])" style="max-width: 40px;"/>
+                <img
+                  v-if="scope.row.team[0]"
+                  :src="mtldImgUrl(scope.row.team[0])"
+                  style="max-width: 40px;"
+                />
               </span>
               <span>
-                <img v-if="scope.row.team[2]" :src="mtldImgUrl(scope.row.team[2])" style="max-width: 40px;"/>
+                <img
+                  v-if="scope.row.team[2]"
+                  :src="mtldImgUrl(scope.row.team[2])"
+                  style="max-width: 40px;"
+                />
               </span>
               <span>
-                <img v-if="scope.row.team[4]" :src="mtldImgUrl(scope.row.team[4])" style="max-width: 40px;"/>
+                <img
+                  v-if="scope.row.team[4]"
+                  :src="mtldImgUrl(scope.row.team[4])"
+                  style="max-width: 40px;"
+                />
               </span>
             </el-container>
           </template>
