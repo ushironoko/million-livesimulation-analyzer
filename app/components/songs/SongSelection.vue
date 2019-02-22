@@ -14,7 +14,11 @@
 
 <script>
 export default {
-  props: ['songData'],
+  props: {
+    songData: {
+      type: Array
+    }
+  },
   data() {
     return {
       field: '',

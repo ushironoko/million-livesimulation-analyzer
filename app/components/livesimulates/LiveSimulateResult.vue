@@ -114,6 +114,22 @@
 
 <script>
 export default {
-  props:['snapshot','appealValue','simuResult']
+  props: {
+    snapshot: {
+      type: Array,
+      required: true,
+      default: []
+    },
+    appealValue: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+    simuResult: {
+      type: Array,
+      required: true,
+      default: []
+    }
+  }
 }
 </script>
