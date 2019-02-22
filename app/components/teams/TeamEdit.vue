@@ -51,7 +51,7 @@
       <el-badge :value="syncTeamData.length" class="item" type="primary" style="margin: 0 0 0 5px;">
         <el-button size="mini" @click="openCallTeamModal">呼出</el-button>
       </el-badge>
-      <el-input size="mini" style="max-width: 100px; margin-left: 5px;" placeholder="総アピ値" v-model="appealValue"></el-input>
+      <el-input type="number" size="mini" style="max-width: 120px; margin-left: 5px;" placeholder="総アピ値" v-model="appealValue"></el-input>
     </el-card>
 
     <el-dialog title="チームを選んで下さい" :visible.sync="callTeamDialog">
@@ -321,7 +321,7 @@ export default {
       const requestParams = {
         SongId: song[0].SongId,
         Course: 4,
-        AppealValue: this.appealValue,
+        AppealValue: +this.appealValue,
         UnitIds: team.map(x => x.id),
         GuestId: team[0].id,
         TryNumber: 10000,
