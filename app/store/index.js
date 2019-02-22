@@ -2,7 +2,6 @@ export const state = () => ({
   ssrCardData: [],
   songData: [],
   selectedSong: [],
-  selectedCardList: [],
   syncTeamData: [],
   liveSimulationData: [],
   isLiveSimulationLoading: false
@@ -23,8 +22,6 @@ export const getters = {
   },
 
   selectedSong: state => state.selectedSong,
-
-  selectedCardList: state => state.selectedCardList,
 
   syncTeamData: state => state.syncTeamData,
 
@@ -59,10 +56,6 @@ export const mutations = {
       console.log(x)
       state.songData.push(x)
     })
-  },
-
-  setSelectedCardList(state, data) {
-    state.selectedCardList = data
   },
 
   setSyncTeamData(state, data) {
