@@ -60,29 +60,19 @@ module.exports = {
   plugins: [
     '~/plugins/element-ui',
     '~/plugins/localStorage'
-
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
-    // Doc: https://pwa.nuxtjs.org
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
     ['@nuxtjs/google-analytics', {
       id: process.env.GA_UA_ID
     }]
   ],
-
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
 
   /*
    ** dotenv module alies

@@ -9,9 +9,12 @@
 </template>
 
 <script>
-import TeamView from '~/components/teams/TeamView.vue'
-import SongSelectionView from '~/components/songs/SongSelectionView.vue'
-import LiveSimulateResultView from '~/components/livesimulates/LiveSimulateResultView.vue'
+const TeamView = () =>
+  import(/* webpackPreload: true */ '~/components/teams/TeamView.vue')
+const SongSelectionView = () =>
+  import(/* webpackPreload: true */ '~/components/songs/SongSelectionView.vue')
+const LiveSimulateResultView = () =>
+  import(/* webpackPreload: true */ '~/components/livesimulates/LiveSimulateResultView.vue')
 
 export default {
   data() {
