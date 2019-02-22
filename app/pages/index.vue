@@ -21,7 +21,11 @@ export default {
   },
   methods: {
     setSnapshot(team, appealValue) {
-      this.snapshot = { payload: team, appealValue: appealValue, timestamp: Date.now() }
+      this.snapshot = {
+        payload: team,
+        appealValue: appealValue,
+        timestamp: Date.now()
+      }
     }
   },
   components: {

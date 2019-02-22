@@ -2,7 +2,6 @@ export const state = () => ({
   ssrCardData: [],
   songData: [],
   selectedSong: [],
-  selectedCardList: [],
   syncTeamData: [],
   liveSimulationData: [],
   isLiveSimulationLoading: false
@@ -24,8 +23,6 @@ export const getters = {
 
   selectedSong: state => state.selectedSong,
 
-  selectedCardList: state => state.selectedCardList,
-
   syncTeamData: state => state.syncTeamData,
 
   liveSimulationData: state => state.liveSimulationData,
@@ -36,9 +33,7 @@ export const getters = {
 export const mutations = {
   setSsrCardData(state, { data }) {
     data.map(x => {
-      x.resourceId = `https://storage.matsurihi.me/mltd/icon_l/${
-        x.resourceId
-      }_1.png`
+      x.resourceId = `${process.env.MATSURIHIME_ICON}${x.resourceId}_1.png`
     })
 
     data.forEach(x => {
@@ -59,10 +54,6 @@ export const mutations = {
       console.log(x)
       state.songData.push(x)
     })
-  },
-
-  setSelectedCardList(state, data) {
-    state.selectedCardList = data
   },
 
   setSyncTeamData(state, data) {

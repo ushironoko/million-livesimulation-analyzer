@@ -90,6 +90,7 @@ module.exports = {
   env: {
     FIREBASE_V1_CARDS_SSR_ENDPOINT:process.env.FIREBASE_V1_CARDS_SSR_ENDPOINT,
     MEGMEGWORK_API_ENDPOINT:process.env.MEGMEGWORK_API_ENDPOINT,
+    MATSURIHIME_ICON:process.env.MATSURIHIME_ICON,
     GA_UA_ID:process.env.GA_UA_ID,
   },
 
