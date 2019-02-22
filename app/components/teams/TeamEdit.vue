@@ -5,7 +5,7 @@
         <el-col
           style="width: 20%;"
           :span="2"
-          v-for="(data, i) in transferDataFilter"
+          v-for="(data, i) in cardFilter"
           :key="i"
         >
           <img
@@ -241,7 +241,7 @@ export default {
     /**
      * 親から受け取ったワードと属性フラグで表示カードをフィルタするメソッド
      */
-    transferDataFilter() {
+    cardFilter() {
       const filterWord = this.filterWord
       let data = this.cardDataList.filter(
         x => x.name.toLowerCase().indexOf(filterWord.toLowerCase()) > -1
