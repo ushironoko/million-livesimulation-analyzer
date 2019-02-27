@@ -22,10 +22,8 @@
 
 <script>
 import { mapGetters } from 'vuex'
-const TeamEdit = () =>
-  import(/* webpackPreload: true */ '~/components/teams/TeamEdit.vue')
-const SimuDataSettings = () =>
-  import(/* webpackPreload: true */ '~/components/teams/settings/SimuDataSettings.vue')
+import TeamEdit from '@/components/teams/TeamEdit.vue'
+import SimuDataSettings from '@/components/teams/settings/SimuDataSettings.vue'
 import cloneDeep from 'lodash/cloneDeep'
 
 export default {
