@@ -29,7 +29,6 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'ミリシタのチーム編成とライブシミュレーションができるシンプルなツール。' },
-      { hid: 'keywords', name: 'keywords', content: 'ミリシタ スコア計算 編成 ミリオンライブ うしろのこ シミュ' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'ミリシタスコア計算機' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
       { hid: 'og:url', property: 'og:url', content: 'https://millionlive-simple-score-calc.me/' },
@@ -51,15 +50,15 @@ module.exports = {
   */
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    '~/assets/common.css'
+    '@/assets/common.css'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/element-ui',
-    '~/plugins/localStorage'
+    '@/plugins/element-ui',
+    '@/plugins/localStorage'
   ],
 
   /*
