@@ -1,6 +1,6 @@
 <template>
   <section>
-    <el-card style="height: 500px; overflow: auto;">
+    <el-card style="height: 400px; overflow: auto;">
       <el-row>
         <el-col
           style="width: 20%;"
@@ -20,7 +20,6 @@
     </el-card>
 
     <el-card id="select-team">
-      <div slot="header">選択チーム</div>
       <el-container
         style="display: flex; justify-content: center; align-items: flex-start;"
       >
@@ -125,7 +124,7 @@
       <el-input
         type="number"
         size="mini"
-        style="max-width: 120px; margin-left: 5px;"
+        style="max-width: 100px; margin-left: 5px;"
         placeholder="総アピ値"
         v-model="appealValue"
       ></el-input>
@@ -224,8 +223,7 @@ export default {
       appealValue: 0,
       callTeamDialog: false,
       currentRow: null,
-      isSelected: false,
-      selectedIconShadow: 'selected-icon-shadow'
+      isSelected: false
     }
   },
   computed: {

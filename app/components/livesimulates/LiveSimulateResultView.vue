@@ -19,7 +19,7 @@
 <script>
 import { mapGetters } from 'vuex'
 const LiveSimulateResult = () =>
-  import(/* webpackPreload: true */ '~/components/livesimulates/LiveSimulateResult.vue')
+  import(/* webpackPreload: true */ '@/components/livesimulates/LiveSimulateResult.vue')
 
 export default {
   props: {

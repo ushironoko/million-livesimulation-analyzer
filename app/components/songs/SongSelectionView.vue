@@ -6,8 +6,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-const SongSelection = () =>
-  import(/* webpackPreload: true */ '~/components/songs/SongSelection.vue')
+import SongSelection from '@/components/songs/SongSelection.vue'
 
 export default {
   data() {
