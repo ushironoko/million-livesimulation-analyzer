@@ -80,7 +80,6 @@ export const actions = {
     const data = await this.$axios.$get(
       `${process.env.FIREBASE_V1_CARDS_SSR_ENDPOINT}`
     )
-    if (data.length === 0) throw new Error('Invalid SSR card data')
     commit('setSsrCardData', { data })
   },
 
@@ -88,7 +87,6 @@ export const actions = {
     const data = await this.$axios.$get(
       `${process.env.MEGMEGWORK_API_ENDPOINT}/song/ `
     )
-    if (data.length === 0) throw new Error('Invalid Song data')
     commit('setSongData', { data })
   },
 
