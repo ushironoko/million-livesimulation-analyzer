@@ -279,12 +279,9 @@ export default {
     /**
      * 選択したカードアイコンをselectionに入れるメソッド
      */
-    async removeOrAddSelectionItem(name) {
+    removeOrAddSelectionItem(name) {
       if (this.selection.includes(name)) {
-        await this.selection.splice(
-          this.selection.findIndex(x => x === name),
-          1
-        )
+        this.selection.splice(this.selection.findIndex(x => x === name), 1)
         this.isSelected = !this.isSelected
       } else {
         this.selection.length === 5
@@ -292,7 +289,7 @@ export default {
               type: 'warning',
               message: '5枚以上選べません'
             })
-          : await this.selection.push(name)
+          : this.selection.push(name)
         this.isSelected = !this.isSelected
       }
     },
