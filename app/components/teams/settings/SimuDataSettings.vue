@@ -5,7 +5,7 @@
       <el-checkbox v-model="isFairy" @change="fairyEmit">Fa</el-checkbox>
       <el-checkbox v-model="isAngel" @change="angleEmit">An</el-checkbox>
       <el-checkbox v-model="isBNP" @change="bnpEmit">BNP</el-checkbox>
-      <el-checkbox v-model="isSkillBorder" @change="changeSkillBorder">種別表示</el-checkbox>
+      <el-checkbox v-model="isSkillBorder" @change="changeSkillBorder">スキル種別表示</el-checkbox>
       <div>
         <el-input
           style="max-width: 200px;"

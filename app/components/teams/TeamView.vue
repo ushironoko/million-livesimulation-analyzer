@@ -41,7 +41,7 @@ export default {
       },
       filterWord: '',
       sortValue: 'default',
-      skillBorder: true
+      skillBorder: false
     }
   },
   computed: {
