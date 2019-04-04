@@ -274,6 +274,7 @@ export default {
           break
         case 'Vi':
           data.sort((a, b) => b.visualMaxAwakened - a.visualMaxAwakened)
+          break
         default:
           data.sort((a, b) => a.idolId - b.idolId)
       }
