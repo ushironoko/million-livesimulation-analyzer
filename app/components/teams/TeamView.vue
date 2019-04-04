@@ -6,6 +6,7 @@
       @angleEmit="setAngle"
       @bnpEmit="setBNP"
       @filterWordEmit="setFilterWord"
+      @changeSortValueEmit="setSortValue"
     />
 
     <team-edit
@@ -15,6 +16,7 @@
       :isLiveSimulationLoading="isLiveSimulationLoading"
       :typeFilter="typeFilter"
       :filterWord="filterWord"
+      :sortValue="sortValue"
       @simuStartEmit="startSimu"
     />
   </section>
@@ -35,7 +37,8 @@ export default {
         isAngel: true,
         isBNP: false
       },
-      filterWord: ''
+      filterWord: '',
+      sortValue: 'default'
     }
   },
   computed: {
@@ -105,6 +108,9 @@ export default {
     },
     setFilterWord(val) {
       this.filterWord = val
+    },
+    setSortValue(val) {
+      this.sortValue = val
     }
   },
   components: {
