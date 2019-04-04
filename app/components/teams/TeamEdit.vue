@@ -1,6 +1,6 @@
 <template>
   <section>
-    <el-card style="height: 400px; overflow: auto;">
+    <el-card style="height: 400px; overflow: auto; -webkit-overflow-scrolling: touch;">
       <el-row>
         <el-col
           style="width: 20%;"
