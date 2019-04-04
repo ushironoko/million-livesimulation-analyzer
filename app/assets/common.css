@@ -26,6 +26,18 @@ html {
   align-items: flex-start;
 }
 
+.score-bonus-border {
+  border:solid 1px #248ef8; border-radius: 0.5em;
+}
+
+.combo-bonus-border {
+  border:solid 1px #dbca2c; border-radius: 0.5em;
+}
+
+.double-boost-border {
+  border:solid 1px #f11717; border-radius: 0.5em;
+}
+
 /* Element Utils */
 
 .el-card {

@@ -7,6 +7,7 @@
       @bnpEmit="setBNP"
       @filterWordEmit="setFilterWord"
       @changeSortValueEmit="setSortValue"
+      @changeSkillBorderEmit="setSkillBorder"
     />
 
     <team-edit
@@ -17,6 +18,7 @@
       :typeFilter="typeFilter"
       :filterWord="filterWord"
       :sortValue="sortValue"
+      :skillBorder="skillBorder"
       @simuStartEmit="startSimu"
     />
   </section>
@@ -38,7 +40,8 @@ export default {
         isBNP: false
       },
       filterWord: '',
-      sortValue: 'default'
+      sortValue: 'default',
+      skillBorder: false
     }
   },
   computed: {
@@ -111,6 +114,9 @@ export default {
     },
     setSortValue(val) {
       this.sortValue = val
+    },
+    setSkillBorder(val) {
+      this.skillBorder = val
     }
   },
   components: {
