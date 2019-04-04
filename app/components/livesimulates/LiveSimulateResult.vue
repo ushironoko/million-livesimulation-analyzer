@@ -35,7 +35,7 @@
         >
           <img
             :src="snapshot[0].resourceId"
-            style="max-width: 100px; width: 100%; border:solid 2px #9eceff; border-radius: 0.5em;"
+            style="max-width: 100px; width: 100%;"
           />
         </a>
       </span>

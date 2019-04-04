@@ -14,6 +14,11 @@
             @click.prevent="removeOrAddSelectionItem(data.name)"
             :alt="data.name"
             :title="data.name"
+            :class='{
+              "score-bonus-border": skillBorder && data.skill[0].effectId === 1,
+              "combo-bonus-border": skillBorder && data.skill[0].effectId === 2,
+              "double-boost-border": skillBorder && data.skill[0].effectId === 7,
+            }'
           />
         </el-col>
       </el-row>
@@ -29,6 +34,11 @@
               v-if="filteredList[3]"
               :src="filteredList[3].resourceId"
               @click.prevent="removeOrAddSelectionItem(filteredList[3].name)"
+              :class='{
+              "score-bonus-border": skillBorder && filteredList[3].skill[0].effectId === 1,
+              "combo-bonus-border": skillBorder && filteredList[3].skill[0].effectId === 2,
+              "double-boost-border": skillBorder && filteredList[3].skill[0].effectId === 7,
+            }'
             />
             <img
               v-show="!filteredList[3]"
@@ -43,6 +53,11 @@
               v-if="filteredList[1]"
               :src="filteredList[1].resourceId"
               @click.prevent="removeOrAddSelectionItem(filteredList[1].name)"
+              :class='{
+              "score-bonus-border": skillBorder && filteredList[1].skill[0].effectId === 1,
+              "combo-bonus-border": skillBorder && filteredList[1].skill[0].effectId === 2,
+              "double-boost-border": skillBorder && filteredList[1].skill[0].effectId === 7,
+            }'
             />
             <img
               v-show="!filteredList[1]"
@@ -56,8 +71,12 @@
             <img
               v-if="filteredList[0]"
               :src="filteredList[0].resourceId"
-              style="border:solid 2px #9eceff; border-radius: 0.5em;"
               @click.prevent="removeOrAddSelectionItem(filteredList[0].name)"
+              :class='{
+              "score-bonus-border": skillBorder && filteredList[0].skill[0].effectId === 1,
+              "combo-bonus-border": skillBorder && filteredList[0].skill[0].effectId === 2,
+              "double-boost-border": skillBorder && filteredList[0].skill[0].effectId === 7,
+            }'
             />
             <img
               v-show="!filteredList[0]"
@@ -72,6 +91,11 @@
               v-if="filteredList[2]"
               :src="filteredList[2].resourceId"
               @click.prevent="removeOrAddSelectionItem(filteredList[2].name)"
+              :class='{
+              "score-bonus-border": skillBorder && filteredList[2].skill[0].effectId === 1,
+              "combo-bonus-border": skillBorder && filteredList[2].skill[0].effectId === 2,
+              "double-boost-border": skillBorder && filteredList[2].skill[0].effectId === 7,
+            }'
             />
             <img
               v-show="!filteredList[2]"
@@ -86,6 +110,11 @@
               v-if="filteredList[4]"
               :src="filteredList[4].resourceId"
               @click.prevent="removeOrAddSelectionItem(filteredList[4].name)"
+              :class='{
+              "score-bonus-border": skillBorder && filteredList[4].skill[0].effectId === 1,
+              "combo-bonus-border": skillBorder && filteredList[4].skill[0].effectId === 2,
+              "double-boost-border": skillBorder && filteredList[4].skill[0].effectId === 7,
+            }'
             />
             <img
               v-show="!filteredList[4]"
@@ -217,6 +246,9 @@ export default {
     },
     sortValue: {
       type: String
+    },
+    skillBorder: {
+      type: Boolean
     }
   },
   data() {
