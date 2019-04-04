@@ -16,6 +16,20 @@
         v-model="filterWord"
         @input="filterWordEmit"
       ></el-input>
+      <el-select
+        v-model="sortValue"
+        placeholder="Select"
+        style="max-width: 120px;"
+        @change="changeSortValue"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+        </el-option>
+      </el-select>
     </el-card>
   </section>
 </template>
@@ -29,7 +43,14 @@ export default {
       isAngel: true,
       isBNP: false,
       filterWord: '',
-      loading: true
+      loading: true,
+      sortValue: 'default',
+      options: [
+        { value: 'default', label: 'なし' },
+        { value: 'Vo', label: 'Vo' },
+        { value: 'Da', label: 'Da' },
+        { value: 'Vi', label: 'Vi' }
+      ]
     }
   },
   methods: {
@@ -47,6 +68,9 @@ export default {
     },
     filterWordEmit() {
       this.$emit('filterWordEmit', this.filterWord)
+    },
+    changeSortValue() {
+      this.$emit('changeSortValueEmit', this.sortValue)
     }
   },
 

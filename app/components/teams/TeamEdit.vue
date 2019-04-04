@@ -12,7 +12,7 @@
             :src="data.resourceId"
             style="width: 100%;"
             @click.prevent="removeOrAddSelectionItem(data.name)"
-            :alt="data.mame"
+            :alt="data.name"
             :title="data.name"
           />
         </el-col>
@@ -214,6 +214,9 @@ export default {
     },
     filterWord: {
       type: String
+    },
+    sortValue: {
+      type: String
     }
   },
   data() {
@@ -240,10 +243,8 @@ export default {
      * 親から受け取ったワードと属性フラグで表示カードをフィルタするメソッド
      */
     cardFilter() {
-      const filterWord = this.filterWord
-      let data = this.cardDataList.filter(
-        x => x.name.toLowerCase().indexOf(filterWord.toLowerCase()) > -1
-      )
+      let data = this.cardDataList
+
       data = this.typeFilter.isBNP
         ? data
         : data.filter(data => data.name.indexOf('BRAND') === -1)
@@ -251,12 +252,32 @@ export default {
       data = this.typeFilter.isPrincess
         ? data
         : data.filter(data => data.idolType !== 1)
+
       data = this.typeFilter.isFairy
         ? data
         : data.filter(data => data.idolType !== 2)
+
       data = this.typeFilter.isAngel
         ? data
         : data.filter(data => data.idolType !== 3)
+
+      data = data.filter(
+        x => x.name.toLowerCase().indexOf(this.filterWord.toLowerCase()) > -1
+      )
+
+      switch (this.sortValue) {
+        case 'Vo':
+          data.sort((a, b) => b.vocalMaxAwakened - a.vocalMaxAwakened)
+          break
+        case 'Da':
+          data.sort((a, b) => b.danceMaxAwakened - a.danceMaxAwakened)
+          break
+        case 'Vi':
+          data.sort((a, b) => b.visualMaxAwakened - a.visualMaxAwakened)
+        default:
+          data.sort((a, b) => a.idolId - b.idolId)
+      }
+
       return data
     },
 
