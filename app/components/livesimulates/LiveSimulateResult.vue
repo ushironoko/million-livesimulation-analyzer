@@ -97,17 +97,6 @@
       </el-table-column>
     </el-table>
 
-    <el-table border :data="simuResult" max-height="960">
-      <el-table-column label="バースト後 最大" prop="ScoreInfo.2ndHalf.Ideal">
-      </el-table-column>
-      <el-table-column label="0.1%" prop="ScoreInfo.2ndHalf.p[0]">
-      </el-table-column>
-      <el-table-column label="1%" prop="ScoreInfo.2ndHalf.p[1]">
-      </el-table-column>
-      <el-table-column label="50%" prop="ScoreInfo.2ndHalf.p[2]">
-      </el-table-column>
-    </el-table>
-
     <el-collapse>
       <el-collapse-item title="レポートの詳細">
         <el-table :data="simuResult">
