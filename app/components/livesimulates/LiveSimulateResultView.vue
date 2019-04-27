@@ -1,11 +1,11 @@
 <template>
   <el-card v-loading="isLiveSimulationLoading">
-    <div>
-      <span slot="label"><i class="el-icon-document"></i></span>
+    <template>
+      <i class="el-icon-document"></i>
       <span>ライブレポート</span>
-    </div>
+    </template>
 
-    <div v-for="data in dataset" :key="data.snapshot.timestamp">
+    <div v-for="data in resultData" :key="data.snapshot.timestamp">
       <live-simulate-result
         :snapshot="data.snapshot"
         :appealValue="data.appealValue"
@@ -18,8 +18,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-const LiveSimulateResult = () =>
-  import(/* webpackPreload: true */ '@/components/livesimulates/LiveSimulateResult.vue')
+import LiveSimulateResult from '@/components/livesimulates/LiveSimulateResult.vue'
 
 export default {
   props: {
@@ -27,12 +26,12 @@ export default {
   },
   data() {
     return {
-      dataset: []
+      resultData: []
     }
   },
   watch: {
     snapshot() {
-      this.dataset.unshift({
+      this.resultData.unshift({
         snapshot: this.snapshot.payload,
         appealValue: this.snapshot.appealValue,
         simuData: this.liveSimulationData,

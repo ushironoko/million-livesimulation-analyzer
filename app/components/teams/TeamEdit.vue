@@ -213,16 +213,16 @@
         <el-table-column label="総アピール" prop="appealValue">
         </el-table-column>
       </el-table>
-      <span slot="footer" class="dialog-footer">
+      <template #footer class="dialog-footer">
         <el-button type="danger" @click="deleteTeam">削除</el-button>
         <el-button type="primary" @click="callTeam">決定</el-button>
-      </span>
+      </template>
     </el-dialog>
   </section>
 </template>
 
 <script>
-import cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash.clonedeep'
 
 export default {
   props: {

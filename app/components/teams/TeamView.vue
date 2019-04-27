@@ -28,7 +28,7 @@
 import { mapGetters } from 'vuex'
 import TeamEdit from '@/components/teams/TeamEdit.vue'
 import SimuDataSettings from '@/components/teams/settings/SimuDataSettings.vue'
-import cloneDeep from 'lodash/cloneDeep'
+import cloneDeep from 'lodash.clonedeep'
 
 export default {
   data() {
