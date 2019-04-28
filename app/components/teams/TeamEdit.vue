@@ -162,8 +162,7 @@
     <el-dialog title="チームを選んで下さい" :visible.sync="callTeamDialog">
       <el-table
         :data="syncTeamData"
-        max-height="560"
-        style="max-width: 800px; width: 100%;"
+        max-height="400"
         highlight-current-row
         @current-change="handleCurrentChange"
       >
@@ -171,40 +170,35 @@
         </el-table-column>
         <el-table-column label="カード" width="250">
           <template v-slot="scope">
-            <el-container>
+            <el-container class="modal-container">
               <span>
                 <img
                   v-if="scope.row.team[3]"
                   :src="mtldImgUrl(scope.row.team[3])"
-                  style="max-width: 40px;"
                 />
               </span>
               <span>
                 <img
                   v-if="scope.row.team[1]"
                   :src="mtldImgUrl(scope.row.team[1])"
-                  style="max-width: 40px;"
                 />
               </span>
               <span>
                 <img
                   v-if="scope.row.team[0]"
                   :src="mtldImgUrl(scope.row.team[0])"
-                  style="max-width: 40px;"
                 />
               </span>
               <span>
                 <img
                   v-if="scope.row.team[2]"
                   :src="mtldImgUrl(scope.row.team[2])"
-                  style="max-width: 40px;"
                 />
               </span>
               <span>
                 <img
                   v-if="scope.row.team[4]"
                   :src="mtldImgUrl(scope.row.team[4])"
-                  style="max-width: 40px;"
                 />
               </span>
             </el-container>
@@ -501,5 +495,9 @@ export default {
 .no-selected-icon {
   border-radius: 0.5em;
   opacity: 0.5;
+}
+
+.modal-container > span > img {
+  max-width: 40px;
 }
 </style>
