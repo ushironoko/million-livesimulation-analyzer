@@ -1,6 +1,6 @@
 <template>
   <section>
-    <el-card style="height: 400px; overflow: auto; -webkit-overflow-scrolling: touch;">
+    <el-card class="icons">
       <el-row>
         <el-col
           style="width: 20%;"
@@ -479,8 +479,10 @@ export default {
 </script>
 
 <style scoped>
-.transfer {
-  margin-top: 10px;
+.icons {
+  height: 400px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 #select-team .el-badge > img {

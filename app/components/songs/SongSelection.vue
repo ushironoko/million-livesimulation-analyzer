@@ -59,4 +59,8 @@ export default {
   max-width: 300px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
+
+.el-autocomplete-suggestion {
+  -webkit-overflow-scrolling: touch;
+}
 </style>
