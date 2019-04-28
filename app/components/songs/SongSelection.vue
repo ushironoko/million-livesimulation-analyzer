@@ -3,12 +3,14 @@
     class="inline-input"
     v-model="field"
     v-loading="loading"
+    :clearable="true"
     :debounce="0"
     :fetch-suggestions="querySearch"
     value-key="SongName"
     placeholder="楽曲名で検索"
     :minlength="200"
     @select="selectEmit"
+    @clear="selectEmit"
   ></el-autocomplete>
 </template>
 
@@ -56,5 +58,9 @@ export default {
   width: 100%;
   max-width: 300px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.el-autocomplete-suggestion {
+  -webkit-overflow-scrolling: touch;
 }
 </style>
