@@ -3,12 +3,14 @@
     class="inline-input"
     v-model="field"
     v-loading="loading"
+    :clearable="true"
     :debounce="0"
     :fetch-suggestions="querySearch"
     value-key="SongName"
     placeholder="楽曲名で検索"
     :minlength="200"
     @select="selectEmit"
+    @clear="selectEmit"
   ></el-autocomplete>
 </template>
 
