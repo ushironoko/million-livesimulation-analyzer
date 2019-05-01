@@ -28,96 +28,20 @@
       <el-container
         style="display: flex; justify-content: center; align-items: flex-start;"
       >
-        <span class="selected-icon">
-          <el-badge value="4" type="primary">
+        <span v-for="i in teamMapping" :key="i" class="selected-icon">
+          <el-badge :value="i === 0 ? 'C/F' : i" type="primary" :class='{"z-index-top": i === 0}'>
             <img
-              v-if="filteredList[3]"
-              :src="filteredList[3].resourceId"
-              @click.prevent="removeOrAddSelectionItem(filteredList[3].name)"
+              v-if="filteredList[i]"
+              :src="filteredList[i].resourceId"
+              @click.prevent="removeOrAddSelectionItem(filteredList[i].name)"
               :class='{
-              "score-bonus-border": skillBorder && filteredList[3].skill[0].effectId === 1,
-              "combo-bonus-border": skillBorder && filteredList[3].skill[0].effectId === 2,
-              "double-boost-border": skillBorder && filteredList[3].skill[0].effectId === 7,
+              "score-bonus-border": skillBorder && filteredList[i].skill[0].effectId === 1,
+              "combo-bonus-border": skillBorder && filteredList[i].skill[0].effectId === 2,
+              "double-boost-border": skillBorder && filteredList[i].skill[0].effectId === 7,
             }'
             />
             <img
-              v-show="!filteredList[3]"
-              src="~/static/noSelectedIcon.png"
-              class="no-selected-icon"
-            />
-          </el-badge>
-        </span>
-        <span class="selected-icon">
-          <el-badge value="2" type="primary">
-            <img
-              v-if="filteredList[1]"
-              :src="filteredList[1].resourceId"
-              @click.prevent="removeOrAddSelectionItem(filteredList[1].name)"
-              :class='{
-              "score-bonus-border": skillBorder && filteredList[1].skill[0].effectId === 1,
-              "combo-bonus-border": skillBorder && filteredList[1].skill[0].effectId === 2,
-              "double-boost-border": skillBorder && filteredList[1].skill[0].effectId === 7,
-            }'
-            />
-            <img
-              v-show="!filteredList[1]"
-              src="~/static/noSelectedIcon.png"
-              class="no-selected-icon"
-            />
-          </el-badge>
-        </span>
-        <span class="selected-icon">
-          <el-badge value="C/F" type="primary" style="z-index: 1;">
-            <img
-              v-if="filteredList[0]"
-              :src="filteredList[0].resourceId"
-              @click.prevent="removeOrAddSelectionItem(filteredList[0].name)"
-              :class='{
-              "score-bonus-border": skillBorder && filteredList[0].skill[0].effectId === 1,
-              "combo-bonus-border": skillBorder && filteredList[0].skill[0].effectId === 2,
-              "double-boost-border": skillBorder && filteredList[0].skill[0].effectId === 7,
-            }'
-            />
-            <img
-              v-show="!filteredList[0]"
-              src="~/static/noSelectedIcon.png"
-              class="no-selected-icon"
-            />
-          </el-badge>
-        </span>
-        <span class="selected-icon">
-          <el-badge value="3" type="primary">
-            <img
-              v-if="filteredList[2]"
-              :src="filteredList[2].resourceId"
-              @click.prevent="removeOrAddSelectionItem(filteredList[2].name)"
-              :class='{
-              "score-bonus-border": skillBorder && filteredList[2].skill[0].effectId === 1,
-              "combo-bonus-border": skillBorder && filteredList[2].skill[0].effectId === 2,
-              "double-boost-border": skillBorder && filteredList[2].skill[0].effectId === 7,
-            }'
-            />
-            <img
-              v-show="!filteredList[2]"
-              src="~/static/noSelectedIcon.png"
-              class="no-selected-icon"
-            />
-          </el-badge>
-        </span>
-        <span class="selected-icon">
-          <el-badge value="5" type="primary">
-            <img
-              v-if="filteredList[4]"
-              :src="filteredList[4].resourceId"
-              @click.prevent="removeOrAddSelectionItem(filteredList[4].name)"
-              :class='{
-              "score-bonus-border": skillBorder && filteredList[4].skill[0].effectId === 1,
-              "combo-bonus-border": skillBorder && filteredList[4].skill[0].effectId === 2,
-              "double-boost-border": skillBorder && filteredList[4].skill[0].effectId === 7,
-            }'
-            />
-            <img
-              v-show="!filteredList[4]"
+              v-show="!filteredList[i]"
               src="~/static/noSelectedIcon.png"
               class="no-selected-icon"
             />
@@ -171,34 +95,10 @@
         <el-table-column label="カード" width="250">
           <template v-slot="scope">
             <el-container class="modal-container">
-              <span>
+              <span v-for="i in teamMapping" :key="i">
                 <img
-                  v-if="scope.row.team[3]"
-                  :src="mtldImgUrl(scope.row.team[3])"
-                />
-              </span>
-              <span>
-                <img
-                  v-if="scope.row.team[1]"
-                  :src="mtldImgUrl(scope.row.team[1])"
-                />
-              </span>
-              <span>
-                <img
-                  v-if="scope.row.team[0]"
-                  :src="mtldImgUrl(scope.row.team[0])"
-                />
-              </span>
-              <span>
-                <img
-                  v-if="scope.row.team[2]"
-                  :src="mtldImgUrl(scope.row.team[2])"
-                />
-              </span>
-              <span>
-                <img
-                  v-if="scope.row.team[4]"
-                  :src="mtldImgUrl(scope.row.team[4])"
+                  v-if="scope.row.team[i]"
+                  :src="mtldImgUrl(scope.row.team[i])"
                 />
               </span>
             </el-container>
@@ -216,6 +116,7 @@
 </template>
 
 <script>
+import teamMapping from '@/utils/teamMapping.js'
 import cloneDeep from 'lodash.clonedeep'
 
 export default {
@@ -252,7 +153,8 @@ export default {
       appealValue: 0,
       callTeamDialog: false,
       currentRow: null,
-      isSelected: false
+      isSelected: false,
+      teamMapping: teamMapping
     }
   },
   computed: {
@@ -483,6 +385,10 @@ export default {
   height: 400px;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+.z-index-top {
+  z-index: 1;
 }
 
 #select-team .el-badge > img {

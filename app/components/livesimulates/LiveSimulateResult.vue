@@ -3,62 +3,14 @@
     <el-container
       style="display: flex; justify-content: center; align-items: flex-start; padding-top:20px;"
     >
-      <span>
+      <span v-for="i in teamMapping" :key="i">
         <a
-          :href="`https://mltd.matsurihi.me/cards/${snapshot[3].id}`"
+          :href="`https://mltd.matsurihi.me/cards/${snapshot[i].id}`"
           target="_blunk"
           rel="noopener"
         >
           <img
-            :src="snapshot[3].resourceId"
-            style="max-width: 100px; width: 100%;"
-          />
-        </a>
-      </span>
-      <span>
-        <a
-          :href="`https://mltd.matsurihi.me/cards/${snapshot[1].id}`"
-          target="_blunk"
-          rel="noopener"
-        >
-          <img
-            :src="snapshot[1].resourceId"
-            style="max-width: 100px; width: 100%;"
-          />
-        </a>
-      </span>
-      <span>
-        <a
-          :href="`https://mltd.matsurihi.me/cards/${snapshot[0].id}`"
-          target="_blunk"
-          rel="noopener"
-        >
-          <img
-            :src="snapshot[0].resourceId"
-            style="max-width: 100px; width: 100%;"
-          />
-        </a>
-      </span>
-      <span>
-        <a
-          :href="`https://mltd.matsurihi.me/cards/${snapshot[2].id}`"
-          target="_blunk"
-          rel="noopener"
-        >
-          <img
-            :src="snapshot[2].resourceId"
-            style="max-width: 100px; width: 100%;"
-          />
-        </a>
-      </span>
-      <span>
-        <a
-          :href="`https://mltd.matsurihi.me/cards/${snapshot[4].id}`"
-          target="_blunk"
-          rel="noopener"
-        >
-          <img
-            :src="snapshot[4].resourceId"
+            :src="snapshot[i].resourceId"
             style="max-width: 100px; width: 100%;"
           />
         </a>
@@ -121,6 +73,8 @@
 </template>
 
 <script>
+import teamMapping from '@/utils/teamMapping.js'
+
 export default {
   props: {
     snapshot: {
@@ -137,6 +91,11 @@ export default {
       type: Array,
       required: true,
       default: []
+    }
+  },
+  data() {
+    return {
+      teamMapping: teamMapping
     }
   },
   computed: {
