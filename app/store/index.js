@@ -4,6 +4,7 @@ export const state = () => ({
   selectedSong: [],
   syncTeamData: [],
   liveSimulationData: [],
+  firstLoading: false,
   isLiveSimulationLoading: false
 })
 
@@ -26,6 +27,8 @@ export const getters = {
   syncTeamData: state => state.syncTeamData,
 
   liveSimulationData: state => state.liveSimulationData,
+
+  firstLoading: state => state.firstLoading,
 
   isLiveSimulationLoading: state => state.isLiveSimulationLoading
 }
@@ -70,6 +73,10 @@ export const mutations = {
     state.liveSimulationData = data
   },
 
+  changefirstLoading(state) {
+    state.firstLoading = !state.firstLoading
+  },
+
   changeLiveSimulationLoading(state) {
     state.isLiveSimulationLoading = !state.isLiveSimulationLoading
   }
@@ -77,10 +84,13 @@ export const mutations = {
 
 export const actions = {
   async fetchSsrCard({ commit }) {
+    commit('changefirstLoading')
+
     const data = await this.$axios.$get(
       `${process.env.FIREBASE_V1_CARDS_SSR_ENDPOINT}`
     )
     commit('setSsrCardData', { data })
+    commit('changefirstLoading')
   },
 
   async fetchSongData({ commit }) {

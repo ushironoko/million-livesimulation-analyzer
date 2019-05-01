@@ -1,6 +1,6 @@
 <template>
   <section>
-    <el-card v-loading="loading">
+    <el-card>
       <el-checkbox v-model="isPrincess" @change="princessEmit">Pr</el-checkbox>
       <el-checkbox v-model="isFairy" @change="fairyEmit">Fa</el-checkbox>
       <el-checkbox v-model="isAngel" @change="angleEmit">An</el-checkbox>
@@ -43,7 +43,6 @@ export default {
       isAngel: true,
       isBNP: false,
       filterWord: '',
-      loading: true,
       sortValue: 'default',
       options: [
         { value: 'default', label: 'なし' },
@@ -76,12 +75,6 @@ export default {
     changeSkillBorder(){
       this.$emit('changeSkillBorderEmit', this.isSkillBorder)
     }
-  },
-
-  mounted() {
-    setTimeout(() => {
-      this.loading = !this.loading
-    }, 1500)
   }
 }
 </script>

@@ -149,7 +149,6 @@ export default {
   data() {
     return {
       selection: [],
-      loading: true,
       appealValue: 0,
       callTeamDialog: false,
       currentRow: null,
@@ -371,11 +370,6 @@ export default {
       }
       this.$emit('simuStartEmit', requestParams, team)
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.loading = !this.loading
-    }, 1500)
   }
 }
 </script>

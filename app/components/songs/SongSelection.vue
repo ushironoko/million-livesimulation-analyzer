@@ -2,7 +2,6 @@
   <el-autocomplete
     class="inline-input"
     v-model="field"
-    v-loading="loading"
     :clearable="true"
     :debounce="0"
     :fetch-suggestions="querySearch"
@@ -23,8 +22,7 @@ export default {
   },
   data() {
     return {
-      field: '',
-      loading: true
+      field: ''
     }
   },
   methods: {
@@ -43,11 +41,6 @@ export default {
     songFilter(x, songName) {
       return x.SongName.toLowerCase().indexOf(songName.toLowerCase()) != -1
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.loading = !this.loading
-    }, 1000)
   }
 }
 </script>
@@ -58,9 +51,5 @@ export default {
   width: 100%;
   max-width: 300px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
-
-.el-autocomplete-suggestion {
-  -webkit-overflow-scrolling: touch;
 }
 </style>

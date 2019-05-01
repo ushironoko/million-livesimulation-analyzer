@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-loading="firstLoading">
     <div>
       <song-selection-view />
       <team-view @snapshotEmit="setSnapshot" />
@@ -12,12 +12,16 @@
 import TeamView from '@/components/teams/TeamView.vue'
 import SongSelectionView from '@/components/songs/SongSelectionView.vue'
 import LiveSimulateResultView from '@/components/livesimulates/LiveSimulateResultView.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
       snapshot: []
     }
+  },
+  computed: {
+    ...mapGetters(['firstLoading'])
   },
   methods: {
     setSnapshot(team, appealValue) {
