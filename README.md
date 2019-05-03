@@ -1,22 +1,7 @@
-# millionlive-skill-view
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ce655c68-c466-41ad-9a2e-2575946d65ab/deploy-status)](https://app.netlify.com/sites/million-livesimulation-analyzer/deploys)
 
-> My stupendous Nuxt.js project
+# ミリシタスコア計算機
 
-## Build Setup
+ミリシタのライブ結果をシミュレートして、どの程度スコアが出るか試すことが出来るWebツールです。
 
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn run dev
-
-# build for production and launch server
-$ yarn run build
-$ yarn start
-
-# generate static project
-$ yarn run generate
-```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+PWA対応なため、iOSやAndroidにアプリとしてインストールできます。
