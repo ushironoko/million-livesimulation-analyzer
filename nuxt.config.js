@@ -28,6 +28,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'google-site-verification', content: 'wEUyTdcGfSSFutR4iMhuJC9T2JNFEcTqDt6GgdOd4K0' },
       { hid: 'description', name: 'description', content: 'ミリシタのスコアを計算できるシンプルな計算機。' },
       { hid: 'og:site_name', property: 'og:site_name', content: 'ミリシタスコア計算機' },
       { hid: 'og:type', property: 'og:type', content: 'website' },
